@@ -1,0 +1,40 @@
+generated: '2026-07-18'
+method: searched
+source: https://developers.bluecore.com/reference/authn
+docs: https://developers.bluecore.com/reference/authn
+summary:
+  model: oauth2-client-credentials
+  types:
+  - oauth2
+  - http-bearer
+  api_key_in:
+  - header
+  oauth2_flows:
+  - clientCredentials
+  notes: >-
+    Bluecore uses the standard OAuth 2.0 client-credentials grant. Clients POST client_id +
+    client_secret to https://auth.bluecore.com/oauth/token (audience https://a.bluecore.com,
+    grant_type client_credentials) and receive a Bearer access_token valid for 24 hours (86,400s).
+    Requests to the API then send `authorization: Bearer <token>`. In the published per-operation
+    OpenAPI the bearer scheme is modelled as an apiKey security scheme named "GlooAuth"
+    (in: header, name: authorization) rather than an oauth2 scheme, so the mechanical oauth2
+    scope derivation does not fire; the real flow and scopes are captured here and in scopes/.
+schemes:
+- name: GlooAuth
+  type: http
+  scheme: bearer
+  in: header
+  parameter: authorization
+  description: >-
+    Bearer access token obtained from the client-credentials token endpoint. Value is
+    "Bearer " followed by the token returned by POST https://auth.bluecore.com/oauth/token.
+  sources:
+  - openapi/bluecore-openapi.yml
+  - https://developers.bluecore.com/reference/authn_getaccesstoken
+token_endpoint:
+  url: https://auth.bluecore.com/oauth/token
+  grant_type: client_credentials
+  audience: https://a.bluecore.com
+  token_type: Bearer
+  expires_in: 86400
+  credentials_docs: https://help.bluecore.com/help/create-an-api-key
