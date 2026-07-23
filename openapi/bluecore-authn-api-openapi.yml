@@ -1,0 +1,165 @@
+openapi: 3.0.3
+info:
+  title: Bluecore Authn API
+  version: 0.0.1
+  description: The Bluecore API supports the REST architecture style and uses JSON requests and responses. It exposes Bluecore's Customer (Shopper) profiles, Eligibility (subscription/consent) management, and Communicate (Direct Send + Transactional messaging) surfaces, plus OAuth 2.0 client-credentials authentication. Harvested by API Evangelist from the per-operation OpenAPI definitions published at developers.bluecore.com.
+  contact:
+    name: Bluecore Support
+    email: support@bluecore.com
+    url: https://developers.bluecore.com/
+servers:
+- url: https://a.bluecore.com/api
+  description: Bluecore API server
+tags:
+- name: Authn
+paths:
+  /oauth/token:
+    post:
+      tags:
+      - Authn
+      summary: Get Access Token
+      operationId: Authn_GetAccessToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/bluecore.api.GetAccessTokenRequest'
+            examples:
+              post:
+                summary: Basic
+                value:
+                  audience: https://a.bluecore.com
+                  client_id: ''
+                  client_secret: ''
+                  grant_type: client_credentials
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-ratelimit-limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            x-ratelimit-remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            x-ratelimit-reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bluecore.api.GetAccessTokenResponse'
+              examples:
+                post:
+                  summary: Basic
+                  value:
+                    access_token: authenticated token here
+                    expires_in: 86400
+                    token_type: Bearer
+                    scope: customers:read customers:write eligibility:read eligibility:write
+        4XX:
+          description: Client error
+          headers:
+            x-ratelimit-limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            x-ratelimit-remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            x-ratelimit-reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+      security:
+      - GlooAuth: []
+      servers:
+      - url: https://auth.bluecore.com
+components:
+  schemas:
+    google.rpc.Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+          format: int32
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/google.protobuf.Any'
+          description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
+      description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+    bluecore.api.GetAccessTokenRequest:
+      required:
+      - client_id
+      - client_secret
+      - audience
+      - grant_type
+      type: object
+      properties:
+        client_id:
+          type: string
+          description: A unique public identifier assigned to your brand. It is used, together with the client_secret, for identification during API authentication and authorization. [Learn how to obtain a client ID.](https://help.bluecore.com/help/create-an-api-key)
+        client_secret:
+          type: string
+          description: A confidential string assigned to your brand. It is used, together with the client_id, for identification during API authentication and authorization. [Learn how to obtain a client secret.](https://help.bluecore.com/help/create-an-api-key)
+        audience:
+          enum:
+          - https://a.bluecore.com
+          type: string
+          description: The target API server for the access token.
+          format: enum
+        grant_type:
+          enum:
+          - client_credentials
+          type: string
+          description: Defines the OAuth 2.0 flow used to request an access token. Only the [client_credentials grant type](https://oauth.net/2/grant-types/client-credentials/) is accepted.
+          format: enum
+    bluecore.api.GetAccessTokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: The access token you can use to authenticate against Bluecore’s API.
+        token_type:
+          type: string
+          description: The type of access_token generated.
+        expires_in:
+          type: integer
+          description: The number of seconds until the access_token expires. New tokens are active for 86,400 seconds (24 hours). When your access token expires, you can request a new access token.
+          format: uint32
+        scope:
+          description: Space-delimited string of permissions that the access token has. The format is `resource:verb`. For example, `customers:write` grants write access to the Customers API.
+          type: string
+    google.protobuf.Any:
+      type: object
+      properties:
+        '@type':
+          type: string
+          description: The type of the serialized message.
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+  securitySchemes:
+    GlooAuth:
+      type: apiKey
+      in: header
+      name: authorization
+      description: Value for the authorization header will be Bearer followed by the token generated with the [Get access token](https://developers.bluecore.com/reference/authn_getaccesstoken#/) call.
+      x-default: Bearer token

@@ -1,0 +1,415 @@
+openapi: 3.0.3
+info:
+  title: Bluecore Authn Eligibility API
+  version: 0.0.1
+  description: The Bluecore API supports the REST architecture style and uses JSON requests and responses. It exposes Bluecore's Customer (Shopper) profiles, Eligibility (subscription/consent) management, and Communicate (Direct Send + Transactional messaging) surfaces, plus OAuth 2.0 client-credentials authentication. Harvested by API Evangelist from the per-operation OpenAPI definitions published at developers.bluecore.com.
+  contact:
+    name: Bluecore Support
+    email: support@bluecore.com
+    url: https://developers.bluecore.com/
+servers:
+- url: https://a.bluecore.com/api
+  description: Bluecore API server
+tags:
+- name: Eligibility
+paths:
+  /namespaces/{namespace}/eligibility:
+    get:
+      tags:
+      - Eligibility
+      summary: Retrieve Eligibility Status
+      operationId: Eligibility_Get
+      parameters:
+      - name: namespace
+        in: path
+        description: The Bluecore environment, which is a unique identifier that contains integrations, data feeds, and campaigns.
+        required: true
+        schema:
+          type: string
+        example: bluestore
+      - name: email
+        in: query
+        description: The primary identifier that represents the customer’s email address. See [Email address](https://developers.bluecore.com/docs/email-address#/) for information on how they are normalized and validated.
+        schema:
+          type: string
+      - name: phone_number
+        in: query
+        description: The secondary identifier that represents the customer’s phone number. E.164 format.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-ratelimit-limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            x-ratelimit-remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            x-ratelimit-reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+            x-bluecore-id:
+              description: Request id to trace the logs for this particular request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/eligibility.public.GetResponse'
+              examples:
+                get_email_eligibility:
+                  summary: Get Email Eligibility
+                  value:
+                    data:
+                      namespace: bluestore
+                      subscription:
+                        id:
+                          email: alice@gmail.com
+                        states:
+                        - consented_at: '2025-08-24T15:22:09.650080419Z'
+                          message_type: MARKETING
+                          source: public-api
+                          status: SUBSCRIBED
+                get_sms_eligibility:
+                  summary: Get SMS Eligibility
+                  value:
+                    data:
+                      namespace: bluestore
+                      subscription:
+                        id:
+                          phone_number: '+15556667777'
+                        states:
+                        - consented_at: '2025-08-24T15:22:09.650080419Z'
+                          message_type: MARKETING
+                          source: public-api
+                          status: SUBSCRIBED
+        '429':
+          description: ''
+          headers:
+            x-ratelimit-limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            x-ratelimit-remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            x-ratelimit-reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+            x-bluecore-id:
+              description: Request id to trace the logs for this particular request.
+              schema:
+                type: string
+          content:
+            application/json: {}
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+      security:
+      - GlooAuth:
+        - eligibility.read
+  /namespaces/{namespace}/eligibility_events:
+    post:
+      tags:
+      - Eligibility
+      summary: Update Eligibility Status
+      operationId: Eligibility_Update
+      parameters:
+      - name: namespace
+        in: path
+        description: The Bluecore environment, which is a unique identifier that contains integrations, data feeds, and campaigns.
+        required: true
+        schema:
+          type: string
+        example: bluestore
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Eligibility_Update_eligibility.public.UpdateRequest'
+            examples:
+              update_email_eligibility:
+                summary: Update Email Eligibility
+                value:
+                  id:
+                    email: alice@gmail.com
+                  state:
+                    consented_at: '2025-08-22T12:29:20.650080419Z'
+                    event: OPTIN
+                    message_type: MARKETING
+              update_sms_eligibility:
+                summary: Update SMS Eligibility
+                value:
+                  id:
+                    phone_number: '+15556667777'
+                  state:
+                    channel_identifier: '+15556667777'
+                    consented_at: '2025-08-22T12:29:20.650080419Z'
+                    event: OPTIN
+                    message_type: MARKETING
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-ratelimit-limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            x-ratelimit-remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            x-ratelimit-reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+            x-bluecore-id:
+              description: Request id to trace the logs for this particular request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/eligibility.public.UpdateResponse'
+              examples:
+                update_email_eligibility:
+                  summary: Update Email Eligibility
+                  value:
+                    data:
+                      namespace: bluestore
+                      subscription:
+                        id:
+                          email: alice@gmail.com
+                        states:
+                        - consented_at: '2025-08-24T15:22:09.650080419Z'
+                          message_type: MARKETING
+                          source: public-api
+                          status: SUBSCRIBED
+                update_sms_eligibility:
+                  summary: Update SMS Eligibility
+                  value:
+                    data:
+                      namespace: bluestore
+                      subscription:
+                        id:
+                          phone_number: '+15556667777'
+                        states:
+                        - channel_identifier: '+15556667777'
+                          consented_at: '2025-08-24T15:22:09.650080419Z'
+                          message_type: MARKETING
+                          source: public-api
+                          status: SUBSCRIBED
+        '429':
+          description: ''
+          headers:
+            x-ratelimit-limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            x-ratelimit-remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            x-ratelimit-reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+            x-bluecore-id:
+              description: Request id to trace the logs for this particular request.
+              schema:
+                type: string
+          content:
+            application/json: {}
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+      security:
+      - GlooAuth:
+        - eligibility.write
+components:
+  schemas:
+    eligibility.public.SubscriptionEvent:
+      type: object
+      allOf:
+      - type: object
+        properties:
+          event:
+            type: string
+            description: "The eligibility update. The available options are: \n\n - `OPTIN` opts the customer in to receive email campaigns if the `email` parameter was sent or SMS/MMS campaigns if the `phone_number` was sent. This can only be used for single opt-in SMS/MMS workflows.\n - `UNSUBSCRIBE` unsubscribes the customer from email campaigns if the `email` parameter` was sent or SMS/MMS campaigns if the `phone_number` was sent.\n - `SIGNUP` is used in the double opt-in flow for SMS/MMS campaigns. This sets the status to `pending_confirmation` and sends the customer the double opt-in message."
+          consented_at:
+            type: string
+            description: The timestamp that this update was known to be accurate. The semantic time the update took place. For example, if the data is from last week's activity, set the value to that time. When unset, it defaults to when the backend receives the request.
+            format: date-time
+          message_type:
+            type: string
+            description: The campaign type for which eligibility is updated.
+          channel_identifier:
+            type: string
+            description: The send code used to deliver a double opt-in message to the customer. If left blank, the system selects the first short code in the Namespace. If no short code is available, the first toll free number is used. For more information, see [Understand SMS short codes.](https://help.bluecore.com/en/articles/5624524-understanding-sms-sending-codes)
+    eligibility.public.SubscriptionDetails:
+      type: object
+      allOf:
+      - type: object
+        properties:
+          source:
+            type: string
+            description: "How the eligibility was updated. The available options are: \n\n - `integration` is an update from the Events API or Bluecore Website Integration.\n - `public-api` is an update from the Eligibility API.\n - `upload` is an update from a file import."
+          consented_at:
+            type: string
+            description: The timestamp that this update was known to be accurate. The semantic time the update took place. For example, if the data is from last week's activity, set the value to that time. When unset, it defaults to when the backend receives the request.
+            format: date-time
+          message_type:
+            enum:
+            - MARKETING
+            - TRANSACTIONAL
+            type: string
+            description: The campaign type for which eligibility is updated.
+            format: enum
+          channel_identifier:
+            type: string
+            description: The send code used to deliver a double opt-in message to the customer. If left blank, the system selects the first short code in the Namespace. If no short code is available, the first toll free number is used. For more information, see [Understand SMS short codes.](https://help.bluecore.com/en/articles/5624524-understanding-sms-sending-codes)
+          status:
+            enum:
+            - PENDING_CONFIRMATION
+            - SUBSCRIBED
+            - UNSUBSCRIBED
+            type: string
+            description: "The customer's eligibility subscription status \n\n - `SUBSCRIBED` means the customer has opted in to receive marketing communication.\n - `UNSUBSCRIBED` means the customer has unsubscribed from receiving marketing communication.\n - `NOT_KNOWN` means that the customer has neither subscribed to nor unsubscribed from receiving marketing communication.\n\n\n\n\nFor more information on eligibility statuses, see [Understand email eligibility](https://help.bluecore.com/help/understand-email-eligibility) and [Understand SMS/MMS eligibility](http://help.bluecore.com/en/articles/6252691-understand-sms-mms-eligibility)."
+            format: enum
+    Eligibility_Update_eligibility.public.UpdateRequest:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          allOf:
+          - $ref: '#/components/schemas/eligibility.public.Identifier'
+          description: Identifier the subscription statuses are for
+        state:
+          allOf:
+          - $ref: '#/components/schemas/eligibility.public.SubscriptionEvent'
+          description: List of eligibility update actions
+    google.rpc.Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+          format: int32
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/google.protobuf.Any'
+          description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
+      description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+    eligibility.public.GetResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/eligibility.public.Subscriptions'
+    eligibility.public.Subscription:
+      type: object
+      properties:
+        id:
+          allOf:
+          - $ref: '#/components/schemas/customers.Identifier'
+          description: Who the subscription statuses are for
+        states:
+          type: array
+          items:
+            $ref: '#/components/schemas/eligibility.public.SubscriptionDetails'
+          description: Subscription details for marketing type
+    eligibility.public.Subscriptions:
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The Bluecore environment, which is a unique identifier that contains integrations, data feeds, and campaigns.
+        subscription:
+          allOf:
+          - $ref: '#/components/schemas/eligibility.public.Subscription'
+          description: Each entry reflects the channel's current subscription state for a message type
+    customers.Identifier:
+      type: object
+      allOf:
+      - oneOf:
+        - title: email
+          type: object
+          properties:
+            email:
+              type: string
+              description: 'The email address for the customer. It must be "valid" according to Bluecore''s current policy (Python: bluecore.email.validate_email), and lower-cased (Python: bluecore.email.clean_email).'
+        - title: phone_number
+          type: object
+          properties:
+            phone_number:
+              type: string
+              description: An phone number
+      description: A customer identifier used for lookups
+    eligibility.public.UpdateResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/eligibility.public.Subscriptions'
+    eligibility.public.Identifier:
+      type: object
+      allOf:
+      - oneOf:
+        - title: email
+          type: object
+          properties:
+            email:
+              example: alice@gmail.com
+              maxLength: 254
+              type: string
+              description: The primary identifier that represents the customer’s email address. See [Email address](https://developers.bluecore.com/docs/email-address#/) for information on how they are normalized and validated.
+              format: email
+        - title: phone_number
+          type: object
+          properties:
+            phone_number:
+              example: '+15556667777'
+              pattern: ^\+?[1-9]\d{0,14}$
+              type: string
+              description: The secondary identifier that represents the customer’s phone number. E.164 format.
+              format: e.164
+    google.protobuf.Any:
+      type: object
+      properties:
+        '@type':
+          type: string
+          description: The type of the serialized message.
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+  securitySchemes:
+    GlooAuth:
+      type: apiKey
+      in: header
+      name: authorization
+      description: Value for the authorization header will be Bearer followed by the token generated with the [Get access token](https://developers.bluecore.com/reference/authn_getaccesstoken#/) call.
+      x-default: Bearer token

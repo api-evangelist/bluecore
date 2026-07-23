@@ -1,0 +1,320 @@
+openapi: 3.0.3
+info:
+  title: Bluecore Authn Profile API
+  version: 0.0.1
+  description: The Bluecore API supports the REST architecture style and uses JSON requests and responses. It exposes Bluecore's Customer (Shopper) profiles, Eligibility (subscription/consent) management, and Communicate (Direct Send + Transactional messaging) surfaces, plus OAuth 2.0 client-credentials authentication. Harvested by API Evangelist from the per-operation OpenAPI definitions published at developers.bluecore.com.
+  contact:
+    name: Bluecore Support
+    email: support@bluecore.com
+    url: https://developers.bluecore.com/
+servers:
+- url: https://a.bluecore.com/api
+  description: Bluecore API server
+tags:
+- name: Profile
+paths:
+  /namespaces/{namespace}/customers:
+    get:
+      tags:
+      - Profile
+      summary: Retrieve Customer Profile
+      operationId: Profile_Get
+      parameters:
+      - name: namespace
+        in: path
+        description: The Bluecore environment, which is a unique identifier that contains integrations, data feeds, and campaigns.
+        required: true
+        schema:
+          type: string
+        example: bluestore
+      - name: email
+        in: query
+        description: The primary identifier that represents the customer’s email address. See [Email address](https://developers.bluecore.com/docs/email-address#/) for information on how they are normalized and validated.
+        schema:
+          type: string
+      - name: phone_number
+        in: query
+        description: The secondary identifier that represents the customer’s phone number. E.164 format.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-ratelimit-limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            x-ratelimit-remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            x-ratelimit-reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+            x-bluecore-id:
+              description: Request id to trace the logs for this particular request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/customers.public.GetResponse'
+              examples:
+                get:
+                  summary: Basic
+                  value:
+                    data:
+                      attributes:
+                        birthdate: '1995-01-01T00:00:00.0Z'
+                        name: Alice
+                      ids:
+                      - email: alice@gmail.com
+                      - phone_number: '+15556667777'
+                      namespace: bluestore
+                      updated: '2025-01-01T00:00:00.0Z'
+        4XX:
+          description: Client error
+          headers:
+            x-ratelimit-limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            x-ratelimit-remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            x-ratelimit-reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+            x-bluecore-id:
+              description: Request id to trace the logs for this particular request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+      security:
+      - GlooAuth:
+        - customers.read
+    post:
+      tags:
+      - Profile
+      summary: Create/update Customer Profile
+      operationId: Profile_CreateOrUpdate
+      parameters:
+      - name: namespace
+        in: path
+        description: The Bluecore environment, which is a unique identifier that contains integrations, data feeds, and campaigns.
+        required: true
+        schema:
+          type: string
+        example: bluestore
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile_CreateOrUpdate_customers.public.CreateOrUpdateRequest'
+            examples:
+              link_identifier:
+                summary: Link Identifiers
+                value:
+                  id:
+                    email: alice@gmail.com
+                  link_ids:
+                  - phone_number: '+15556667777'
+                  timestamp: '2025-01-01T00:00:00.0Z'
+              add_attributes:
+                summary: Add Attributes
+                value:
+                  attributes:
+                    birthdate: '1995-01-01T00:00:00.0Z'
+                    name: Alice
+                  id:
+                    email: alice@gmail.com
+                  timestamp: '2025-01-01T00:00:00.0Z'
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-ratelimit-limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            x-ratelimit-remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            x-ratelimit-reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+            x-bluecore-id:
+              description: Request id to trace the logs for this particular request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/customers.public.CreateOrUpdateResponse'
+              examples:
+                link_identifier:
+                  summary: Link Identifiers
+                  value:
+                    data:
+                      ids:
+                      - email: alice@gmail.com
+                      - phone_number: '+15556667777'
+                      namespace: bluestore
+                      updated: '2025-01-01T00:00:00.0Z'
+                add_attributes:
+                  summary: Add Attributes
+                  value:
+                    data:
+                      attributes:
+                        birthdate: '1995-01-01T00:00:00.0Z'
+                        name: Alice
+                      ids:
+                      - email: alice@gmail.com
+                      namespace: bluestore
+                      updated: '2025-01-01T00:00:00.0Z'
+        4XX:
+          description: Client error
+          headers:
+            x-ratelimit-limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            x-ratelimit-remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            x-ratelimit-reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+            x-bluecore-id:
+              description: Request id to trace the logs for this particular request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+      security:
+      - GlooAuth:
+        - customers.write
+components:
+  schemas:
+    google.rpc.Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+          format: int32
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/google.protobuf.Any'
+          description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
+      description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+    Profile_CreateOrUpdate_customers.public.CreateOrUpdateRequest:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          allOf:
+          - $ref: '#/components/schemas/customers.public.Identifier'
+          description: Identifier to initially associate the attributes to.
+        link_ids:
+          maxItems: 4
+          type: array
+          items:
+            $ref: '#/components/schemas/customers.public.Identifier'
+          description: Extra identifiers to link together on the shopper.
+        attributes:
+          type: object
+          description: Key/value pairs to associate with the Customer Profile. Each attribute name must be in `snake_case`.
+    customers.public.GetResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/customers.public.Customer'
+    customers.public.Customer:
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The Bluecore environment, which is a unique identifier that contains integrations, data feeds, and campaigns.
+        ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/customers.public.Identifier'
+          description: Displays all identifiers associated to that Customer Profile.
+        attributes:
+          type: object
+          description: Arbitrary key/value pairs associated to the profile
+        updated:
+          type: string
+          description: Timestamp the customer was last updated
+          format: date-time
+      description: A shopper's unified profile is a collection of identifiers and attributes currently associated together.
+    customers.public.Identifier:
+      type: object
+      allOf:
+      - oneOf:
+        - title: email
+          type: object
+          properties:
+            email:
+              example: alice@gmail.com
+              maxLength: 254
+              type: string
+              description: Email addresses are lightly sanitized and validated. They're automatically converted to lower case with leading and trailing whitespace removed.
+              format: email
+        - title: phone_number
+          type: object
+          properties:
+            phone_number:
+              example: '+15556667777'
+              pattern: ^\+?[1-9]\d{0,14}$
+              type: string
+              description: The secondary identifier that represents the customer’s phone number. E.164 format.
+              format: e.164
+    google.protobuf.Any:
+      type: object
+      properties:
+        '@type':
+          type: string
+          description: The type of the serialized message.
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+    customers.public.CreateOrUpdateResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/customers.public.Customer'
+  securitySchemes:
+    GlooAuth:
+      type: apiKey
+      in: header
+      name: authorization
+      description: Value for the authorization header will be Bearer followed by the token generated with the [Get access token](https://developers.bluecore.com/reference/authn_getaccesstoken#/) call.
+      x-default: Bearer token

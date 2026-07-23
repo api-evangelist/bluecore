@@ -1,0 +1,193 @@
+openapi: 3.0.3
+info:
+  title: Bluecore Authn Direct send API
+  version: 0.0.1
+  description: The Bluecore API supports the REST architecture style and uses JSON requests and responses. It exposes Bluecore's Customer (Shopper) profiles, Eligibility (subscription/consent) management, and Communicate (Direct Send + Transactional messaging) surfaces, plus OAuth 2.0 client-credentials authentication. Harvested by API Evangelist from the per-operation OpenAPI definitions published at developers.bluecore.com.
+  contact:
+    name: Bluecore Support
+    email: support@bluecore.com
+    url: https://developers.bluecore.com/
+servers:
+- url: https://a.bluecore.com/api
+  description: Bluecore API server
+tags:
+- name: Direct send
+paths:
+  /namespaces/{namespace}/direct-send-messages:
+    post:
+      tags:
+      - Direct send
+      summary: Send direct message
+      operationId: DirectSend_Send
+      parameters:
+      - name: namespace
+        in: path
+        description: The unique name of the Bluecore environment.
+        required: true
+        schema:
+          type: string
+        example: bluestore
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DirectSend_Send_emailflow.public.SendRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: object
+        '429':
+          description: Too many requests
+          headers:
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+          content:
+            application/json: {}
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+      security:
+      - GlooAuth:
+        - direct_send.api
+components:
+  schemas:
+    google.rpc.Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+          format: int32
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/google.protobuf.Any'
+          description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
+      description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+    emailflow.public.Address:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Email address used as the mailbox for this sender or reply target.
+          format: email
+        name:
+          type: string
+          description: Optional display name shown to recipients alongside the email address (for example, in the From or Reply-To header).
+    emailflow.public.Identifier:
+      type: object
+      allOf:
+      - oneOf:
+        - title: email
+          type: object
+          properties:
+            email:
+              example: alice@gmail.com
+              maxLength: 254
+              type: string
+              description: The primary identifier that represents the customer’s email address. See [Email address](https://developers.bluecore.com/docs/email-address#/) for information on how they are normalized and validated.
+              format: email
+    DirectSend_Send_emailflow.public.SendRequest:
+      required:
+      - messages
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The namespace for this request. Must match the `{namespace}` path segment.
+        messages:
+          minItems: 1
+          type: array
+          description: One or more direct messages to send.
+          items:
+            $ref: '#/components/schemas/emailflow.public.DirectMessage'
+    emailflow.public.DirectMessage:
+      required:
+      - body
+      - campaign_id
+      - from
+      - identifier
+      - subject
+      type: object
+      properties:
+        body:
+          minLength: 1
+          type: string
+          description: HTML body of the message.
+        campaign_id:
+          minLength: 1
+          type: string
+          description: Bluecore campaign identifier for the third-party direct send campaign you created. Must match an existing direct send campaign in this namespace and be "live" (not a draft).
+        from:
+          $ref: '#/components/schemas/emailflow.public.Address'
+        identifier:
+          $ref: '#/components/schemas/emailflow.public.Identifier'
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Arbitrary string key/value pairs stored with the send for analytics, routing, or internal tracking.
+        reply_to:
+          $ref: '#/components/schemas/emailflow.public.Address'
+        subject:
+          minLength: 1
+          type: string
+          description: Email subject line shown to the recipient.
+        test:
+          type: boolean
+          description: When true, runs as a test send, bypassing eligibility checks.
+        unsubscribe_replacement:
+          type: string
+          description: Optional override for the unsubscribe link tag to use for unsubscribe link placement in the email body.
+    google.protobuf.Any:
+      type: object
+      properties:
+        '@type':
+          type: string
+          description: The type of the serialized message.
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+  securitySchemes:
+    GlooAuth:
+      type: apiKey
+      in: header
+      name: authorization
+      description: Value for the authorization header will be Bearer followed by the token generated with the [Get access token](https://developers.bluecore.com/reference/authn_getaccesstoken#/) call.
+      x-default: Bearer token
