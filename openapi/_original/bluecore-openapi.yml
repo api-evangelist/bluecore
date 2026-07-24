@@ -1,0 +1,1511 @@
+# generated: '2026-07-18'
+# method: searched
+# source: https://developers.bluecore.com/ (per-operation OpenAPI definitions, merged)
+openapi: 3.0.3
+info:
+  title: Bluecore API
+  version: 0.0.1
+  description: The Bluecore API supports the REST architecture style and uses JSON requests and responses.
+    It exposes Bluecore's Customer (Shopper) profiles, Eligibility (subscription/consent) management,
+    and Communicate (Direct Send + Transactional messaging) surfaces, plus OAuth 2.0 client-credentials
+    authentication. Harvested by API Evangelist from the per-operation OpenAPI definitions published at
+    developers.bluecore.com.
+  contact:
+    name: Bluecore Support
+    email: support@bluecore.com
+    url: https://developers.bluecore.com/
+servers:
+- url: https://a.bluecore.com/api
+  description: Bluecore API server
+tags:
+- name: CampaignsAPIPublic
+- name: Direct send
+- name: Eligibility
+- name: Profile
+- name: Transactional
+paths:
+  /namespaces/{namespace}/customers:
+    get:
+      tags:
+      - Profile
+      summary: Retrieve Customer Profile
+      operationId: Profile_Get
+      parameters:
+      - name: namespace
+        in: path
+        description: The Bluecore environment, which is a unique identifier that contains integrations,
+          data feeds, and campaigns.
+        required: true
+        schema:
+          type: string
+        example: bluestore
+      - name: email
+        in: query
+        description: The primary identifier that represents the customer’s email address. See [Email address](https://developers.bluecore.com/docs/email-address#/)
+          for information on how they are normalized and validated.
+        schema:
+          type: string
+      - name: phone_number
+        in: query
+        description: The secondary identifier that represents the customer’s phone number. E.164 format.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-ratelimit-limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            x-ratelimit-remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            x-ratelimit-reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+            x-bluecore-id:
+              description: Request id to trace the logs for this particular request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/customers.public.GetResponse'
+              examples:
+                get:
+                  summary: Basic
+                  value:
+                    data:
+                      attributes:
+                        birthdate: '1995-01-01T00:00:00.0Z'
+                        name: Alice
+                      ids:
+                      - email: alice@gmail.com
+                      - phone_number: '+15556667777'
+                      namespace: bluestore
+                      updated: '2025-01-01T00:00:00.0Z'
+        4XX:
+          description: Client error
+          headers:
+            x-ratelimit-limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            x-ratelimit-remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            x-ratelimit-reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+            x-bluecore-id:
+              description: Request id to trace the logs for this particular request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+      security:
+      - GlooAuth:
+        - customers.read
+    post:
+      tags:
+      - Profile
+      summary: Create/update Customer Profile
+      operationId: Profile_CreateOrUpdate
+      parameters:
+      - name: namespace
+        in: path
+        description: The Bluecore environment, which is a unique identifier that contains integrations,
+          data feeds, and campaigns.
+        required: true
+        schema:
+          type: string
+        example: bluestore
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile_CreateOrUpdate_customers.public.CreateOrUpdateRequest'
+            examples:
+              link_identifier:
+                summary: Link Identifiers
+                value:
+                  id:
+                    email: alice@gmail.com
+                  link_ids:
+                  - phone_number: '+15556667777'
+                  timestamp: '2025-01-01T00:00:00.0Z'
+              add_attributes:
+                summary: Add Attributes
+                value:
+                  attributes:
+                    birthdate: '1995-01-01T00:00:00.0Z'
+                    name: Alice
+                  id:
+                    email: alice@gmail.com
+                  timestamp: '2025-01-01T00:00:00.0Z'
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-ratelimit-limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            x-ratelimit-remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            x-ratelimit-reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+            x-bluecore-id:
+              description: Request id to trace the logs for this particular request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/customers.public.CreateOrUpdateResponse'
+              examples:
+                link_identifier:
+                  summary: Link Identifiers
+                  value:
+                    data:
+                      ids:
+                      - email: alice@gmail.com
+                      - phone_number: '+15556667777'
+                      namespace: bluestore
+                      updated: '2025-01-01T00:00:00.0Z'
+                add_attributes:
+                  summary: Add Attributes
+                  value:
+                    data:
+                      attributes:
+                        birthdate: '1995-01-01T00:00:00.0Z'
+                        name: Alice
+                      ids:
+                      - email: alice@gmail.com
+                      namespace: bluestore
+                      updated: '2025-01-01T00:00:00.0Z'
+        4XX:
+          description: Client error
+          headers:
+            x-ratelimit-limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            x-ratelimit-remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            x-ratelimit-reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+            x-bluecore-id:
+              description: Request id to trace the logs for this particular request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+      security:
+      - GlooAuth:
+        - customers.write
+  /namespaces/{namespace}/direct-send-campaigns:
+    post:
+      tags:
+      - CampaignsAPIPublic
+      summary: Create an external campaign in Bluecore.
+      operationId: CampaignsAPIPublic_CreateDirectSendCampaign
+      parameters:
+      - name: namespace
+        in: path
+        description: The unique name of the Bluecore environment.
+        required: true
+        schema:
+          type: string
+        example: bluestore
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampaignsAPIPublic_CreateDirectSendCampaign_campaigns.public.CreateDirectSendCampaignRequest'
+            example:
+              folder_id: '5008175763677184'
+              name: Spring sale
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/campaigns.public.DirectSendCampaignResponse'
+              examples:
+                create_direct_send_campaign:
+                  summary: Direct send campaign created
+                  value:
+                    data:
+                      namespace: bluestore
+                      campaign_id: '6239084716089344'
+                      name: Spring Sale
+        '429':
+          description: Too many requests
+          headers:
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+          content:
+            application/json: {}
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+      security:
+      - GlooAuth:
+        - directsend.write
+  /namespaces/{namespace}/direct-send-messages:
+    post:
+      tags:
+      - Direct send
+      summary: Send direct message
+      operationId: DirectSend_Send
+      parameters:
+      - name: namespace
+        in: path
+        description: The unique name of the Bluecore environment.
+        required: true
+        schema:
+          type: string
+        example: bluestore
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DirectSend_Send_emailflow.public.SendRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: object
+        '429':
+          description: Too many requests
+          headers:
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+          content:
+            application/json: {}
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+      security:
+      - GlooAuth:
+        - direct_send.api
+  /namespaces/{namespace}/eligibility:
+    get:
+      tags:
+      - Eligibility
+      summary: Retrieve Eligibility Status
+      operationId: Eligibility_Get
+      parameters:
+      - name: namespace
+        in: path
+        description: The Bluecore environment, which is a unique identifier that contains integrations,
+          data feeds, and campaigns.
+        required: true
+        schema:
+          type: string
+        example: bluestore
+      - name: email
+        in: query
+        description: The primary identifier that represents the customer’s email address. See [Email address](https://developers.bluecore.com/docs/email-address#/)
+          for information on how they are normalized and validated.
+        schema:
+          type: string
+      - name: phone_number
+        in: query
+        description: The secondary identifier that represents the customer’s phone number. E.164 format.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-ratelimit-limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            x-ratelimit-remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            x-ratelimit-reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+            x-bluecore-id:
+              description: Request id to trace the logs for this particular request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/eligibility.public.GetResponse'
+              examples:
+                get_email_eligibility:
+                  summary: Get Email Eligibility
+                  value:
+                    data:
+                      namespace: bluestore
+                      subscription:
+                        id:
+                          email: alice@gmail.com
+                        states:
+                        - consented_at: '2025-08-24T15:22:09.650080419Z'
+                          message_type: MARKETING
+                          source: public-api
+                          status: SUBSCRIBED
+                get_sms_eligibility:
+                  summary: Get SMS Eligibility
+                  value:
+                    data:
+                      namespace: bluestore
+                      subscription:
+                        id:
+                          phone_number: '+15556667777'
+                        states:
+                        - consented_at: '2025-08-24T15:22:09.650080419Z'
+                          message_type: MARKETING
+                          source: public-api
+                          status: SUBSCRIBED
+        '429':
+          description: ''
+          headers:
+            x-ratelimit-limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            x-ratelimit-remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            x-ratelimit-reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+            x-bluecore-id:
+              description: Request id to trace the logs for this particular request.
+              schema:
+                type: string
+          content:
+            application/json: {}
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+      security:
+      - GlooAuth:
+        - eligibility.read
+  /namespaces/{namespace}/eligibility_events:
+    post:
+      tags:
+      - Eligibility
+      summary: Update Eligibility Status
+      operationId: Eligibility_Update
+      parameters:
+      - name: namespace
+        in: path
+        description: The Bluecore environment, which is a unique identifier that contains integrations,
+          data feeds, and campaigns.
+        required: true
+        schema:
+          type: string
+        example: bluestore
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Eligibility_Update_eligibility.public.UpdateRequest'
+            examples:
+              update_email_eligibility:
+                summary: Update Email Eligibility
+                value:
+                  id:
+                    email: alice@gmail.com
+                  state:
+                    consented_at: '2025-08-22T12:29:20.650080419Z'
+                    event: OPTIN
+                    message_type: MARKETING
+              update_sms_eligibility:
+                summary: Update SMS Eligibility
+                value:
+                  id:
+                    phone_number: '+15556667777'
+                  state:
+                    channel_identifier: '+15556667777'
+                    consented_at: '2025-08-22T12:29:20.650080419Z'
+                    event: OPTIN
+                    message_type: MARKETING
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-ratelimit-limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            x-ratelimit-remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            x-ratelimit-reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+            x-bluecore-id:
+              description: Request id to trace the logs for this particular request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/eligibility.public.UpdateResponse'
+              examples:
+                update_email_eligibility:
+                  summary: Update Email Eligibility
+                  value:
+                    data:
+                      namespace: bluestore
+                      subscription:
+                        id:
+                          email: alice@gmail.com
+                        states:
+                        - consented_at: '2025-08-24T15:22:09.650080419Z'
+                          message_type: MARKETING
+                          source: public-api
+                          status: SUBSCRIBED
+                update_sms_eligibility:
+                  summary: Update SMS Eligibility
+                  value:
+                    data:
+                      namespace: bluestore
+                      subscription:
+                        id:
+                          phone_number: '+15556667777'
+                        states:
+                        - channel_identifier: '+15556667777'
+                          consented_at: '2025-08-24T15:22:09.650080419Z'
+                          message_type: MARKETING
+                          source: public-api
+                          status: SUBSCRIBED
+        '429':
+          description: ''
+          headers:
+            x-ratelimit-limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            x-ratelimit-remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            x-ratelimit-reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+            x-bluecore-id:
+              description: Request id to trace the logs for this particular request.
+              schema:
+                type: string
+          content:
+            application/json: {}
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+      security:
+      - GlooAuth:
+        - eligibility.write
+  /namespaces/{namespace}/transactional-messages/{id}:
+    get:
+      tags:
+      - Transactional
+      summary: Retrieve transactional message status
+      operationId: Transactional_Get
+      parameters:
+      - name: namespace
+        in: path
+        description: The unique name of the Bluecore environment.
+        required: true
+        schema:
+          type: string
+        example: bluestore
+      - name: id
+        in: path
+        description: 'The idempotency key used when sending the transactional message.  Used to retrieve
+          the message information and status history. Allowed characters:  alphanumeric, colon (:), underscore
+          (_), period (.), and dash (-).'
+        required: true
+        schema:
+          type: string
+          maxLength: 128
+        example: '5898781176487936'
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/transactional_api.public.GetResponse'
+              example:
+                data:
+                  campaign_id: '6239084716089344'
+                  identifiers:
+                  - email:
+                      email: alice@gmail.com
+                  product_ids:
+                  - 27y9pconfyu7h
+                  customer_attributes:
+                    first_name:
+                      string_value: Alice
+                  name: namespaces/bluestore/messages/1231239
+                  statuses:
+                  - status: INITIATED
+                    timestamp: '2026-01-01T00:00:00.00Z'
+                  - status: SENT
+                    timestamp: '2026-01-01T00:00:01.00Z'
+                  - status: DELIVERED
+                    timestamp: '2026-01-01T00:00:02.00Z'
+        '404':
+          description: Message not found for the provided id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+              example:
+                code: 5
+                message: 'we could not find a message matching that ID: 1231231'
+                details: []
+        '429':
+          description: Too many requests
+          headers:
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+          content:
+            application/json: {}
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+      security:
+      - GlooAuth:
+        - transactional.api
+    post:
+      tags:
+      - Transactional
+      summary: Send a transactional message
+      operationId: Transactional_Send
+      parameters:
+      - name: namespace
+        in: path
+        description: The unique name of the Bluecore environment.
+        required: true
+        schema:
+          type: string
+        example: bluestore
+      - name: id
+        in: path
+        required: true
+        description: 'A client-generated unique identifier used for idempotency. Must be unique for each
+          send request. Allowed characters:  alphanumeric, colon (:), underscore (_), period (.), and
+          dash (-).'
+        schema:
+          type: string
+          maxLength: 128
+          example: '5898781176487936'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Transactional_Send_transactional_api.public.SendRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/transactional_api.public.SendResponse'
+              examples:
+                send_transactional_email:
+                  summary: Email example
+                  value:
+                    data:
+                      campaign_id: '6239084716089344'
+                      identifiers:
+                      - email:
+                          email: alice@gmail.com
+                      product_ids:
+                      - 27y9pconfyu7h
+                      use_draft: false
+                      statuses:
+                      - status: SENT
+                        timestamp: '2026-01-01T00:00:00.00Z'
+                send_transactional_sms:
+                  summary: SMS/MMS example
+                  value:
+                    data:
+                      campaign_id: '5227859897868288'
+                      identifiers:
+                      - phone_number:
+                          phone_number: '+19293337777'
+                      use_draft: true
+                      body: Your order has shipped, {{first_name}}!
+                      customer_attributes:
+                        first_name:
+                          string_value: Alice
+                      statuses:
+                      - status: SENT
+                        timestamp: '2026-01-01T00:00:00.00Z'
+        '400':
+          description: Bad request. No response returned.
+        '429':
+          description: Too many requests
+          headers:
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+          content:
+            application/json: {}
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+      security:
+      - GlooAuth:
+        - transactional.api
+  /oauth/token:
+    post:
+      tags:
+      - Authn
+      summary: Get Access Token
+      operationId: Authn_GetAccessToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/bluecore.api.GetAccessTokenRequest'
+            examples:
+              post:
+                summary: Basic
+                value:
+                  audience: https://a.bluecore.com
+                  client_id: ''
+                  client_secret: ''
+                  grant_type: client_credentials
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-ratelimit-limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            x-ratelimit-remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            x-ratelimit-reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bluecore.api.GetAccessTokenResponse'
+              examples:
+                post:
+                  summary: Basic
+                  value:
+                    access_token: authenticated token here
+                    expires_in: 86400
+                    token_type: Bearer
+                    scope: customers:read customers:write eligibility:read eligibility:write
+        4XX:
+          description: Client error
+          headers:
+            x-ratelimit-limit:
+              description: The number of allowed requests in the current period
+              schema:
+                example: 700;w=60;burst=75;w=1
+                type: string
+                format: quota-policy
+            x-ratelimit-remaining:
+              description: The number of remaining requests in the current time window
+              schema:
+                type: integer
+            x-ratelimit-reset:
+              description: The number of seconds until reset of the current time window
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+      security:
+      - GlooAuth: []
+      servers:
+      - url: https://auth.bluecore.com
+components:
+  schemas:
+    bluecore.api.GetAccessTokenRequest:
+      required:
+      - client_id
+      - client_secret
+      - audience
+      - grant_type
+      type: object
+      properties:
+        client_id:
+          type: string
+          description: A unique public identifier assigned to your brand. It is used, together with the
+            client_secret, for identification during API authentication and authorization. [Learn how
+            to obtain a client ID.](https://help.bluecore.com/help/create-an-api-key)
+        client_secret:
+          type: string
+          description: A confidential string assigned to your brand. It is used, together with the client_id,
+            for identification during API authentication and authorization. [Learn how to obtain a client
+            secret.](https://help.bluecore.com/help/create-an-api-key)
+        audience:
+          enum:
+          - https://a.bluecore.com
+          type: string
+          description: The target API server for the access token.
+          format: enum
+        grant_type:
+          enum:
+          - client_credentials
+          type: string
+          description: Defines the OAuth 2.0 flow used to request an access token. Only the [client_credentials
+            grant type](https://oauth.net/2/grant-types/client-credentials/) is accepted.
+          format: enum
+    bluecore.api.GetAccessTokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: The access token you can use to authenticate against Bluecore’s API.
+        token_type:
+          type: string
+          description: The type of access_token generated.
+        expires_in:
+          type: integer
+          description: The number of seconds until the access_token expires. New tokens are active for
+            86,400 seconds (24 hours). When your access token expires, you can request a new access token.
+          format: uint32
+        scope:
+          description: Space-delimited string of permissions that the access token has. The format is
+            `resource:verb`. For example, `customers:write` grants write access to the Customers API.
+          type: string
+    google.protobuf.Any:
+      type: object
+      properties:
+        '@type':
+          type: string
+          description: The type of the serialized message.
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type
+        of the serialized message.
+    google.rpc.Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+          format: int32
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English. Any user-facing error
+            message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details]
+            field, or localized by the client.
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/google.protobuf.Any'
+          description: A list of messages that carry the error details.  There is a common set of message
+            types for APIs to use.
+      description: 'The `Status` type defines a logical error model that is suitable for different programming
+        environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc).
+        Each `Status` message contains three pieces of data: error code, error message, and error details.
+        You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+    customers.public.Customer:
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The Bluecore environment, which is a unique identifier that contains integrations,
+            data feeds, and campaigns.
+        ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/customers.public.Identifier'
+          description: Displays all identifiers associated to that Customer Profile.
+        attributes:
+          type: object
+          description: Arbitrary key/value pairs associated to the profile
+        updated:
+          type: string
+          description: Timestamp the customer was last updated
+          format: date-time
+      description: A shopper's unified profile is a collection of identifiers and attributes currently
+        associated together.
+    customers.public.GetResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/customers.public.Customer'
+    customers.public.Identifier:
+      type: object
+      allOf:
+      - oneOf:
+        - title: email
+          type: object
+          properties:
+            email:
+              example: alice@gmail.com
+              maxLength: 254
+              type: string
+              description: Email addresses are lightly sanitized and validated. They're automatically
+                converted to lower case with leading and trailing whitespace removed.
+              format: email
+        - title: phone_number
+          type: object
+          properties:
+            phone_number:
+              example: '+15556667777'
+              pattern: ^\+?[1-9]\d{0,14}$
+              type: string
+              description: The secondary identifier that represents the customer’s phone number. E.164
+                format.
+              format: e.164
+    Profile_CreateOrUpdate_customers.public.CreateOrUpdateRequest:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          allOf:
+          - $ref: '#/components/schemas/customers.public.Identifier'
+          description: Identifier to initially associate the attributes to.
+        link_ids:
+          maxItems: 4
+          type: array
+          items:
+            $ref: '#/components/schemas/customers.public.Identifier'
+          description: Extra identifiers to link together on the shopper.
+        attributes:
+          type: object
+          description: Key/value pairs to associate with the Customer Profile. Each attribute name must
+            be in `snake_case`.
+    customers.public.CreateOrUpdateResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/customers.public.Customer'
+    CampaignsAPIPublic_CreateDirectSendCampaign_campaigns.public.CreateDirectSendCampaignRequest:
+      required:
+      - name
+      type: object
+      allOf:
+      - type: object
+        properties:
+          name:
+            minLength: 1
+            type: string
+            description: The name of the campaign.
+      - oneOf:
+        - title: folder_id
+          type: object
+          properties:
+            folder_id:
+              type: string
+              description: 'The unique ID of the folder where the campaign will be created. The folder
+                must already exist within Bluecore. example: "4635869850591232"'
+    campaigns.public.DirectSendCampaignData:
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The unique name of the Bluecore environment.
+        campaign_id:
+          type: string
+          description: The unique ID associated with the campaign.
+        name:
+          type: string
+          description: The name of the campaign.
+    campaigns.public.DirectSendCampaignResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/campaigns.public.DirectSendCampaignData'
+    DirectSend_Send_emailflow.public.SendRequest:
+      required:
+      - messages
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The namespace for this request. Must match the `{namespace}` path segment.
+        messages:
+          minItems: 1
+          type: array
+          description: One or more direct messages to send.
+          items:
+            $ref: '#/components/schemas/emailflow.public.DirectMessage'
+    emailflow.public.Address:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Email address used as the mailbox for this sender or reply target.
+          format: email
+        name:
+          type: string
+          description: Optional display name shown to recipients alongside the email address (for example,
+            in the From or Reply-To header).
+    emailflow.public.DirectMessage:
+      required:
+      - body
+      - campaign_id
+      - from
+      - identifier
+      - subject
+      type: object
+      properties:
+        body:
+          minLength: 1
+          type: string
+          description: HTML body of the message.
+        campaign_id:
+          minLength: 1
+          type: string
+          description: Bluecore campaign identifier for the third-party direct send campaign you created.
+            Must match an existing direct send campaign in this namespace and be "live" (not a draft).
+        from:
+          $ref: '#/components/schemas/emailflow.public.Address'
+        identifier:
+          $ref: '#/components/schemas/emailflow.public.Identifier'
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Arbitrary string key/value pairs stored with the send for analytics, routing, or
+            internal tracking.
+        reply_to:
+          $ref: '#/components/schemas/emailflow.public.Address'
+        subject:
+          minLength: 1
+          type: string
+          description: Email subject line shown to the recipient.
+        test:
+          type: boolean
+          description: When true, runs as a test send, bypassing eligibility checks.
+        unsubscribe_replacement:
+          type: string
+          description: Optional override for the unsubscribe link tag to use for unsubscribe link placement
+            in the email body.
+    emailflow.public.Identifier:
+      type: object
+      allOf:
+      - oneOf:
+        - title: email
+          type: object
+          properties:
+            email:
+              example: alice@gmail.com
+              maxLength: 254
+              type: string
+              description: The primary identifier that represents the customer’s email address. See [Email
+                address](https://developers.bluecore.com/docs/email-address#/) for information on how
+                they are normalized and validated.
+              format: email
+    customers.AttributeValue:
+      type: object
+      allOf:
+      - oneOf:
+        - title: string_value
+          type: object
+          properties:
+            string_value:
+              type: string
+              description: A string value.
+        - title: number_value
+          type: object
+          properties:
+            number_value:
+              type: number
+              description: A floating point number.
+              format: double
+        - title: bool_value
+          type: object
+          properties:
+            bool_value:
+              type: boolean
+              description: A boolean value.
+        - title: time_value
+          type: object
+          properties:
+            time_value:
+              type: string
+              description: 'A timestamp of the recorded activity, using [RFC 3339 format](https://www.ietf.org/rfc/rfc3339.txt).
+
+
+                Example: January 1, 2025 5:00:00 UTC is represented as `2025-01-01T05:00:00.00Z`'
+              format: date-time
+        - title: int_value
+          type: object
+          properties:
+            int_value:
+              type: string
+              description: 'A 64-bit integer.
+
+
+                Sent as a string to preserve accuracy for numbers above 53 bits.'
+      description: Attribute values can be any type supported by JSON, with the addition of timestamps
+    transactional_api.public.GetResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/transactional_api.public.TransactionalMessage'
+    transactional_api.public.Identifier:
+      type: object
+      allOf:
+      - oneOf:
+        - title: email
+          type: object
+          properties:
+            email:
+              example: alice@gmail.com
+              maxLength: 254
+              type: string
+              description: The primary identifier that represents the customer’s email address. See [Email
+                address](https://developers.bluecore.com/docs/email-address#/) for information on how
+                they are normalized and validated.
+              format: email
+        - title: phone_number
+          type: object
+          properties:
+            phone_number:
+              example: '+15556667777'
+              pattern: ^\+?[1-9]\d{0,14}$
+              type: string
+              description: The secondary identifier that represents the customer’s phone number. E.164
+                format.
+              format: e.164
+    transactional_api.public.StatusEvent:
+      type: object
+      properties:
+        status:
+          enum:
+          - INITIATED
+          - HALTED
+          - SENT
+          - DELIVERED
+          - DELIVERY_FAILURE
+          - TEMPLATE_PARAMETERS_UPDATED
+          type: string
+          format: enum
+        timestamp:
+          type: string
+          format: date-time
+        details:
+          type: string
+          description: Only populated for halt or delivery failures
+    transactional_api.public.TransactionalMessage:
+      required:
+      - identifiers
+      - campaign_ids
+      type: object
+      properties:
+        identifiers:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/transactional_api.public.Identifier'
+        campaign_ids:
+          minItems: 1
+          type: array
+          items:
+            type: string
+          description: The unique ID associated with the Bluecore campaign. This ID appears in the URL
+            for the campaign in Bluecore. If multiple `campaign_ids` are sent, the message sends to all
+            campaigns and the response includes a `campaign_id` for each campaign the message sent to.
+        product_ids:
+          type: array
+          items:
+            type: string
+          description: List of product IDs used as input products if the campaign uses a product-based
+            recipe rule, such as co-recommendations.
+        customer_attributes:
+          type: object
+          description: A JSON-formatted object of key/value pairs associated with the customer profile
+            and can be referenced in the email body. Each attribute must be in `snake_case`.
+          additionalProperties:
+            $ref: '#/components/schemas/customers.AttributeValue'
+        use_draft:
+          type: boolean
+          description: If `true`, the draft version of the campaign sends, if available. If you send `true`
+            and no draft is available, the live campaign sends. If `false`, the live version of the campaign
+            sends.  Defaults to `false`.
+        name:
+          readOnly: true
+          type: string
+          description: The resource name.
+        body:
+          readOnly: true
+          type: string
+          description: The body of the campaign that was sent to the customer. Only populated for SMS/MMS
+            campaigns.
+        campaign_id:
+          readOnly: true
+          type: string
+          description: The unique ID associated with the transactional campaign used to send.
+        statuses:
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/transactional_api.public.StatusEvent'
+          description: The status associated with that send, sorted by ascending timestamp. For more information
+            on status definitions and next steps, see [Transactional message statuses](https://developers.bluecore.com/reference/transactional-message-statuses).
+    Transactional_Send_transactional_api.public.SendRequest:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          $ref: '#/components/schemas/transactional_api.public.TransactionalMessage'
+    transactional_api.public.SendResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/transactional_api.public.TransactionalMessage'
+    customers.Identifier:
+      type: object
+      allOf:
+      - oneOf:
+        - title: email
+          type: object
+          properties:
+            email:
+              type: string
+              description: 'The email address for the customer. It must be "valid" according to Bluecore''s
+                current policy (Python: bluecore.email.validate_email), and lower-cased (Python: bluecore.email.clean_email).'
+        - title: phone_number
+          type: object
+          properties:
+            phone_number:
+              type: string
+              description: An phone number
+      description: A customer identifier used for lookups
+    eligibility.public.GetResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/eligibility.public.Subscriptions'
+    eligibility.public.Subscription:
+      type: object
+      properties:
+        id:
+          allOf:
+          - $ref: '#/components/schemas/customers.Identifier'
+          description: Who the subscription statuses are for
+        states:
+          type: array
+          items:
+            $ref: '#/components/schemas/eligibility.public.SubscriptionDetails'
+          description: Subscription details for marketing type
+    eligibility.public.SubscriptionDetails:
+      type: object
+      allOf:
+      - type: object
+        properties:
+          source:
+            type: string
+            description: "How the eligibility was updated. The available options are: \n\n - `integration`\
+              \ is an update from the Events API or Bluecore Website Integration.\n - `public-api` is\
+              \ an update from the Eligibility API.\n - `upload` is an update from a file import."
+          consented_at:
+            type: string
+            description: The timestamp that this update was known to be accurate. The semantic time the
+              update took place. For example, if the data is from last week's activity, set the value
+              to that time. When unset, it defaults to when the backend receives the request.
+            format: date-time
+          message_type:
+            enum:
+            - MARKETING
+            - TRANSACTIONAL
+            type: string
+            description: The campaign type for which eligibility is updated.
+            format: enum
+          channel_identifier:
+            type: string
+            description: The send code used to deliver a double opt-in message to the customer. If left
+              blank, the system selects the first short code in the Namespace. If no short code is available,
+              the first toll free number is used. For more information, see [Understand SMS short codes.](https://help.bluecore.com/en/articles/5624524-understanding-sms-sending-codes)
+          status:
+            enum:
+            - PENDING_CONFIRMATION
+            - SUBSCRIBED
+            - UNSUBSCRIBED
+            type: string
+            description: "The customer's eligibility subscription status \n\n - `SUBSCRIBED` means the\
+              \ customer has opted in to receive marketing communication.\n - `UNSUBSCRIBED` means the\
+              \ customer has unsubscribed from receiving marketing communication.\n - `NOT_KNOWN` means\
+              \ that the customer has neither subscribed to nor unsubscribed from receiving marketing\
+              \ communication.\n\n\n\n\nFor more information on eligibility statuses, see [Understand\
+              \ email eligibility](https://help.bluecore.com/help/understand-email-eligibility) and [Understand\
+              \ SMS/MMS eligibility](http://help.bluecore.com/en/articles/6252691-understand-sms-mms-eligibility)."
+            format: enum
+    eligibility.public.Subscriptions:
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The Bluecore environment, which is a unique identifier that contains integrations,
+            data feeds, and campaigns.
+        subscription:
+          allOf:
+          - $ref: '#/components/schemas/eligibility.public.Subscription'
+          description: Each entry reflects the channel's current subscription state for a message type
+    Eligibility_Update_eligibility.public.UpdateRequest:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          allOf:
+          - $ref: '#/components/schemas/eligibility.public.Identifier'
+          description: Identifier the subscription statuses are for
+        state:
+          allOf:
+          - $ref: '#/components/schemas/eligibility.public.SubscriptionEvent'
+          description: List of eligibility update actions
+    eligibility.public.Identifier:
+      type: object
+      allOf:
+      - oneOf:
+        - title: email
+          type: object
+          properties:
+            email:
+              example: alice@gmail.com
+              maxLength: 254
+              type: string
+              description: The primary identifier that represents the customer’s email address. See [Email
+                address](https://developers.bluecore.com/docs/email-address#/) for information on how
+                they are normalized and validated.
+              format: email
+        - title: phone_number
+          type: object
+          properties:
+            phone_number:
+              example: '+15556667777'
+              pattern: ^\+?[1-9]\d{0,14}$
+              type: string
+              description: The secondary identifier that represents the customer’s phone number. E.164
+                format.
+              format: e.164
+    eligibility.public.SubscriptionEvent:
+      type: object
+      allOf:
+      - type: object
+        properties:
+          event:
+            type: string
+            description: "The eligibility update. The available options are: \n\n - `OPTIN` opts the customer\
+              \ in to receive email campaigns if the `email` parameter was sent or SMS/MMS campaigns if\
+              \ the `phone_number` was sent. This can only be used for single opt-in SMS/MMS workflows.\n\
+              \ - `UNSUBSCRIBE` unsubscribes the customer from email campaigns if the `email` parameter`\
+              \ was sent or SMS/MMS campaigns if the `phone_number` was sent.\n - `SIGNUP` is used in\
+              \ the double opt-in flow for SMS/MMS campaigns. This sets the status to `pending_confirmation`\
+              \ and sends the customer the double opt-in message."
+          consented_at:
+            type: string
+            description: The timestamp that this update was known to be accurate. The semantic time the
+              update took place. For example, if the data is from last week's activity, set the value
+              to that time. When unset, it defaults to when the backend receives the request.
+            format: date-time
+          message_type:
+            type: string
+            description: The campaign type for which eligibility is updated.
+          channel_identifier:
+            type: string
+            description: The send code used to deliver a double opt-in message to the customer. If left
+              blank, the system selects the first short code in the Namespace. If no short code is available,
+              the first toll free number is used. For more information, see [Understand SMS short codes.](https://help.bluecore.com/en/articles/5624524-understanding-sms-sending-codes)
+    eligibility.public.UpdateResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/eligibility.public.Subscriptions'
+  securitySchemes:
+    GlooAuth:
+      type: apiKey
+      in: header
+      name: authorization
+      description: Value for the authorization header will be Bearer followed by the token generated with
+        the [Get access token](https://developers.bluecore.com/reference/authn_getaccesstoken#/) call.
+      x-default: Bearer token

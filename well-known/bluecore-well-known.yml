@@ -1,0 +1,22 @@
+generated: '2026-07-18'
+method: searched
+source: probed /.well-known/ on Bluecore hosts 2026-07-18
+notes: >-
+  No /.well-known/ discovery documents are published on any Bluecore host. All probes
+  returned 404. Recorded for completeness; no WellKnown/SecurityTxt pointer is emitted.
+hosts:
+- host: https://api.bluecore.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+- host: https://www.bluecore.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+- host: https://bluecore.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+- host: https://developers.bluecore.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}

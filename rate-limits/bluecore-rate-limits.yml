@@ -1,0 +1,33 @@
+generated: '2026-07-18'
+method: searched
+source: https://developers.bluecore.com/docs/rate-limiting
+algorithm: fixed-window
+windows:
+- name: burst
+  window: 1s
+  limit: 100
+  unit: requests/second
+- name: steady
+  window: 1m
+  limit: 1000
+  unit: requests/minute
+scope: per-account
+signaling:
+  headers:
+  - RateLimit-Limit
+  - RateLimit-Remaining
+  - RateLimit-Reset
+  spec_headers:
+  - x-ratelimit-limit
+  - x-ratelimit-remaining
+  - x-ratelimit-reset
+  quota_policy_example: 700;w=60;burst=75;w=1
+  reference: https://datatracker.ietf.org/doc/id/draft-polli-ratelimit-headers-03.html
+over_limit:
+  status: 429
+  message: Too many requests
+notes: >-
+  New API endpoints are rate limited per account using a fixed-window algorithm with two
+  windows: burst (1-second) and steady (1-minute). Documented per-endpoint limits (customer,
+  eligibility) are burst 100/s and steady 1000/m. The exact limit differs per API and is
+  echoed on every response via the RateLimit-* headers.

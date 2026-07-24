@@ -1,0 +1,21 @@
+generated: '2026-07-18'
+method: searched
+probe: true
+source: https://trust.bluecore.com/
+url: https://trust.bluecore.com/
+platform: SafeBase
+certifications:
+- SOC 2
+- GDPR
+- CCPA
+- EU AI Act
+security_contact: security@bluecore.com
+evidence:
+- source: https://trust.bluecore.com/
+  keywords:
+  - soc 2
+  - trust center
+  - gdpr
+  - ccpa
+  - eu ai act
+  - responsible disclosure

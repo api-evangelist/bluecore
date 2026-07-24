@@ -1,0 +1,43 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/bluecore-openapi.yml
+notes: >-
+  Entity graph derived from the harvested OpenAPI schemas and id-reference fields. All
+  resources are scoped to a namespace (the Bluecore environment). Customers are identified
+  by an email (primary) and/or phone_number (secondary, E.164).
+entities:
+- name: Namespace
+  description: A Bluecore environment containing integrations, data feeds, and campaigns.
+  key: namespace
+- name: Customer
+  description: A shopper's unified profile — identifiers plus arbitrary snake_case attributes.
+  schema: customers.public.Customer
+  identifiers: [email, phone_number]
+  relationships:
+  - {type: belongs_to, target: Namespace, via: namespace}
+  - {type: has_many, target: Identifier, via: ids}
+- name: Identifier
+  description: An email or phone_number that resolves to a Customer.
+  schema: customers.public.Identifier
+- name: Subscription
+  description: A customer's eligibility / consent state per message_type (MARKETING/TRANSACTIONAL).
+  schema: eligibility.public.Subscription
+  relationships:
+  - {type: belongs_to, target: Namespace, via: namespace}
+  - {type: belongs_to, target: Customer, via: id}
+  - {type: has_many, target: SubscriptionState, via: states}
+- name: DirectSendCampaign
+  description: An external (third-party) campaign registered in Bluecore for tracking.
+  schema: campaigns.public.DirectSendCampaignData
+  key: campaign_id
+  relationships:
+  - {type: belongs_to, target: Namespace, via: namespace}
+- name: TransactionalMessage
+  description: A transactional email/SMS/MMS send with a status history.
+  schema: transactional_api.public.TransactionalMessage
+  key: id (idempotency key)
+  relationships:
+  - {type: belongs_to, target: Namespace, via: namespace}
+  - {type: has_many, target: Identifier, via: identifiers}
+  - {type: references, target: DirectSendCampaign, via: campaign_ids}
+  - {type: has_many, target: StatusEvent, via: statuses}

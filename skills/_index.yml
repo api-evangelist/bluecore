@@ -1,0 +1,12 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/bluecore-openapi.yml
+skills:
+- file: bluecore-manage-customer-consent.md
+  name: Manage Bluecore customer and consent
+  api: openapi/bluecore-openapi.yml
+  operations: [Authn_GetAccessToken, Profile_CreateOrUpdate, Eligibility_Update, Eligibility_Get]
+- file: bluecore-send-transactional-message.md
+  name: Send a Bluecore transactional message
+  api: openapi/bluecore-openapi.yml
+  operations: [Authn_GetAccessToken, Transactional_Send, Transactional_Get]

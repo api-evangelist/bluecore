@@ -1,0 +1,24 @@
+{
+  "provider": "bluecore",
+  "sources": [
+    "bluecore-authn-api-openapi.yml",
+    "bluecore-campaignsapipublic-api-openapi.yml",
+    "bluecore-direct-send-api-openapi.yml",
+    "bluecore-eligibility-api-openapi.yml",
+    "bluecore-profile-api-openapi.yml",
+    "bluecore-transactional-api-openapi.yml"
+  ],
+  "outputs": [
+    "bluecore-authn-api-openapi.yml",
+    "bluecore-campaignsapipublic-api-openapi.yml",
+    "bluecore-direct-send-api-openapi.yml",
+    "bluecore-eligibility-api-openapi.yml",
+    "bluecore-profile-api-openapi.yml",
+    "bluecore-transactional-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

@@ -1,0 +1,42 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/bluecore-openapi.yml
+standards:
+- id: oauth2-client-credentials
+  conforms: true
+  evidence: >-
+    Authentication uses the OAuth 2.0 client-credentials grant (POST auth.bluecore.com/oauth/token,
+    grant_type client_credentials) issuing 24h Bearer tokens with resource:verb scopes.
+- id: oidc
+  conforms: false
+  evidence: No OpenID Connect discovery or id_token; machine-to-machine client credentials only.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use the Google API error model (google.rpc.Status), not application/problem+json.
+- id: google-api-error-model
+  conforms: true
+  evidence: 4XX/5XX bodies are google.rpc.Status (code/message/details[]).
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset/Deprecation header support documented.
+- id: ratelimit-headers-draft-polli
+  conforms: true
+  evidence: Responses expose RateLimit-Limit/Remaining/Reset (draft-polli-ratelimit-headers-03).
+- id: e164-phone
+  conforms: true
+  evidence: phone_number identifiers validated against E.164 (pattern ^\+?[1-9]\d{0,14}$).
+- id: rfc3339-timestamps
+  conforms: true
+  evidence: Timestamps (consented_at, updated, time_value) use RFC 3339 date-time.
+- id: idempotency
+  conforms: true
+  evidence: Transactional send uses a client-generated unique id path key for idempotency (409 on reuse).
+- id: json-api
+  conforms: false
+  evidence: Custom {data:{...}} envelope, not JSON:API.
+compliance_programs:
+- SOC 2
+- GDPR
+- CCPA
+- EU AI Act
+compliance_source: https://trust.bluecore.com/

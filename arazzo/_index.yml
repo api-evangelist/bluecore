@@ -1,0 +1,10 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/bluecore-openapi.yml
+workflows:
+- file: bluecore-onboard-and-message.arazzo.yml
+  workflowId: onboardCustomerAndSendTransactional
+  title: Onboard a Bluecore customer and send a transactional message
+  summary: >-
+    Authenticate, upsert a Customer Profile, opt into marketing, send a transactional
+    message with an idempotency key, and read its delivery status.

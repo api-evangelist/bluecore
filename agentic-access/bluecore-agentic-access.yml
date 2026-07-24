@@ -1,0 +1,165 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/bluecore-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 9
+  by_action_class:
+    connected: 3
+    acting: 6
+  by_consequence:
+    read: 3
+    write: 3
+    physical: 3
+  human_in_the_loop_required: 0
+operations:
+- path: /namespaces/{namespace}/customers
+  method: get
+  operationId: Profile_Get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - customers.read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /namespaces/{namespace}/customers
+  method: post
+  operationId: Profile_CreateOrUpdate
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - customers.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /namespaces/{namespace}/direct-send-campaigns
+  method: post
+  operationId: CampaignsAPIPublic_CreateDirectSendCampaign
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - directsend.write
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /namespaces/{namespace}/direct-send-messages
+  method: post
+  operationId: DirectSend_Send
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - direct_send.api
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /namespaces/{namespace}/eligibility
+  method: get
+  operationId: Eligibility_Get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - eligibility.read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /namespaces/{namespace}/eligibility_events
+  method: post
+  operationId: Eligibility_Update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - eligibility.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /namespaces/{namespace}/transactional-messages/{id}
+  method: get
+  operationId: Transactional_Get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - transactional.api
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /namespaces/{namespace}/transactional-messages/{id}
+  method: post
+  operationId: Transactional_Send
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - transactional.api
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /oauth/token
+  method: post
+  operationId: Authn_GetAccessToken
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required

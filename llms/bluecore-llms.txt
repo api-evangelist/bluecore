@@ -1,0 +1,29 @@
+# Bluecore Documentation
+
+> Documentation for Bluecore
+
+## Guides
+- [Rate limiting](https://developers.bluecore.com/docs/rate-limiting.md)
+- [Status codes](https://developers.bluecore.com/docs/error-codes.md)
+- [Query parameters](https://developers.bluecore.com/docs/query-parameters.md)
+- [Email address](https://developers.bluecore.com/docs/email-address.md)
+
+## API Reference
+- [Authentication](https://developers.bluecore.com/reference/authn.md)
+- [Get Access Token](https://developers.bluecore.com/reference/authn_getaccesstoken.md)
+- [Customer Profile](https://developers.bluecore.com/reference/profile.md)
+- [Retrieve Customer Profile](https://developers.bluecore.com/reference/profile_get.md)
+- [Create/update Customer Profile](https://developers.bluecore.com/reference/profile_createorupdate.md)
+- [External direct send campaign](https://developers.bluecore.com/reference/direct_send_campaign.md)
+- [Create direct send campaign](https://developers.bluecore.com/reference/post_direct_send_campaign.md)
+- [Send direct message](https://developers.bluecore.com/reference/direct_send_send.md)
+- [Transactional](https://developers.bluecore.com/reference/transactional.md)
+- [Retrieve transactional message status](https://developers.bluecore.com/reference/transactional_get.md)
+- [Send transactional message](https://developers.bluecore.com/reference/transactional_send.md)
+- [Transactional message statuses](https://developers.bluecore.com/reference/transactional-message-statuses.md)
+- [Eligibility](https://developers.bluecore.com/reference/eligibility-1.md)
+- [Retrieve Eligibility Status](https://developers.bluecore.com/reference/eligibility_get-1.md): Retrieve one customer's <Glossary>Eligibility</Glossary> status by submitting a unique identifier.
+- [Update Eligibility Status](https://developers.bluecore.com/reference/eligibility_update-1.md): Use this API to update one customer's <Glossary>eligibility</Glossary> status
+
+## Changelog
+- [July 2025](https://developers.bluecore.com/changelog/july-2025.md)

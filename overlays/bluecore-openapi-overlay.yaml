@@ -1,0 +1,31 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Bluecore API
+  version: 1.0.0
+extends: openapi/bluecore-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-source: https://developers.bluecore.com/
+    x-apievangelist-harvest-method: searched
+    x-apievangelist-auth: oauth2-client-credentials
+    x-apievangelist-categories:
+    - retail
+    - marketing
+    - customer-data-platform
+    - email
+    - sms
+- target: $.info
+  update:
+    x-apievangelist-idempotency:
+      supported: true
+      mechanism: path-parameter id on Transactional_Send
+    x-apievangelist-rate-limit:
+      algorithm: fixed-window
+      burst: 100/s
+      steady: 1000/m
+- target: $.components.securitySchemes.GlooAuth
+  update:
+    x-apievangelist-note: >-
+      Modeled as apiKey in the published per-operation specs, but the real mechanism is an
+      OAuth 2.0 client-credentials Bearer token from https://auth.bluecore.com/oauth/token.

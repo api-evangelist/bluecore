@@ -1,28 +1,244 @@
 aid: bluecore
 name: Bluecore
-description: 'Bluecore is a company surfaced as a portfolio company of norwest-venture-partners, techstars
-  and added to the API Evangelist network as a stub for enrichment. Sector: unknown. This profile is a
-  lead awaiting the enrichment pipeline.'
+description: >-
+  Bluecore is a retail marketing technology platform that unifies shopper identity, behavior,
+  and product data into a customer data platform with 20+ predictive AI models, cross-channel
+  experience orchestration (email, SMS, site, paid media), and AI shopping and marketing agents.
+  Its public developer API (developers.bluecore.com) exposes OAuth 2.0 client-credentials
+  authentication, Customer Profile management, eligibility (consent) management, and Communicate
+  surfaces for transactional and direct-send messaging. Customers include Wayfair, Gap, J.Crew,
+  Lenovo, CVS, and Fender. Backed by Norwest Venture Partners and Techstars.
 url: https://raw.githubusercontent.com/api-evangelist/bluecore/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://www.bluecore.com/wp-content/themes/bluecore/assets/img/favicon.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - norwest-venture-partners
 - techstars
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: enriched-from-developer-portal
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
 tags:
 - Company
-- Unknown
-apis: []
+- Retail
+- Marketing
+- Customer Data Platform
+- Personalization
+- Email
+- SMS
+- Messaging
+- eCommerce
+- Consent
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: bluecore:bluecore-authn-api
+  name: Bluecore Authn API
+  description: The Authn API from Bluecore — 1 operation(s) for authn.
+  humanURL: https://developers.bluecore.com/
+  baseURL: https://a.bluecore.com/api
+  tags:
+  - Authn
+  properties:
+  - type: OpenAPI
+    url: openapi/bluecore-authn-api-openapi.yml
+  - type: Documentation
+    url: https://developers.bluecore.com/docs
+  - type: APIReference
+    url: https://developers.bluecore.com/reference
+  - type: GettingStarted
+    url: https://developers.bluecore.com/
+  - type: Authentication
+    url: authentication/bluecore-authentication.yml
+  - type: OAuthScopes
+    url: scopes/bluecore-scopes.yml
+- aid: bluecore:bluecore-campaignsapipublic-api
+  name: Bluecore CampaignsAPIPublic API
+  description: The CampaignsAPIPublic API from Bluecore — 1 operation(s) for campaignsapipublic.
+  humanURL: https://developers.bluecore.com/
+  baseURL: https://a.bluecore.com/api
+  tags:
+  - CampaignsAPIPublic
+  properties:
+  - type: OpenAPI
+    url: openapi/bluecore-campaignsapipublic-api-openapi.yml
+  - type: Documentation
+    url: https://developers.bluecore.com/docs
+  - type: APIReference
+    url: https://developers.bluecore.com/reference
+  - type: GettingStarted
+    url: https://developers.bluecore.com/
+  - type: Authentication
+    url: authentication/bluecore-authentication.yml
+  - type: OAuthScopes
+    url: scopes/bluecore-scopes.yml
+- aid: bluecore:bluecore-direct-send-api
+  name: Bluecore Direct send API
+  description: The Direct send API from Bluecore — 1 operation(s) for direct send.
+  humanURL: https://developers.bluecore.com/
+  baseURL: https://a.bluecore.com/api
+  tags:
+  - Direct send
+  properties:
+  - type: OpenAPI
+    url: openapi/bluecore-direct-send-api-openapi.yml
+  - type: Documentation
+    url: https://developers.bluecore.com/docs
+  - type: APIReference
+    url: https://developers.bluecore.com/reference
+  - type: GettingStarted
+    url: https://developers.bluecore.com/
+  - type: Authentication
+    url: authentication/bluecore-authentication.yml
+  - type: OAuthScopes
+    url: scopes/bluecore-scopes.yml
+- aid: bluecore:bluecore-eligibility-api
+  name: Bluecore Eligibility API
+  description: The Eligibility API from Bluecore — 2 operation(s) for eligibility.
+  humanURL: https://developers.bluecore.com/
+  baseURL: https://a.bluecore.com/api
+  tags:
+  - Eligibility
+  properties:
+  - type: OpenAPI
+    url: openapi/bluecore-eligibility-api-openapi.yml
+  - type: Documentation
+    url: https://developers.bluecore.com/docs
+  - type: APIReference
+    url: https://developers.bluecore.com/reference
+  - type: GettingStarted
+    url: https://developers.bluecore.com/
+  - type: Authentication
+    url: authentication/bluecore-authentication.yml
+  - type: OAuthScopes
+    url: scopes/bluecore-scopes.yml
+- aid: bluecore:bluecore-profile-api
+  name: Bluecore Profile API
+  description: The Profile API from Bluecore — 1 operation(s) for profile.
+  humanURL: https://developers.bluecore.com/
+  baseURL: https://a.bluecore.com/api
+  tags:
+  - Profile
+  properties:
+  - type: OpenAPI
+    url: openapi/bluecore-profile-api-openapi.yml
+  - type: Documentation
+    url: https://developers.bluecore.com/docs
+  - type: APIReference
+    url: https://developers.bluecore.com/reference
+  - type: GettingStarted
+    url: https://developers.bluecore.com/
+  - type: Authentication
+    url: authentication/bluecore-authentication.yml
+  - type: OAuthScopes
+    url: scopes/bluecore-scopes.yml
+- aid: bluecore:bluecore-transactional-api
+  name: Bluecore Transactional API
+  description: The Transactional API from Bluecore — 1 operation(s) for transactional.
+  humanURL: https://developers.bluecore.com/
+  baseURL: https://a.bluecore.com/api
+  tags:
+  - Transactional
+  properties:
+  - type: OpenAPI
+    url: openapi/bluecore-transactional-api-openapi.yml
+  - type: Documentation
+    url: https://developers.bluecore.com/docs
+  - type: APIReference
+    url: https://developers.bluecore.com/reference
+  - type: GettingStarted
+    url: https://developers.bluecore.com/
+  - type: Authentication
+    url: authentication/bluecore-authentication.yml
+  - type: OAuthScopes
+    url: scopes/bluecore-scopes.yml
 common:
+- type: DeveloperPortal
+  url: https://developers.bluecore.com/
+- type: Documentation
+  url: https://developers.bluecore.com/docs
+- type: APIReference
+  url: https://developers.bluecore.com/reference
+- type: GettingStarted
+  url: https://developers.bluecore.com/
+- type: Authentication
+  url: authentication/bluecore-authentication.yml
+- type: OAuthScopes
+  url: scopes/bluecore-scopes.yml
+- type: Idempotency
+  url: conventions/bluecore-conventions.yml
+- type: Conventions
+  url: conventions/bluecore-conventions.yml
+- type: RateLimits
+  url: rate-limits/bluecore-rate-limits.yml
+- type: ErrorCatalog
+  url: errors/bluecore-problem-types.yml
+- type: DataModel
+  url: data-model/bluecore-data-model.yml
+- type: Conformance
+  url: conformance/bluecore-conformance.yml
+- type: Lifecycle
+  url: lifecycle/bluecore-lifecycle.yml
+- type: StatusPage
+  url: https://bluecore.statuspage.io/
+- type: ChangeLog
+  url: changelog/bluecore-changelog.yml
+- type: MCPServer
+  url: mcp/bluecore-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Arazzo
+  name: Onboard a Bluecore customer and send a transactional message
+  url: arazzo/bluecore-onboard-and-message.arazzo.yml
+- type: LLMsTxt
+  url: llms/bluecore-llms.txt
+- type: AgenticAccess
+  url: agentic-access/bluecore-agentic-access.yml
+- type: Authentication
+  url: authentication/bluecore-authentication.yml
+- type: DomainSecurity
+  url: security/bluecore-domain-security.yml
+- type: VulnerabilityDisclosure
+  url: security/bluecore-vulnerability-disclosure.yml
+- type: Security
+  url: security/bluecore-vulnerability-disclosure.yml
+- type: TrustCenter
+  url: https://trust.bluecore.com/
+- type: Compliance
+  url: https://trust.bluecore.com/
+- type: HelpCenter
+  url: https://help.bluecore.com/
+- type: Support
+  url: mailto:support@bluecore.com
+- type: Blog
+  url: https://www.bluecore.com/blog/
+- type: Login
+  url: https://app.bluecore.com/login
+- type: TermsOfService
+  url: https://www.bluecore.com/terms-of-use/
+- type: PrivacyPolicy
+  url: https://www.bluecore.com/privacy-policy/
 - type: Website
   url: https://bluecore.com
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

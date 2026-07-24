@@ -1,0 +1,49 @@
+generated: '2026-07-18'
+method: searched
+source: https://developers.bluecore.com/docs/error-codes
+derived_from: openapi/bluecore-openapi.yml
+format: google.rpc.Status
+envelope:
+  media_type: application/json
+  schema: google.rpc.Status
+  fields:
+    code: integer status code (google.rpc.Code enum)
+    message: developer-facing English error message
+    details: array of google.protobuf.Any
+  note: >-
+    Bluecore uses the Google API error model (google.rpc.Status), not RFC 9457
+    application/problem+json. HTTP status is standard; the body carries code/message/details.
+problems:
+- status: 200
+  title: OK
+  description: The request was successful.
+- status: 401
+  title: Unauthorized
+  description: The API key / access token is invalid.
+  remediation: Check that your credentials and Bearer token are correct and unexpired.
+- status: 404
+  title: Not found
+  description: The requested resource was not found.
+  remediation: Check the data in your query or path parameters.
+- status: 406
+  title: Requested media type is not supported
+  description: The content-type header is not supported.
+  remediation: Set the content-type header to application/json.
+- status: 409
+  title: Conflict
+  description: This request conflicts with a previously sent request's unique id (idempotency key reuse).
+  remediation: Send a unique path-parameter id.
+- status: 422
+  title: Required parameter missing
+  description: A required parameter is missing in the request.
+  remediation: Include all required parameters.
+- status: 429
+  title: Too many requests
+  description: You have exceeded the rate limit.
+  remediation: Back off using the RateLimit-* response headers. See rate-limits/bluecore-rate-limits.yml.
+- status: 500
+  title: Internal error
+  description: Something went wrong on Bluecore's side.
+  remediation: >-
+    A 500 may be temporary; retry. If it persists, contact support@bluecore.com with the
+    request_id from the error response.

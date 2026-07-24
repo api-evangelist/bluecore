@@ -1,0 +1,18 @@
+generated: '2026-07-18'
+method: searched
+source: https://developers.bluecore.com/changelog/july-2025
+scheme: dated
+current_version: '0.0.1'
+entries:
+- date: '2025-07'
+  title: July 2025
+  breaking: false
+  additions:
+  - The authentication token API is now in beta — create access tokens to authenticate against the Customer API.
+  - The Customer API is now in beta — retrieve (GET) or update (POST) a single customer's identifiers and attributes.
+  highlights:
+  - Authentication (OAuth 2.0 client-credentials) beta.
+  - Customer Profile API beta.
+notes: >-
+  Only the most recent published changelog entry is captured. The live changelog at
+  developers.bluecore.com/changelog is the source of truth.

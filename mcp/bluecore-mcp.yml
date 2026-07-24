@@ -1,0 +1,38 @@
+generated: '2026-07-18'
+method: derived
+status: candidate
+source: openapi/bluecore-openapi.yml
+notes: >-
+  No official hosted/remote Bluecore MCP server was found. This is a candidate tool list
+  derived one-per-operation from the harvested OpenAPI so an MCP server could be generated.
+server:
+  name: bluecore
+  transport: http
+tools:
+- name: get_access_token
+  description: Retrieve an OAuth 2.0 client-credentials access token (24h Bearer).
+  source_operation: openapi/bluecore-openapi.yml#Authn_GetAccessToken
+- name: get_customer_profile
+  description: Retrieve one Customer Profile by email or phone_number.
+  source_operation: openapi/bluecore-openapi.yml#Profile_Get
+- name: upsert_customer_profile
+  description: Create or update a Customer Profile's identifiers and attributes.
+  source_operation: openapi/bluecore-openapi.yml#Profile_CreateOrUpdate
+- name: get_eligibility
+  description: Retrieve a customer's eligibility / subscription (consent) status.
+  source_operation: openapi/bluecore-openapi.yml#Eligibility_Get
+- name: update_eligibility
+  description: Update a customer's eligibility (opt-in / unsubscribe / signup).
+  source_operation: openapi/bluecore-openapi.yml#Eligibility_Update
+- name: send_transactional_message
+  description: Send a transactional email/SMS/MMS message (idempotent by id).
+  source_operation: openapi/bluecore-openapi.yml#Transactional_Send
+- name: get_transactional_message
+  description: Retrieve a transactional message's status history by id.
+  source_operation: openapi/bluecore-openapi.yml#Transactional_Get
+- name: create_direct_send_campaign
+  description: Create an external direct-send campaign in Bluecore. (Under construction.)
+  source_operation: openapi/bluecore-openapi.yml#CampaignsAPIPublic_CreateDirectSendCampaign
+- name: send_direct_message
+  description: Send an email via a previously created direct-send campaign. (Under construction.)
+  source_operation: openapi/bluecore-openapi.yml#DirectSend_Send

@@ -1,0 +1,63 @@
+generated: '2026-07-18'
+method: searched
+source: https://developers.bluecore.com/
+docs:
+- https://developers.bluecore.com/docs/rate-limiting
+- https://developers.bluecore.com/docs/error-codes
+- https://developers.bluecore.com/reference/transactional_send
+authentication:
+  style: oauth2-client-credentials-bearer
+  header: authorization
+  value: Bearer <access_token>
+  see: authentication/bluecore-authentication.yml
+idempotency:
+  supported: true
+  mechanism: path-parameter
+  parameter: id
+  applies_to:
+  - Transactional_Send
+  detail: >-
+    The transactional send endpoint takes a client-generated unique identifier as the
+    `{id}` path segment (POST /namespaces/{namespace}/transactional-messages/{id}) that
+    is used as an idempotency key; it must be unique for each send request. Allowed
+    characters: alphanumeric, colon (:), underscore (_), period (.), and dash (-),
+    max length 128. The same id is used with Transactional_Get to retrieve the message
+    status history. Replaying a previously used id conflicts (HTTP 409).
+  retention: not-documented
+pagination:
+  supported: false
+  detail: No collection/list endpoints are published; all read endpoints resolve a single resource by identifier.
+request_tracing:
+  header: x-bluecore-id
+  detail: >-
+    Responses on the customer and eligibility endpoints return an `x-bluecore-id` header,
+    a request id used to trace logs for that request. Include it (or the `request_id` in a
+    5xx error body) when contacting support@bluecore.com.
+versioning:
+  scheme: none-in-path
+  detail: >-
+    No version segment in the API path (base https://a.bluecore.com/api). The published
+    per-operation OpenAPI documents carry info.version 0.0.1; the APIs are labelled beta.
+error_envelope:
+  format: google.rpc.Status
+  media_type: application/json
+  fields: [code, message, details]
+  detail: >-
+    Errors return a google.rpc.Status object (integer `code`, developer-facing `message`,
+    and a `details[]` array of google.protobuf.Any). This is Google API error model, not
+    RFC 9457 problem+json. See errors/bluecore-problem-types.yml.
+rate_limit_signaling:
+  headers:
+  - RateLimit-Limit
+  - RateLimit-Remaining
+  - RateLimit-Reset
+  spec_headers:
+  - x-ratelimit-limit
+  - x-ratelimit-remaining
+  - x-ratelimit-reset
+  algorithm: fixed-window (burst 1s + steady 1m)
+  quota_policy_example: 700;w=60;burst=75;w=1
+  see: rate-limits/bluecore-rate-limits.yml
+content_type:
+  request: application/json
+  note: A 406 is returned when the content-type header is not application/json.

@@ -1,0 +1,101 @@
+arazzo: 1.0.1
+info:
+  title: Onboard a Bluecore customer and send a transactional message
+  version: 1.0.0
+  summary: >-
+    Authenticate, upsert a Customer Profile, opt them into marketing, send a transactional
+    message with an idempotency key, and read its delivery status.
+sourceDescriptions:
+- name: bluecore
+  url: ../openapi/bluecore-openapi.yml
+  type: openapi
+workflows:
+- workflowId: onboardCustomerAndSendTransactional
+  summary: End-to-end onboarding and first transactional send for a shopper.
+  inputs:
+    type: object
+    required: [client_id, client_secret, namespace, email, campaign_id, send_id]
+    properties:
+      client_id: {type: string}
+      client_secret: {type: string}
+      namespace: {type: string, default: bluestore}
+      email: {type: string, default: alice@gmail.com}
+      campaign_id: {type: string}
+      send_id: {type: string, description: Client-generated unique idempotency key.}
+  steps:
+  - stepId: getToken
+    operationId: Authn_GetAccessToken
+    requestBody:
+      contentType: application/json
+      payload:
+        client_id: $inputs.client_id
+        client_secret: $inputs.client_secret
+        audience: https://a.bluecore.com
+        grant_type: client_credentials
+    outputs:
+      access_token: $response.body#/access_token
+  - stepId: upsertCustomer
+    operationId: Profile_CreateOrUpdate
+    parameters:
+    - name: namespace
+      in: path
+      value: $inputs.namespace
+    - name: authorization
+      in: header
+      value: "Bearer $steps.getToken.outputs.access_token"
+    requestBody:
+      contentType: application/json
+      payload:
+        id: {email: $inputs.email}
+        attributes: {name: Alice}
+  - stepId: optInMarketing
+    operationId: Eligibility_Update
+    parameters:
+    - name: namespace
+      in: path
+      value: $inputs.namespace
+    - name: authorization
+      in: header
+      value: "Bearer $steps.getToken.outputs.access_token"
+    requestBody:
+      contentType: application/json
+      payload:
+        id: {email: $inputs.email}
+        state: {event: OPTIN, message_type: MARKETING}
+  - stepId: sendTransactional
+    operationId: Transactional_Send
+    parameters:
+    - name: namespace
+      in: path
+      value: $inputs.namespace
+    - name: id
+      in: path
+      value: $inputs.send_id
+    - name: authorization
+      in: header
+      value: "Bearer $steps.getToken.outputs.access_token"
+    requestBody:
+      contentType: application/json
+      payload:
+        message:
+          identifiers:
+          - {email: {email: $inputs.email}}
+          campaign_ids: [$inputs.campaign_id]
+    outputs:
+      campaign_id: $response.body#/data/campaign_id
+  - stepId: getStatus
+    operationId: Transactional_Get
+    parameters:
+    - name: namespace
+      in: path
+      value: $inputs.namespace
+    - name: id
+      in: path
+      value: $inputs.send_id
+    - name: authorization
+      in: header
+      value: "Bearer $steps.getToken.outputs.access_token"
+    outputs:
+      statuses: $response.body#/data/statuses
+  outputs:
+    statuses: $steps.getStatus.outputs.statuses

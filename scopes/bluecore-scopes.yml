@@ -1,0 +1,43 @@
+generated: '2026-07-18'
+method: searched
+source: https://developers.bluecore.com/reference/authn_getaccesstoken
+docs: https://developers.bluecore.com/reference/authn_getaccesstoken
+notes: >-
+  Bluecore access tokens carry space-delimited scopes in `resource:verb` form (e.g.
+  `customers:write` grants write access to the Customers API), returned in the token
+  response `scope` field. In the per-operation OpenAPI the same permissions appear as
+  dot-form scope strings on each operation's GlooAuth security requirement. Both forms
+  are recorded below.
+scheme:
+  name: GlooAuth
+  flow: clientCredentials
+  token_url: https://auth.bluecore.com/oauth/token
+scopes:
+- scope: customers:read
+  spec_form: customers.read
+  description: Read access to Customer Profiles.
+  operations: [Profile_Get]
+- scope: customers:write
+  spec_form: customers.write
+  description: Create or update Customer Profiles (identifiers and attributes).
+  operations: [Profile_CreateOrUpdate]
+- scope: eligibility:read
+  spec_form: eligibility.read
+  description: Read a customer's eligibility / subscription (consent) status.
+  operations: [Eligibility_Get]
+- scope: eligibility:write
+  spec_form: eligibility.write
+  description: Update a customer's eligibility / subscription (consent) status.
+  operations: [Eligibility_Update]
+- scope: directsend:write
+  spec_form: directsend.write
+  description: Create external direct-send campaigns in Bluecore. (API under construction.)
+  operations: [CampaignsAPIPublic_CreateDirectSendCampaign]
+- scope: direct_send:api
+  spec_form: direct_send.api
+  description: Send a direct message via a previously created direct-send campaign. (API under construction.)
+  operations: [DirectSend_Send]
+- scope: transactional:api
+  spec_form: transactional.api
+  description: Send transactional (email/SMS/MMS) messages and retrieve their delivery status.
+  operations: [Transactional_Send, Transactional_Get]

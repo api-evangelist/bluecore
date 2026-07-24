@@ -1,0 +1,27 @@
+generated: '2026-07-18'
+method: searched
+source: https://developers.bluecore.com/
+versioning:
+  scheme: none-in-path
+  current: '0.0.1'
+  maturity: beta
+  detail: >-
+    APIs are labelled beta (Authentication and Customer APIs entered beta July 2025).
+    The base path https://a.bluecore.com/api carries no version segment; the published
+    per-operation OpenAPI documents declare info.version 0.0.1.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  detail: No published deprecation policy or RFC 8594 Sunset/Deprecation header support found.
+status_page: https://bluecore.statuspage.io/
+changelog: https://developers.bluecore.com/changelog/july-2025
+sla:
+  url: null
+deprecated_operations: []
+under_construction_operations:
+- CampaignsAPIPublic_CreateDirectSendCampaign
+- DirectSend_Send
+notes: >-
+  status.bluecore.com redirects (via Okta SAML) to the public Atlassian Statuspage at
+  bluecore.statuspage.io. Two direct-send operations are documented as "under construction"
+  and not yet ready for use.
