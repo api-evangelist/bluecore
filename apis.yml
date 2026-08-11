@@ -170,6 +170,8 @@ apis:
   - type: OAuthScopes
     url: scopes/bluecore-scopes.yml
 common:
+- type: Overlay
+  url: overlays/bluecore-openapi-overlay.yaml
 - type: DeveloperPortal
   url: https://developers.bluecore.com/
 - type: Documentation
