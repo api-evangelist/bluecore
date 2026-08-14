@@ -10,17 +10,24 @@ description: >-
   Lenovo, CVS, and Fender. Backed by Norwest Venture Partners and Techstars.
 url: https://raw.githubusercontent.com/api-evangelist/bluecore/refs/heads/main/apis.yml
 accessModel:
-  pricing: unknown
-  onboarding: self-serve
+  pricing: quote
+  onboarding: sales-gated
   trial: false
   try_now: false
   public: false
-  label: Self-serve signup
-  confidence: medium
+  label: Contact sales
+  confidence: high
   source:
-  - authentication
-  generated: '2026-07-22'
-  method: derived
+  - https://www.bluecore.com/request-a-demo/
+  - plans/bluecore-plans-pricing.yml
+  generated: '2026-08-13'
+  method: searched
+  note: >-
+    Corrected 2026-08-13. The prior derived value said "self-serve signup", which the evidence does
+    not support: www.bluecore.com/pricing/ returns 404, there is no free tier or trial, and API
+    credentials are issued by Bluecore to existing customers (the legacy transactional contract
+    tells developers to email support@bluecore.com for a key). The only commercial entry point is
+    a demo request.
 image: https://www.bluecore.com/wp-content/themes/bluecore/assets/img/favicon.png
 x-type: company
 x-source: vc-portfolio
@@ -31,7 +38,7 @@ x-tier: profiled
 x-tier-reason: enriched-from-developer-portal
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-18'
+modified: '2026-08-13'
 tags:
 - Company
 - Retail
@@ -169,7 +176,79 @@ apis:
     url: authentication/bluecore-authentication.yml
   - type: OAuthScopes
     url: scopes/bluecore-scopes.yml
+- aid: bluecore:bluecore-transactional-legacy-api
+  name: Bluecore Transactional API (legacy)
+  description: >-
+    The original Bluecore Transactional API on https://api.bluecore.com/email/ - send a transactional
+    or real-time welcome email against a Bluecore campaign, and retrieve the delivery status of a
+    previously triggered send by conversation id. Authenticated by a static customer-specific Bearer
+    API key rather than OAuth. Bluecore's own OpenAPI repository states the company is migrating away
+    from this surface, but the documentation and the specification are both still published with no
+    deprecation notice, no sunset date and no migration guide.
+  humanURL: https://www.bluecore.com/transactional-api-docs/
+  baseURL: https://api.bluecore.com/email/
+  tags:
+  - Transactional
+  - Email
+  - Legacy
+  properties:
+  - type: OpenAPI
+    url: openapi/bluecore-transactional-legacy-api-openapi.yml
+  - type: Documentation
+    url: https://www.bluecore.com/transactional-api-docs/
+  - type: SourceCode
+    url: https://github.com/TriggerMail/bluecore-openapi-docs
+  - type: Overlay
+    url: overlays/bluecore-transactional-legacy-overlay.yaml
+  - type: Authentication
+    url: authentication/bluecore-authentication.yml
+  - type: ErrorCatalog
+    url: errors/bluecore-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/bluecore-lifecycle.yml
+- aid: bluecore:bluecore-events-api
+  name: Bluecore Events API
+  description: >-
+    Bluecore's event-ingestion API - POST shopper behaviour and identity events (viewed_product,
+    search, add_to_cart, remove_from_cart, wishlist, purchase, customer_patch, identify, optin,
+    unsubscribe, plus per-tenant custom events) from a mobile app or any server-side source, doing
+    the same job the Bluecore website JavaScript tag does for a storefront. Authenticated by the
+    tenant token carried inside the JSON request body. Documented in prose only - Bluecore publishes
+    no OpenAPI and no AsyncAPI for this surface.
+  humanURL: https://help.bluecore.com/help/events-api
+  baseURL: https://api.bluecore.app/api/track/mobile/v1
+  tags:
+  - Events
+  - Ingestion
+  - Behavioral Data
+  properties:
+  - type: Documentation
+    url: https://help.bluecore.com/help/events-api
+  - type: EventCatalog
+    url: asyncapi/bluecore-events.yml
+  - type: Authentication
+    url: authentication/bluecore-authentication.yml
 common:
+- type: Overlay
+  url: overlays/bluecore-transactional-legacy-overlay.yaml
+- type: WellKnown
+  url: well-known/bluecore-well-known.yml
+- type: OpenIDConnect
+  url: well-known/bluecore-openid-configuration.json
+- type: Packages
+  url: packages/bluecore-packages.yml
+- type: Plans
+  url: plans/bluecore-plans-pricing.yml
+- type: Components
+  url: components/bluecore-components.yml
+- type: EventCatalog
+  url: asyncapi/bluecore-events.yml
+- type: GitHubOrganization
+  url: https://github.com/TriggerMail
+- type: LLMsTxt
+  url: llms/bluecore-llms.txt
+- type: TrustCenter
+  url: security/bluecore-trust-center.yml
 - type: Overlay
   url: overlays/bluecore-openapi-overlay.yaml
 - type: DeveloperPortal
@@ -209,12 +288,8 @@ common:
 - type: Arazzo
   name: Onboard a Bluecore customer and send a transactional message
   url: arazzo/bluecore-onboard-and-message.arazzo.yml
-- type: LLMsTxt
-  url: llms/bluecore-llms.txt
 - type: AgenticAccess
   url: agentic-access/bluecore-agentic-access.yml
-- type: Authentication
-  url: authentication/bluecore-authentication.yml
 - type: DomainSecurity
   url: security/bluecore-domain-security.yml
 - type: VulnerabilityDisclosure
@@ -240,7 +315,7 @@ common:
 - type: Website
   url: https://bluecore.com
 x-enrichment:
-  date: '2026-07-19'
-  status: backfilled
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 10
   pass: local-v1
-  note: backfilled from .gitignore signal + verified work evidence
