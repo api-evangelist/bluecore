@@ -47,3 +47,56 @@ problems:
   remediation: >-
     A 500 may be temporary; retry. If it persists, contact support@bluecore.com with the
     request_id from the error response.
+legacy_transactional_api:
+  generated: '2026-08-13'
+  method: searched
+  source: https://www.bluecore.com/transactional-api-docs/
+  spec: openapi/bluecore-transactional-legacy-api-openapi.yml
+  envelope:
+    media_type: application/json
+    fields: [message, request_id]
+    note: >-
+      The legacy transactional surface (https://api.bluecore.com/email/) does NOT use the
+      google.rpc.Status envelope of the developer API. It returns a plain message plus a
+      request_id to quote to support. Two different error contracts on one vendor.
+  problems:
+  - status: 401
+    title: "Not authenticated or authorized."
+    description: "API token is invalid."
+    remediation: "Check the customer-specific Bearer API key issued by Bluecore."
+  - status: 404
+    title: "Could not find campaign with id: {campaign_id} for {namespace}."
+    description: "Returned if campaign_id is not an existing campaign."
+    remediation: "Take the campaign id from the Bluecore UI campaigns page."
+  - status: 406
+    title: "Requested media type is not supported."
+    description: "Only application/json requests are supported."
+  - status: 422
+    title: "The request is missing the attribute {field} in the body."
+    description: "A required field is missing. Required: campaign_id, email, template_attributes."
+  - status: 422
+    title: "The request is missing the attribute {key} in the body."
+    description: "template_attributes does not contain a key name that the email template expects."
+    remediation: "Every variable referenced in the template must be present in template_attributes, even as null."
+  - status: 422
+    title: "Template attribute size exceeds the maximum allowed (819,200 bytes)."
+    description: "Payload was too large."
+  - status: 500
+    title: "Unhandled exception."
+    description: "Generic something-went-wrong error."
+    retryable: true
+  - status: 500
+    title: "Function execution timed out."
+    retryable: true
+  - status: 502
+    title: "Internal error."
+    retryable: true
+  - status: 503
+    title: "Service unavailable."
+    retryable: true
+  - status: 504
+    title: "Gateway timeout."
+    retryable: true
+  retry_guidance: >-
+    Exponential backoff, minimum 30s, maximum at least 5 minutes, maximum 5 retries. If the error
+    persists, email support@bluecore.com with the request_id from the error response.

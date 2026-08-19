@@ -25,3 +25,41 @@ notes: >-
   status.bluecore.com redirects (via Okta SAML) to the public Atlassian Statuspage at
   bluecore.statuspage.io. Two direct-send operations are documented as "under construction"
   and not yet ready for use.
+legacy_surfaces:
+- name: Transactional API (legacy)
+  generated: '2026-08-13'
+  method: searched
+  host: https://api.bluecore.com/email/
+  spec: openapi/bluecore-transactional-legacy-api-openapi.yml
+  docs: https://www.bluecore.com/transactional-api-docs/
+  docs_status: 200
+  spec_source: https://github.com/TriggerMail/bluecore-openapi-docs
+  spec_last_pushed: '2025-03-26'
+  state: superseded-but-still-published
+  successor: openapi/bluecore-transactional-api-openapi.yml
+  sunset_announced: false
+  sunset_date: null
+  detail: >-
+    Bluecore's own OpenAPI repository README states "since we're going to be migrating away from
+    this API (Q1 2025), it's not worth implementing an automated deployment" — an explicit
+    statement of intent to retire the api.bluecore.com/email/ transactional surface in favour of
+    the OAuth-authenticated transactional endpoints on a.bluecore.com/api. As of 2026-08-13 that
+    migration is NOT reflected on the customer-facing surface: the docs page at
+    www.bluecore.com/transactional-api-docs/ still returns 200, the spec is still served from the
+    public GCS bucket, and neither carries a deprecation notice, a sunset date, a migration guide,
+    or a link to the replacement. The retirement is announced only inside a developer README that
+    no integrator is directed to read. This is a deprecation-communication gap, not a deprecation
+    policy — the `deprecation.policy_url` above remains null.
+  evidence:
+  - {url: 'https://www.bluecore.com/transactional-api-docs/', status: 200}
+  - {url: 'https://storage.googleapis.com/download/storage/v1/b/bluecore-openapi-docs/o/transactional-api%2Ftransactional_api.yaml?alt=media', status: 200}
+  - {url: 'https://api.github.com/repos/TriggerMail/bluecore-openapi-docs', status: 200}
+source_repository:
+  url: https://github.com/TriggerMail/bluecore-openapi-docs
+  org: https://github.com/TriggerMail
+  last_pushed: '2025-03-26'
+  detail: >-
+    TriggerMail is Bluecore's GitHub organization (org name "Bluecore", website www.bluecore.com) —
+    the company was founded as TriggerMail. It holds 58 public repositories, almost all
+    infrastructure forks; bluecore-openapi-docs is the only API-contract repository and its last
+    push was 2025-03-26.

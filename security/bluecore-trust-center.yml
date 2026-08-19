@@ -1,4 +1,4 @@
-generated: '2026-07-18'
+generated: '2026-08-13'
 method: searched
 probe: true
 source: https://trust.bluecore.com/
@@ -19,3 +19,10 @@ evidence:
   - ccpa
   - eu ai act
   - responsible disclosure
+notes: >-
+  www.bluecore.com/security/ 301-redirects to trust.bluecore.com, a SafeBase-hosted trust centre.
+  The certification list here is the searched (2026-07-18) reading, which is richer than what the
+  mechanical keyword probe re-extracts on a re-run — the probe only matches SOC 2 and GDPR against
+  the SafeBase shell and would otherwise drop CCPA, the EU AI Act posture, the platform and the
+  security contact. Do not let a later probe pass overwrite this file with the thinner set.
+  Re-verified 2026-08-13: https://www.bluecore.com/security/ -> 200 (via redirect).

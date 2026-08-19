@@ -1,0 +1,54 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Bluecore Transactional API (legacy)
+  version: 1.0.0
+extends: openapi/bluecore-transactional-legacy-api-openapi.yml
+x-generated: '2026-08-13'
+x-method: generated
+x-source: >-
+  Enhancements API Evangelist would apply to the verbatim first-party spec harvested from
+  https://github.com/TriggerMail/bluecore-openapi-docs. The original is never mutated.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-slug: bluecore
+    x-apievangelist-surface: transactional-legacy
+    x-lifecycle-state: superseded-but-still-published
+    x-successor: openapi/bluecore-transactional-api-openapi.yml
+    description: >-
+      LEGACY Bluecore transactional email surface on https://api.bluecore.com/email/, authenticated
+      by a static customer-specific Bearer API key. Bluecore's own OpenAPI repository states the
+      company is migrating away from this API; the replacement is the OAuth 2.0 transactional
+      endpoint on https://a.bluecore.com/api documented at developers.bluecore.com. The published
+      document declares no operationIds, no security schemes and no error responses; those gaps
+      are recorded here rather than patched into the original.
+    contact:
+      name: Bluecore Support
+      email: support@bluecore.com
+      url: https://www.bluecore.com/transactional-api-docs/
+    version: '1.0'
+- target: $.paths['/send/v1/{namespace}'].post
+  update:
+    x-apievangelist-suggested-operationId: TransactionalLegacy_Send
+    x-agentic-access:
+      action-class: acting
+      consequence: physical
+      note: >-
+        Sends a real email to a real shopper. Not reversible. The published contract exposes no
+        idempotency key, so a retried request can send a duplicate message.
+- target: $.paths['/status/v1/{namespace}/{conversation_id}'].get
+  update:
+    x-apievangelist-suggested-operationId: TransactionalLegacy_GetStatus
+    x-agentic-access:
+      action-class: connected
+      consequence: read
+- target: $
+  update:
+    x-apievangelist-gaps:
+    - no-operationIds
+    - no-securitySchemes-component (auth is described only in an x-traitTag prose block and as a
+      hand-rolled `Authorization Bearer` header parameter)
+    - no-error-responses-in-paths (the 401/404/406/422/500/502/503/504 table lives only in prose;
+      captured as data in errors/bluecore-problem-types.yml legacy_transactional_api)
+    - no-rate-limit-headers (the 200 calls/second recommendation is prose only)
+    - send-operation-documents-200-while-the-prose-references-a-202

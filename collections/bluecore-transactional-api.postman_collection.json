@@ -1,0 +1,765 @@
+{
+  "item": [
+    {
+      "id": "7361710e-9e35-4c7f-97d9-1341d5ee91bd",
+      "name": "Transactional",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bd3cd7c0-4ac0-4863-8137-db3843080a8b",
+          "name": "Retrieve transactional message status",
+          "request": {
+            "name": "Retrieve transactional message status",
+            "description": {},
+            "url": {
+              "path": [
+                "namespaces",
+                ":namespace",
+                "transactional-messages",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The unique name of the Bluecore environment."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The idempotency key used when sending the transactional message.  Used to retrieve the message information and status history. Allowed characters:  alphanumeric, colon (:), underscore (_), period (.), and dash (-)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c42125eb-0945-4ed6-8788-dbf405c22311",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "transactional-messages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The unique name of the Bluecore environment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The idempotency key used when sending the transactional message.  Used to retrieve the message information and status history. Allowed characters:  alphanumeric, colon (:), underscore (_), period (.), and dash (-)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "700;w=60;burst=75;w=1"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current time window",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "4912"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds until reset of the current time window",
+                  "key": "X-RateLimit-Reset",
+                  "value": "4912"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"campaign_id\": \"6239084716089344\",\n    \"identifiers\": [\n      {\n        \"email\": {\n          \"email\": \"alice@gmail.com\"\n        }\n      }\n    ],\n    \"product_ids\": [\n      \"27y9pconfyu7h\"\n    ],\n    \"customer_attributes\": {\n      \"first_name\": {\n        \"string_value\": \"Alice\"\n      }\n    },\n    \"name\": \"namespaces/bluestore/messages/1231239\",\n    \"statuses\": [\n      {\n        \"status\": \"INITIATED\",\n        \"timestamp\": \"2026-01-01T00:00:00.00Z\"\n      },\n      {\n        \"status\": \"SENT\",\n        \"timestamp\": \"2026-01-01T00:00:01.00Z\"\n      },\n      {\n        \"status\": \"DELIVERED\",\n        \"timestamp\": \"2026-01-01T00:00:02.00Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab7d9115-f291-4671-82b9-dd023a2c9fa4",
+              "name": "Message not found for the provided id",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "transactional-messages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The unique name of the Bluecore environment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The idempotency key used when sending the transactional message.  Used to retrieve the message information and status history. Allowed characters:  alphanumeric, colon (:), underscore (_), period (.), and dash (-)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5,\n  \"message\": \"we could not find a message matching that ID: 1231231\",\n  \"details\": []\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a1db752a-37c7-4574-b123-6bcd1df80238",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "transactional-messages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The unique name of the Bluecore environment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The idempotency key used when sending the transactional message.  Used to retrieve the message information and status history. Allowed characters:  alphanumeric, colon (:), underscore (_), period (.), and dash (-)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "700;w=60;burst=75;w=1"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current time window",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "4912"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds until reset of the current time window",
+                  "key": "X-RateLimit-Reset",
+                  "value": "4912"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6a94c01e-fd35-4c2e-ac7b-624fe0f82bbb",
+              "name": "Default error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "transactional-messages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The unique name of the Bluecore environment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The idempotency key used when sending the transactional message.  Used to retrieve the message information and status history. Allowed characters:  alphanumeric, colon (:), underscore (_), period (.), and dash (-)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 730,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": 7865,\n      \"key_1\": \"string\",\n      \"key_2\": 3863.877548313106,\n      \"key_3\": false\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": 3991.751980430338,\n      \"key_1\": 2254.1150708805267\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fe048ce1-012b-4a39-b96b-27e8c8feb393",
+          "name": "Send a transactional message",
+          "request": {
+            "name": "Send a transactional message",
+            "description": {},
+            "url": {
+              "path": [
+                "namespaces",
+                ":namespace",
+                "transactional-messages",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The unique name of the Bluecore environment."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) A client-generated unique identifier used for idempotency. Must be unique for each send request. Allowed characters:  alphanumeric, colon (:), underscore (_), period (.), and dash (-)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": {\n    \"identifiers\": [\n      \"<object>\"\n    ],\n    \"campaign_ids\": [\n      \"<string>\"\n    ],\n    \"product_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"customer_attributes\": {\n      \"key_0\": \"<object>\"\n    },\n    \"use_draft\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "87f699be-2a90-44c0-a245-450ac5511ab9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "transactional-messages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The unique name of the Bluecore environment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) A client-generated unique identifier used for idempotency. Must be unique for each send request. Allowed characters:  alphanumeric, colon (:), underscore (_), period (.), and dash (-)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"message\": {\n    \"identifiers\": [\n      {\n        \"email\": \"alice@gmail.com\"\n      }\n    ],\n    \"campaign_ids\": [\n      \"<string>\"\n    ],\n    \"product_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"customer_attributes\": {\n      \"key_0\": {\n        \"string_value\": \"<string>\"\n      },\n      \"key_1\": {\n        \"string_value\": \"<string>\"\n      },\n      \"key_2\": {\n        \"string_value\": \"<string>\"\n      }\n    },\n    \"use_draft\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "700;w=60;burst=75;w=1"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current time window",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "4912"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds until reset of the current time window",
+                  "key": "X-RateLimit-Reset",
+                  "value": "4912"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"campaign_id\": \"6239084716089344\",\n    \"identifiers\": [\n      {\n        \"email\": {\n          \"email\": \"alice@gmail.com\"\n        }\n      }\n    ],\n    \"product_ids\": [\n      \"27y9pconfyu7h\"\n    ],\n    \"use_draft\": false,\n    \"statuses\": [\n      {\n        \"status\": \"SENT\",\n        \"timestamp\": \"2026-01-01T00:00:00.00Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "333652d6-c565-4f52-b700-74b03d1d98f4",
+              "name": "Bad request. No response returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "transactional-messages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The unique name of the Bluecore environment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) A client-generated unique identifier used for idempotency. Must be unique for each send request. Allowed characters:  alphanumeric, colon (:), underscore (_), period (.), and dash (-)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"message\": {\n    \"identifiers\": [\n      {\n        \"email\": \"alice@gmail.com\"\n      }\n    ],\n    \"campaign_ids\": [\n      \"<string>\"\n    ],\n    \"product_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"customer_attributes\": {\n      \"key_0\": {\n        \"string_value\": \"<string>\"\n      },\n      \"key_1\": {\n        \"string_value\": \"<string>\"\n      },\n      \"key_2\": {\n        \"string_value\": \"<string>\"\n      }\n    },\n    \"use_draft\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3e98268f-437b-4cbe-abee-4dca0489649e",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "transactional-messages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The unique name of the Bluecore environment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) A client-generated unique identifier used for idempotency. Must be unique for each send request. Allowed characters:  alphanumeric, colon (:), underscore (_), period (.), and dash (-)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"message\": {\n    \"identifiers\": [\n      {\n        \"email\": \"alice@gmail.com\"\n      }\n    ],\n    \"campaign_ids\": [\n      \"<string>\"\n    ],\n    \"product_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"customer_attributes\": {\n      \"key_0\": {\n        \"string_value\": \"<string>\"\n      },\n      \"key_1\": {\n        \"string_value\": \"<string>\"\n      },\n      \"key_2\": {\n        \"string_value\": \"<string>\"\n      }\n    },\n    \"use_draft\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "700;w=60;burst=75;w=1"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current time window",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "4912"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds until reset of the current time window",
+                  "key": "X-RateLimit-Reset",
+                  "value": "4912"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "84c14bf3-df16-48a6-be1f-8bb70ffc471f",
+              "name": "Default error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "transactional-messages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The unique name of the Bluecore environment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) A client-generated unique identifier used for idempotency. Must be unique for each send request. Allowed characters:  alphanumeric, colon (:), underscore (_), period (.), and dash (-)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"message\": {\n    \"identifiers\": [\n      {\n        \"email\": \"alice@gmail.com\"\n      }\n    ],\n    \"campaign_ids\": [\n      \"<string>\"\n    ],\n    \"product_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"customer_attributes\": {\n      \"key_0\": {\n        \"string_value\": \"<string>\"\n      },\n      \"key_1\": {\n        \"string_value\": \"<string>\"\n      },\n      \"key_2\": {\n        \"string_value\": \"<string>\"\n      }\n    },\n    \"use_draft\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7974,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": 6788\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": 1485,\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": 2718\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://a.bluecore.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c51004fb-dca8-481a-b40a-870c6e33c906",
+    "name": "Bluecore Authn Transactional API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Bluecore API supports the REST architecture style and uses JSON requests and responses. It exposes Bluecore's Customer (Shopper) profiles, Eligibility (subscription/consent) management, and Communicate (Direct Send + Transactional messaging) surfaces, plus OAuth 2.0 client-credentials authentication. Harvested by API Evangelist from the per-operation OpenAPI definitions published at developers.bluecore.com.\n\nContact Support:\n Name: Bluecore Support\n Email: support@bluecore.com",
+      "type": "text/plain"
+    }
+  }
+}

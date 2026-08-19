@@ -1,0 +1,69 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  registry.npmjs.org, pypi.org, rubygems.org, packagist.org, crates.io, api.github.com/orgs/TriggerMail,
+  developers.bluecore.com, help.bluecore.com/help/integrations-and-technical-resources
+package_count: 0
+official_sdk_count: 0
+packages: []
+notes: >-
+  Bluecore publishes NO first-party client library for any of its APIs. Every public registry was
+  queried unauthenticated on 2026-08-13 and none returned a Bluecore-published API client:
+  npm search "bluecore" returns only third-party or unrelated packages; pypi.org/pypi/bluecore/json,
+  /bluecore-api/json and /bluecore-sdk/json all 404; rubygems search returns an empty array;
+  crates.io returns total 0; packagist returns only unrelated "bluecore"-named projects. The
+  developer portal (developers.bluecore.com) and the help centre's own "Developer resources" page
+  list APIs, data feeds and pixels but no SDK, client library, CLI or Postman collection.
+  Consumers are expected to call the REST endpoints directly.
+registries_probed:
+- {registry: npm, endpoint: 'https://registry.npmjs.org/-/v1/search?text=bluecore', result: no-first-party-package}
+- {registry: pypi, endpoint: 'https://pypi.org/pypi/{bluecore,bluecore-api,bluecore-sdk}/json', result: 404}
+- {registry: rubygems, endpoint: 'https://rubygems.org/api/v1/search.json?query=bluecore', result: empty}
+- {registry: crates.io, endpoint: 'https://crates.io/api/v1/crates?q=bluecore', result: 'total 0'}
+- {registry: packagist, endpoint: 'https://packagist.org/search.json?q=bluecore', result: no-first-party-package}
+- {registry: maven-central, endpoint: 'https://search.maven.org', result: no-first-party-package}
+- {registry: nuget, endpoint: 'https://api.nuget.org', result: no-first-party-package}
+- {registry: pkg.go.dev, endpoint: 'https://proxy.golang.org', result: no-first-party-package}
+first_party_npm_lookalikes:
+- name: bluecore-classnames
+  registry: npm
+  version: 0.4.0
+  published: '2016-12-16'
+  repository: https://github.com/TriggerMail/bluecore-classnames
+  official: true
+  api_client: false
+  note: >-
+    Published from Bluecore's own GitHub org (TriggerMail), so it IS first-party — but it is an
+    internal React class-name builder, not a client for any Bluecore API. Last release 2016.
+    Recorded so a later run does not mistake it for an SDK.
+- name: bluecore-classname-builder
+  registry: npm
+  version: 3.1.0
+  published: '2021-05-12'
+  repository: https://github.com/TriggerMail/bluecore-classnames
+  official: true
+  api_client: false
+  note: Successor to bluecore-classnames; still a React styling utility, not an API client.
+- name: bluecore-url-utils
+  registry: npm
+  version: 0.1.0
+  published: '2015-12-23'
+  repository: https://github.com/TriggerMail/url-utils
+  official: true
+  api_client: false
+  note: First-party URL-manipulation helper. Not an API client.
+cdn_distribution:
+- name: Bluecore Website Integration loader (triggermail.js)
+  registry: cdn
+  url: 'https://api.bluecore.com/triggermail.js/{site_id}.js'
+  version: null
+  published: null
+  official: true
+  api_client: false
+  note: >-
+    The website tag is distributed per-tenant from a Google Cloud Storage bucket fronted by
+    api.bluecore.com and is NOT pinned to a version in the URL — the path carries the customer's
+    site id, not a release. There is no registry or CDN metadata endpoint to query, and an
+    integrator cannot tell which build they are loading. Probing the path with a placeholder id
+    returns GCS NoSuchKey (HTTP 404), confirming the bucket-backed per-tenant scheme.
+    See components/bluecore-components.yml.

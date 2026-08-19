@@ -61,3 +61,46 @@ rate_limit_signaling:
 content_type:
   request: application/json
   note: A 406 is returned when the content-type header is not application/json.
+retry_policy:
+  documented: true
+  strategy: exponential-backoff
+  min_backoff: 30s
+  max_backoff: 300s
+  max_retries: 5
+  source: https://www.bluecore.com/transactional-api-docs/
+  detail: >-
+    Bluecore's published transactional API documentation states: "Bluecore recommends retrying API
+    calls with an exponential backoff, starting with the minimum backoff of 30 seconds and maximum
+    backoff of at least five minutes, for a maximum of five retries." Applies to the retryable
+    5xx classes (500 function timeout, 502, 503, 504).
+payload_limits:
+  max_request_body: 900 KB
+  max_template_attributes: 819200 bytes
+  source: https://www.bluecore.com/transactional-api-docs/
+  detail: >-
+    From the legacy transactional API contract: total payload must be under 900 KB and a
+    `Template attribute size exceeds the maximum allowed (819,200 bytes)` 422 is returned when the
+    template_attributes object is oversized.
+test_mode:
+  sandbox_environment: false
+  mechanism: draft-campaign flag
+  parameter: use_draft
+  detail: >-
+    Bluecore publishes no sandbox environment, no test-vs-live key prefixes and no magic test
+    identifiers, so no sandbox/ artifact is emitted. The only documented test facility is the
+    legacy transactional send's boolean `use_draft` flag, which sends against the draft version of
+    a campaign rather than the live one ("trigger transactional or real-time welcome emails for
+    both tests and live sends"). Sends still go to a real recipient address.
+surface_divergence:
+  detail: >-
+    Bluecore runs three separately-documented API surfaces with three different auth models and
+    three different hosts. An integrator cannot carry conventions from one to the next.
+  surfaces:
+  - {name: Developer API, host: 'https://a.bluecore.com/api', auth: 'OAuth 2.0 client-credentials Bearer',
+     docs: 'https://developers.bluecore.com/', status: beta}
+  - {name: Transactional API (legacy), host: 'https://api.bluecore.com/email/',
+     auth: 'static customer-specific API key, Authorization: Bearer',
+     docs: 'https://www.bluecore.com/transactional-api-docs/', status: 'legacy — Bluecore states it is migrating away from this API'}
+  - {name: Events API, host: 'https://api.bluecore.app/api/track/mobile/v1',
+     auth: 'tenant token inside the JSON body (properties.token)',
+     docs: 'https://help.bluecore.com/help/events-api', status: current}

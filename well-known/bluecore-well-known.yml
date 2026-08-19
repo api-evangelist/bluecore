@@ -1,22 +1,72 @@
-generated: '2026-07-18'
+generated: '2026-08-13'
 method: searched
-source: probed /.well-known/ on Bluecore hosts 2026-07-18
+source: probed /.well-known/ on every Bluecore host 2026-08-13
 notes: >-
-  No /.well-known/ discovery documents are published on any Bluecore host. All probes
-  returned 404. Recorded for completeness; no WellKnown/SecurityTxt pointer is emitted.
+  Round 1 (2026-07-18) probed api./www./bluecore.com/developers.bluecore.com only and recorded a
+  full set of 404s. This round added auth.bluecore.com — the OAuth 2.0 token host named in the
+  published authentication reference (https://auth.bluecore.com/oauth/token) — and it serves a real
+  RFC 8414 authorization-server metadata document, an OIDC discovery document, and a JWKS. Those
+  three 200s are saved verbatim below and are what earns the WellKnown pointer; every other host
+  and path still 404s. api.bluecore.app (the Events API / pixel host) was probed for the first time
+  this round and 404s on all paths.
 hosts:
+- host: https://auth.bluecore.com
+  documents:
+  - {path: /.well-known/oauth-authorization-server, status: 200, file: bluecore-oauth-authorization-server.json,
+     spec: RFC 8414, content_type: application/json}
+  - {path: /.well-known/openid-configuration, status: 200, file: bluecore-openid-configuration.json,
+     spec: OpenID Connect Discovery 1.0, content_type: application/json}
+  - {path: /.well-known/jwks.json, status: 200, file: bluecore-jwks.json,
+     spec: RFC 7517, content_type: application/json}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://a.bluecore.com
+  documents:
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
 - host: https://api.bluecore.com
   documents:
   - {path: /.well-known/security.txt, status: 404}
   - {path: /.well-known/openid-configuration, status: 404}
   - {path: /.well-known/oauth-authorization-server, status: 404}
   - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404, note: HTML 404 body from the WordPress site}
+  - {path: /.well-known/agent.json, status: 404, note: HTML 404 body from the WordPress site}
+- host: https://api.bluecore.app
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
 - host: https://www.bluecore.com
   documents:
   - {path: /.well-known/security.txt, status: 404}
-- host: https://bluecore.com
-  documents:
-  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
 - host: https://developers.bluecore.com
   documents:
   - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://help.bluecore.com
+  documents:
+  - {path: /.well-known/agent-card.json, status: 404}
+summary:
+  documents_found: 3
+  hosts_probed: 7
+  security_txt: false
+  agent_card: false
+  api_catalog: false
+identity_provider:
+  platform: Auth0
+  issuer: https://auth.bluecore.com/
+  detail: >-
+    The discovery documents are served by an Auth0 tenant on Bluecore's own auth.bluecore.com
+    custom domain. The token_endpoint (https://auth.bluecore.com/oauth/token) is the same endpoint
+    the published Bluecore API authentication reference tells developers to call, so the metadata
+    describes the authorization server that actually issues Bluecore API access tokens.

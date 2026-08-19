@@ -1,0 +1,25 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.bluecore.com/
+plan_count: 0
+plans: []
+model: quote-only
+notes: >-
+  Bluecore publishes no pricing page and no plans. https://www.bluecore.com/pricing/ and
+  https://www.bluecore.com/pricing both return HTTP 404 (probed 2026-08-13); there is no
+  pricing entry in the site navigation, no developer-portal pricing page, and no
+  machine-readable catalog endpoint. Bluecore is sold as an enterprise retail-marketing
+  platform through a demo-and-quote sales motion: the only commercial call to action on the
+  site is https://www.bluecore.com/request-a-demo/ (HTTP 200). Independent review sites
+  consistently report a negotiated minimum-spend commitment with usage-based per-unit fees
+  across email sends, clicks and SMS/MMS sends plus implementation and professional-services
+  fees, but Bluecore itself publishes none of those figures, so no tier, quota or overage is
+  recorded here. plan_count is 0 as a measured fact, not a gap in this pass.
+evidence:
+- {url: 'https://www.bluecore.com/pricing/', status: 404}
+- {url: 'https://www.bluecore.com/pricing', status: 404}
+- {url: 'https://www.bluecore.com/request-a-demo/', status: 200}
+free_tier: false
+trial: false
+self_serve_signup: false
+sales_contact: https://www.bluecore.com/request-a-demo/

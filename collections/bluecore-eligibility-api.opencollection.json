@@ -1,0 +1,84 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bluecore Authn Eligibility API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Eligibility",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Eligibility Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://a.bluecore.com/api/namespaces/:namespace/eligibility",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "bluestore",
+                "type": "path",
+                "description": "The Bluecore environment, which is a unique identifier that contains integrations, data feeds, and campaigns."
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "The primary identifier that represents the customer’s email address. See [Email address](https://developers.bluecore.com/docs/email-address#/) for information on how they are normalized and validated."
+              },
+              {
+                "name": "phone_number",
+                "value": "",
+                "type": "query",
+                "description": "The secondary identifier that represents the customer’s phone number. E.164 format."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve Eligibility Status"
+        },
+        {
+          "info": {
+            "name": "Update Eligibility Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://a.bluecore.com/api/namespaces/:namespace/eligibility_events",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "bluestore",
+                "type": "path",
+                "description": "The Bluecore environment, which is a unique identifier that contains integrations, data feeds, and campaigns."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update Eligibility Status"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

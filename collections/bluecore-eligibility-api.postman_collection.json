@@ -1,0 +1,637 @@
+{
+  "item": [
+    {
+      "id": "7d4b2cf3-5d15-4f08-9000-59e145106d54",
+      "name": "Eligibility",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6dbb5a32-8018-4b13-b81c-beb68d8cd4da",
+          "name": "Retrieve Eligibility Status",
+          "request": {
+            "name": "Retrieve Eligibility Status",
+            "description": {},
+            "url": {
+              "path": [
+                "namespaces",
+                ":namespace",
+                "eligibility"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "email",
+                  "value": "<string>",
+                  "description": "The primary identifier that represents the customer’s email address. See [Email address](https://developers.bluecore.com/docs/email-address#/) for information on how they are normalized and validated."
+                },
+                {
+                  "disabled": false,
+                  "key": "phone_number",
+                  "value": "<string>",
+                  "description": "The secondary identifier that represents the customer’s phone number. E.164 format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Bluecore environment, which is a unique identifier that contains integrations, data feeds, and campaigns."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3b420091-fb99-4a80-a648-e42a8c1dd24b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "eligibility"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "phone_number",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Bluecore environment, which is a unique identifier that contains integrations, data feeds, and campaigns."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "x-ratelimit-limit",
+                  "value": "700;w=60;burst=75;w=1"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current time window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "4233"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds until reset of the current time window",
+                  "key": "x-ratelimit-reset",
+                  "value": "4233"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id to trace the logs for this particular request.",
+                  "key": "x-bluecore-id",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"namespace\": \"bluestore\",\n    \"subscription\": {\n      \"id\": {\n        \"email\": \"alice@gmail.com\"\n      },\n      \"states\": [\n        {\n          \"consented_at\": \"2025-08-24T15:22:09.650080419Z\",\n          \"message_type\": \"MARKETING\",\n          \"source\": \"public-api\",\n          \"status\": \"SUBSCRIBED\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ee694d3-7652-42cd-bfab-9be52935e2b7",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "eligibility"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "phone_number",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Bluecore environment, which is a unique identifier that contains integrations, data feeds, and campaigns."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "x-ratelimit-limit",
+                  "value": "700;w=60;burst=75;w=1"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current time window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "4233"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds until reset of the current time window",
+                  "key": "x-ratelimit-reset",
+                  "value": "4233"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id to trace the logs for this particular request.",
+                  "key": "x-bluecore-id",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae193f4e-bd06-4c33-a519-c6d7b823f57b",
+              "name": "Default error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "eligibility"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "phone_number",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Bluecore environment, which is a unique identifier that contains integrations, data feeds, and campaigns."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 412,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": \"string\"\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": 7066.899011654007\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "46a48290-25cc-4ece-9f5a-40dc7ed094a4",
+          "name": "Update Eligibility Status",
+          "request": {
+            "name": "Update Eligibility Status",
+            "description": {},
+            "url": {
+              "path": [
+                "namespaces",
+                ":namespace",
+                "eligibility_events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Bluecore environment, which is a unique identifier that contains integrations, data feeds, and campaigns."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<object>\",\n  \"state\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "06b1a0a9-93a5-43c4-bd86-4348a120588b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "eligibility_events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Bluecore environment, which is a unique identifier that contains integrations, data feeds, and campaigns."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": {\n    \"email\": \"alice@gmail.com\"\n  },\n  \"state\": {\n    \"consented_at\": \"2025-08-22T12:29:20.650080419Z\",\n    \"event\": \"OPTIN\",\n    \"message_type\": \"MARKETING\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "x-ratelimit-limit",
+                  "value": "700;w=60;burst=75;w=1"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current time window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "4233"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds until reset of the current time window",
+                  "key": "x-ratelimit-reset",
+                  "value": "4233"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id to trace the logs for this particular request.",
+                  "key": "x-bluecore-id",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"namespace\": \"bluestore\",\n    \"subscription\": {\n      \"id\": {\n        \"email\": \"alice@gmail.com\"\n      },\n      \"states\": [\n        {\n          \"consented_at\": \"2025-08-24T15:22:09.650080419Z\",\n          \"message_type\": \"MARKETING\",\n          \"source\": \"public-api\",\n          \"status\": \"SUBSCRIBED\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "35e2df0d-e0f4-40ab-a235-338f02d2e99e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "eligibility_events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Bluecore environment, which is a unique identifier that contains integrations, data feeds, and campaigns."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": {\n    \"email\": \"alice@gmail.com\"\n  },\n  \"state\": {\n    \"consented_at\": \"2025-08-22T12:29:20.650080419Z\",\n    \"event\": \"OPTIN\",\n    \"message_type\": \"MARKETING\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "x-ratelimit-limit",
+                  "value": "700;w=60;burst=75;w=1"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current time window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "4233"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds until reset of the current time window",
+                  "key": "x-ratelimit-reset",
+                  "value": "4233"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id to trace the logs for this particular request.",
+                  "key": "x-bluecore-id",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b0dbf00-4f25-4016-86c7-67bef61e2c69",
+              "name": "Default error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "eligibility_events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Bluecore environment, which is a unique identifier that contains integrations, data feeds, and campaigns."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": {\n    \"email\": \"alice@gmail.com\"\n  },\n  \"state\": {\n    \"consented_at\": \"2025-08-22T12:29:20.650080419Z\",\n    \"event\": \"OPTIN\",\n    \"message_type\": \"MARKETING\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 944,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": \"string\"\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": 1692,\n      \"key_1\": 3637,\n      \"key_2\": 3756\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://a.bluecore.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a3a503c2-b301-44ea-926e-8dfd8c3d8b06",
+    "name": "Bluecore Authn Eligibility API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Bluecore API supports the REST architecture style and uses JSON requests and responses. It exposes Bluecore's Customer (Shopper) profiles, Eligibility (subscription/consent) management, and Communicate (Direct Send + Transactional messaging) surfaces, plus OAuth 2.0 client-credentials authentication. Harvested by API Evangelist from the per-operation OpenAPI definitions published at developers.bluecore.com.\n\nContact Support:\n Name: Bluecore Support\n Email: support@bluecore.com",
+      "type": "text/plain"
+    }
+  }
+}

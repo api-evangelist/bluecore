@@ -1,0 +1,84 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bluecore Authn Transactional API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transactional",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve transactional message status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://a.bluecore.com/api/namespaces/:namespace/transactional-messages/:id",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "bluestore",
+                "type": "path",
+                "description": "The unique name of the Bluecore environment."
+              },
+              {
+                "name": "id",
+                "value": "5898781176487936",
+                "type": "path",
+                "description": "The idempotency key used when sending the transactional message.  Used to retrieve the message information and status history. Allowed characters:  alphanumeric, colon (:), underscore (_), period (.), and dash (-)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve transactional message status"
+        },
+        {
+          "info": {
+            "name": "Send a transactional message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://a.bluecore.com/api/namespaces/:namespace/transactional-messages/:id",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "bluestore",
+                "type": "path",
+                "description": "The unique name of the Bluecore environment."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "A client-generated unique identifier used for idempotency. Must be unique for each send request. Allowed characters:  alphanumeric, colon (:), underscore (_), period (.), and dash (-)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Send a transactional message"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

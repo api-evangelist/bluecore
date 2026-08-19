@@ -1,0 +1,67 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://help.bluecore.com/help/integrate-your-website,
+  https://help.bluecore.com/help/capture-data-in-near-real-time,
+  https://help.bluecore.com/help/bluecore-preference-center
+notes: >-
+  Bluecore ships no server-side SDK (see packages/), but it does ship a real client-side
+  surface: a per-tenant JavaScript website tag plus two tracking pixels that an integrator
+  installs into their own storefront pages, and a hosted preference-center page. These are the
+  primary way customer behaviour and consent reach the platform, so they are the practical
+  "components" layer for Bluecore. Endpoint URLs below were verified live on 2026-08-13.
+families:
+- name: Website Integration
+  kind: javascript-tag
+  description: >-
+    The Bluecore Website Integration is a JavaScript snippet installed in the site's global
+    header or tag manager on every desktop and mobile page. It loads asynchronously from a
+    CDN, identifies shoppers by email and phone number using first-party cookies and
+    localStorage sync, and captures behavioural events and near-real-time product catalog
+    updates into a Customer 360 profile.
+  components:
+  - name: triggermail.js loader
+    global: window.triggermail
+    loader_url: 'https://api.bluecore.com/triggermail.js/{site_id}.js'
+    versioned: false
+    install: >-
+      var triggermail=triggermail||[];triggermail.load=function(a){var b=document.createElement("script");
+      b.type="text/javascript";b.async=!0;b.src="https://api.bluecore.com/triggermail.js/"+a+".js";
+      a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)};triggermail.load(siteId);
+    install_source: >-
+      Verbatim from the VTEX Bluecore app (https://github.com/vtex-apps/bluecore/blob/master/pixel/head.html),
+      a published storefront integration of the Bluecore tag. Bluecore's own help centre describes the
+      snippet but does not print the src, so the loader URL is evidenced from a partner implementation
+      rather than from Bluecore documentation.
+    probe: {url: 'https://api.bluecore.com/triggermail.js/bluestore.js', status: 404,
+            note: 'GCS NoSuchKey — confirms a per-tenant object in a Google Cloud Storage bucket; a real site_id is required.'}
+- name: Tracking pixels
+  kind: image-pixel
+  description: >-
+    Two 1x1 transparent GIF pixels installed on specific confirmation pages as a redundant
+    capture path when a shopper leaves before the JavaScript tag fires. The Purchase Pixel is
+    a mandatory install during onboarding.
+  components:
+  - name: Purchase Pixel
+    url: https://api.bluecore.app/api/track/purchase_pixel
+    placement: purchase confirmation page
+    captures: purchase data (order, products, total)
+    probe: {status: 200, content_type: image/gif}
+  - name: Unsubscribe Pixel
+    url: https://api.bluecore.com/api/channels/unsubscribe_pixel
+    placement: unsubscribe confirmation page
+    captures: the customer's email address
+    probe: {status: 200, content_type: image/gif}
+- name: Hosted surfaces
+  kind: hosted-page
+  components:
+  - name: Bluecore Preference Center
+    docs: https://help.bluecore.com/help/bluecore-preference-center
+    description: >-
+      A Bluecore-hosted subscription/preference page shoppers use to manage their email and SMS
+      eligibility. Backs the same consent state exposed by the Eligibility API.
+    related_api: openapi/bluecore-eligibility-api-openapi.yml
+mobile_sdk: false
+mobile_note: >-
+  There is no Bluecore iOS/Android SDK. Mobile apps are told to POST to the Events API
+  (https://api.bluecore.app/api/track/mobile/v1) directly — see asyncapi/bluecore-events.yml.

@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bluecore Authn Direct send API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Direct send",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send direct message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://a.bluecore.com/api/namespaces/:namespace/direct-send-messages",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "bluestore",
+                "type": "path",
+                "description": "The unique name of the Bluecore environment."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Send direct message"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

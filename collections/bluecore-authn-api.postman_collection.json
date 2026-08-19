@@ -1,0 +1,243 @@
+{
+  "item": [
+    {
+      "id": "3b11a6d0-f70d-4874-9958-6c1466215771",
+      "name": "Authn",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "43576fdb-4dd3-46c3-902c-c51932448cee",
+          "name": "Get Access Token",
+          "request": {
+            "name": "Get Access Token",
+            "description": {},
+            "url": {
+              "protocol": "https",
+              "path": [
+                "oauth",
+                "token"
+              ],
+              "host": [
+                "auth",
+                "bluecore",
+                "com"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"audience\": \"<enum>\",\n  \"grant_type\": \"<enum>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "81250ec7-b9fa-4ada-97f0-86d3132b41ee",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "oauth",
+                    "token"
+                  ],
+                  "host": [
+                    "auth",
+                    "bluecore",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"audience\": \"https://a.bluecore.com\",\n  \"client_id\": \"\",\n  \"client_secret\": \"\",\n  \"grant_type\": \"client_credentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "x-ratelimit-limit",
+                  "value": "700;w=60;burst=75;w=1"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current time window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "5179"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds until reset of the current time window",
+                  "key": "x-ratelimit-reset",
+                  "value": "5179"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"authenticated token here\",\n  \"expires_in\": 86400,\n  \"token_type\": \"Bearer\",\n  \"scope\": \"customers:read customers:write eligibility:read eligibility:write\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "000745b7-ffce-427f-8c68-c497ea48ad41",
+              "name": "Client error",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "oauth",
+                    "token"
+                  ],
+                  "host": [
+                    "auth",
+                    "bluecore",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"audience\": \"https://a.bluecore.com\",\n  \"client_id\": \"\",\n  \"client_secret\": \"\",\n  \"grant_type\": \"client_credentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "x-ratelimit-limit",
+                  "value": "700;w=60;burst=75;w=1"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current time window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "5179"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds until reset of the current time window",
+                  "key": "x-ratelimit-reset",
+                  "value": "5179"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 251,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": 7925.015503395684,\n      \"key_1\": 7833\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": 7441,\n      \"key_1\": true,\n      \"key_2\": 4477\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://a.bluecore.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "87d039f6-7b50-40b6-937a-c41e083674d1",
+    "name": "Bluecore Authn API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Bluecore API supports the REST architecture style and uses JSON requests and responses. It exposes Bluecore's Customer (Shopper) profiles, Eligibility (subscription/consent) management, and Communicate (Direct Send + Transactional messaging) surfaces, plus OAuth 2.0 client-credentials authentication. Harvested by API Evangelist from the per-operation OpenAPI definitions published at developers.bluecore.com.\n\nContact Support:\n Name: Bluecore Support\n Email: support@bluecore.com",
+      "type": "text/plain"
+    }
+  }
+}

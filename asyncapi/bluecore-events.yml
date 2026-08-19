@@ -1,0 +1,75 @@
+generated: '2026-08-13'
+method: searched
+source: https://help.bluecore.com/help/events-api
+spec_type: none
+spec_note: >-
+  Bluecore publishes NO AsyncAPI document. /asyncapi.yaml and /asyncapi.json were not served on any
+  Bluecore host, the GitHub org (TriggerMail) carries no event schema repo, and the developer portal
+  ships only per-operation OpenAPI. This file captures the real event surface as documented in prose
+  so it is not silently dropped; no AsyncAPI was authored on Bluecore's behalf and no AsyncAPI
+  pointer is emitted.
+direction: inbound-ingestion
+webhooks_outbound: false
+webhooks_note: >-
+  Bluecore does not advertise outbound webhooks. It CONSUMES third-party webhooks — the help centre
+  documents enabling Shopify webhooks so Shopify pushes order and catalog changes into Bluecore
+  (https://help.bluecore.com/help/shopify-webhooks) — but publishes no subscription API, no event
+  delivery endpoint registration, and no signed-payload contract for pushing events out to a
+  customer's own listener. No Webhooks pointer is emitted for that reason.
+surface:
+  name: Bluecore Events API
+  transport: http
+  endpoint: https://api.bluecore.app/api/track/mobile/v1
+  method: POST
+  content_type: application/json
+  docs: https://help.bluecore.com/help/events-api
+  auth:
+    style: token-in-payload
+    field: properties.token
+    detail: >-
+      The Events API is authenticated by the tenant `token` (the Bluecore namespace) carried inside
+      the request body's `properties` object — not by an Authorization header. This is a different
+      auth model from both the OAuth 2.0 developer API (a.bluecore.com/api) and the legacy static
+      Bearer key on the transactional API (api.bluecore.com/email/).
+  envelope:
+    event: string — the event type name
+    properties:
+      distinct_id: required — the shopper identifier
+      token: required — tenant namespace
+      customer: required for identity events
+      products: required for commerce events except search
+      search_term: required for search events
+      order_id: required for purchase events
+      total: required for purchase events
+      client: optional
+      device: optional
+events:
+- {name: viewed_product, category: behavioral, description: Shopper viewed a product detail page.}
+- {name: search, category: behavioral, description: Shopper ran a site search; carries search_term.}
+- {name: add_to_cart, category: commerce, description: Shopper added a product to the cart.}
+- {name: remove_from_cart, category: commerce, description: Shopper removed a product from the cart.}
+- {name: wishlist, category: commerce, description: Shopper added a product to a wishlist.}
+- {name: purchase, category: commerce, description: Shopper completed an order; carries order_id and total.}
+- {name: customer_patch, category: identity, description: Update attributes on an existing customer profile.}
+- {name: identify, category: identity, description: Identify or create a customer profile.}
+- {name: optin, category: consent, description: Customer opted in to marketing messaging.}
+- {name: unsubscribe, category: consent, description: Customer unsubscribed from messaging.}
+custom_events:
+  supported: true
+  detail: >-
+    Customers can define custom events (the docs' example is `sweepstakes_signup`) in collaboration
+    with their Bluecore CSM. The custom-event vocabulary is per-tenant and not published, so it
+    cannot be enumerated here.
+alternate_capture_paths:
+- {name: Website Integration JavaScript, ref: components/bluecore-components.yml,
+   detail: 'The primary event source; the Events API exists to do the same job from mobile apps and server sources.'}
+- {name: Purchase Pixel, url: 'https://api.bluecore.app/api/track/purchase_pixel'}
+- {name: Unsubscribe Pixel, url: 'https://api.bluecore.com/api/channels/unsubscribe_pixel'}
+- {name: Shopify webhooks (inbound), docs: 'https://help.bluecore.com/help/shopify-webhooks'}
+- {name: Batch data feeds, docs: 'https://help.bluecore.com/help/setup-data-ingestion'}
+evidence:
+- {url: 'https://help.bluecore.com/help/events-api', status: 200}
+- {url: 'https://help.bluecore.com/help/shopify-webhooks', status: 200}
+- {url: 'https://help.bluecore.com/help/setup-data-ingestion', status: 200}
+- {url: 'https://api.bluecore.app/api/track/mobile/v1', status: 500,
+   note: 'POST with an empty body — the host and path are live and reject the payload; not probed further.'}

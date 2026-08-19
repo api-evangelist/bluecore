@@ -31,3 +31,37 @@ notes: >-
   windows: burst (1-second) and steady (1-minute). Documented per-endpoint limits (customer,
   eligibility) are burst 100/s and steady 1000/m. The exact limit differs per API and is
   echoed on every response via the RateLimit-* headers.
+limit_count: 3
+other_surfaces:
+- name: Transactional API (legacy)
+  host: https://api.bluecore.com/email/
+  source: https://www.bluecore.com/transactional-api-docs/
+  generated: '2026-08-13'
+  method: searched
+  windows:
+  - {name: recommended-max, window: 1s, limit: 200, unit: requests/second}
+  signaling:
+    headers: []
+    detail: >-
+      The legacy transactional API publishes NO RateLimit-* response headers. Its documentation
+      states only that "To promote fair access and optimal performance, Bluecore enforces rate
+      limiting. Bluecore recommends a maximum of 200 calls/second." An agent gets no runtime
+      signal on this surface — the number exists only in prose.
+  payload_limits:
+    max_request_body: 900 KB
+    max_template_attributes: 819200 bytes
+  retry:
+    strategy: exponential-backoff
+    min_backoff: 30s
+    max_backoff: 300s
+    max_retries: 5
+- name: Events API
+  host: https://api.bluecore.app/api/track/mobile/v1
+  source: https://help.bluecore.com/help/events-api
+  generated: '2026-08-13'
+  method: searched
+  windows: []
+  detail: >-
+    No rate limit is published for the Events API. The help-centre reference documents the
+    envelope and the event vocabulary but names no limit, no window and no response header.
+    Recorded as an honest undocumented surface, not as an absence of limiting.
