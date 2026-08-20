@@ -48,6 +48,17 @@ tags:
 - Email
 - SMS
 - Messaging
+- E-Commerce
+- Consent
+tags_raw:
+- Company
+- Retail
+- Marketing
+- Customer Data Platform
+- Personalization
+- Email
+- SMS
+- Messaging
 - eCommerce
 - Consent
 maintainers:
@@ -218,6 +229,10 @@ apis:
   humanURL: https://help.bluecore.com/help/events-api
   baseURL: https://api.bluecore.app/api/track/mobile/v1
   tags:
+  - Event
+  - Ingestion
+  - Behavioral Data
+  tags_raw:
   - Events
   - Ingestion
   - Behavioral Data
