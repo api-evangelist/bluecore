@@ -187,45 +187,15 @@ apis:
     url: authentication/bluecore-authentication.yml
   - type: OAuthScopes
     url: scopes/bluecore-scopes.yml
-- aid: bluecore:bluecore-transactional-legacy-api
-  name: Bluecore Transactional API (legacy)
-  description: >-
-    The original Bluecore Transactional API on https://api.bluecore.com/email/ - send a transactional
-    or real-time welcome email against a Bluecore campaign, and retrieve the delivery status of a
-    previously triggered send by conversation id. Authenticated by a static customer-specific Bearer
-    API key rather than OAuth. Bluecore's own OpenAPI repository states the company is migrating away
-    from this surface, but the documentation and the specification are both still published with no
-    deprecation notice, no sunset date and no migration guide.
-  humanURL: https://www.bluecore.com/transactional-api-docs/
-  baseURL: https://api.bluecore.com/email/
-  tags:
-  - Transactional
-  - Email
-  - Legacy
-  properties:
-  - type: OpenAPI
-    url: openapi/bluecore-transactional-legacy-api-openapi.yml
-  - type: Documentation
-    url: https://www.bluecore.com/transactional-api-docs/
-  - type: SourceCode
-    url: https://github.com/TriggerMail/bluecore-openapi-docs
-  - type: Overlay
-    url: overlays/bluecore-transactional-legacy-overlay.yaml
-  - type: Authentication
-    url: authentication/bluecore-authentication.yml
-  - type: ErrorCatalog
-    url: errors/bluecore-problem-types.yml
-  - type: Lifecycle
-    url: lifecycle/bluecore-lifecycle.yml
 - aid: bluecore:bluecore-events-api
   name: Bluecore Events API
   description: >-
-    Bluecore's event-ingestion API - POST shopper behaviour and identity events (viewed_product,
-    search, add_to_cart, remove_from_cart, wishlist, purchase, customer_patch, identify, optin,
-    unsubscribe, plus per-tenant custom events) from a mobile app or any server-side source, doing
-    the same job the Bluecore website JavaScript tag does for a storefront. Authenticated by the
-    tenant token carried inside the JSON request body. Documented in prose only - Bluecore publishes
-    no OpenAPI and no AsyncAPI for this surface.
+    Bluecore's event-ingestion API - POST shopper behaviour and identity events (viewed_product, search,
+    add_to_cart, remove_from_cart, wishlist, purchase, customer_patch, identify, optin, unsubscribe, plus
+    per-tenant custom events) from a mobile app or any server-side source, doing the same job the Bluecore
+    website JavaScript tag does for a storefront. Authenticated by the tenant token carried inside the
+    JSON request body. Documented in prose only - Bluecore publishes no OpenAPI and no AsyncAPI for this
+    surface.
   humanURL: https://help.bluecore.com/help/events-api
   baseURL: https://api.bluecore.app/api/track/mobile/v1
   tags:
@@ -243,6 +213,46 @@ apis:
     url: asyncapi/bluecore-events.yml
   - type: Authentication
     url: authentication/bluecore-authentication.yml
+- aid: bluecore:bluecore-get-status-api
+  name: Bluecore GET STATUS API
+  description: The GET STATUS API from Bluecore — 1 operation(s) for get status.
+  humanURL: https://developers.bluecore.com/
+  baseURL: https://a.bluecore.com/api
+  tags:
+  - GET STATUS
+  properties:
+  - type: OpenAPI
+    url: openapi/bluecore-get-status-api-openapi.yml
+  - type: Documentation
+    url: https://www.bluecore.com/transactional-api-docs/
+  - type: SourceCode
+    url: https://github.com/TriggerMail/bluecore-openapi-docs
+  - type: Authentication
+    url: authentication/bluecore-authentication.yml
+  - type: ErrorCatalog
+    url: errors/bluecore-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/bluecore-lifecycle.yml
+- aid: bluecore:bluecore-send-email-api
+  name: Bluecore SEND EMAIL API
+  description: The SEND EMAIL API from Bluecore — 1 operation(s) for send email.
+  humanURL: https://developers.bluecore.com/
+  baseURL: https://a.bluecore.com/api
+  tags:
+  - SEND EMAIL
+  properties:
+  - type: OpenAPI
+    url: openapi/bluecore-send-email-api-openapi.yml
+  - type: Documentation
+    url: https://www.bluecore.com/transactional-api-docs/
+  - type: SourceCode
+    url: https://github.com/TriggerMail/bluecore-openapi-docs
+  - type: Authentication
+    url: authentication/bluecore-authentication.yml
+  - type: ErrorCatalog
+    url: errors/bluecore-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/bluecore-lifecycle.yml
 common:
 - type: Overlay
   url: overlays/bluecore-transactional-legacy-overlay.yaml
