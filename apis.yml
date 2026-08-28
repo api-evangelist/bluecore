@@ -9,6 +9,19 @@ description: >-
   surfaces for transactional and direct-send messaging. Customers include Wayfair, Gap, J.Crew,
   Lenovo, CVS, and Fender. Backed by Norwest Venture Partners and Techstars.
 url: https://raw.githubusercontent.com/api-evangelist/bluecore/refs/heads/main/apis.yml
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: true
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  - pricing
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: quote
   onboarding: sales-gated
