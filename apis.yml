@@ -267,6 +267,9 @@ apis:
   - type: Lifecycle
     url: lifecycle/bluecore-lifecycle.yml
 common:
+- type: CapabilityMap
+  url: capabilities/bluecore-capability-edges.yml
+  name: Bluecore Business Capability Map
 - type: Overlay
   url: overlays/bluecore-transactional-legacy-overlay.yaml
 - type: WellKnown
