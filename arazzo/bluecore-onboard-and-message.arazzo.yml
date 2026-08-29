@@ -6,8 +6,17 @@ info:
     Authenticate, upsert a Customer Profile, opt them into marketing, send a transactional
     message with an idempotency key, and read its delivery status.
 sourceDescriptions:
-- name: bluecore
-  url: ../openapi/bluecore-openapi.yml
+- name: authnApi
+  url: ../openapi/bluecore-authn-api-openapi.yml
+  type: openapi
+- name: eligibilityApi
+  url: ../openapi/bluecore-eligibility-api-openapi.yml
+  type: openapi
+- name: profileApi
+  url: ../openapi/bluecore-profile-api-openapi.yml
+  type: openapi
+- name: transactionalApi
+  url: ../openapi/bluecore-transactional-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: onboardCustomerAndSendTransactional
