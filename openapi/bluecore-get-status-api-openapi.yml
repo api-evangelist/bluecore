@@ -1,0 +1,81 @@
+openapi: 3.2.0
+info:
+  title: Bluecore Transactional GET STATUS API
+servers:
+- url: https://api.bluecore.com/email/
+tags:
+- name: GET STATUS
+paths:
+  /status/v1/{namespace}/{conversation_id}:
+    get:
+      summary: Get the Status of an Email Delivery Attempt
+      description: " This section details how to get the status of an email delivery attempt. \n\n**Returns**: Object containing the status and details of the message. (See <span id='response-code-text'>**Responses > 202**</span> below). "
+      parameters:
+      - in: path
+        name: namespace
+        description: The partner namespace in Bluecore.
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: conversation_id
+        description: The conversation ID.
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: Authorization Bearer
+        description: The authorization token in the header.
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Successful receipt of the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationResponse'
+      tags:
+      - GET STATUS
+components:
+  schemas:
+    ConversationResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: 'This is the status of the email message. Possible values: Being Processed, Sent for Delivery, Delivered, or Failed.'
+          enum:
+          - Being Processed
+          - Sent for Delivery
+          - Delivered, Failed
+          example: Being Processed
+        message:
+          type: string
+          description: 'The details of the failure. Possible values: Bounce, Block, Previously Bounced/Blocked, Email Content Conversation Failed.'
+          enum:
+          - Bounce
+          - Block
+          - Previously Bounced/Blocked
+          - Email Content Generation Failed
+          example: string
+x-tagGroups:
+- name: GETTING STARTED
+  tags:
+  - INTRODUCTION
+- name: API ACCESS
+  tags:
+  - AUTHORIZATION
+- name: ENDPOINTS
+  tags:
+  - SEND EMAIL
+  - GET STATUS
+- name: API REFERENCE
+  tags:
+  - REQUEST BODY
+  - TEMPLATE ATTRIBUTES
+  - CUSTOMER ATTRIBUTES
+  - VALIDATION
+  - API RESPONSE CODES
+  - API LIMITS
