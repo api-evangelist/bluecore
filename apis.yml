@@ -166,6 +166,8 @@ apis:
   humanURL: https://developers.bluecore.com/
   baseURL: https://a.bluecore.com/api
   tags:
+  - Profiles
+  tags_raw:
   - Profile
   properties:
   - type: OpenAPI
