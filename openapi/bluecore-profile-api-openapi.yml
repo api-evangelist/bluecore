@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Bluecore Authn Profile API
+  title: Bluecore Profile API
   version: 0.0.1
   description: The Bluecore API supports the REST architecture style and uses JSON requests and responses. It exposes Bluecore's Customer (Shopper) profiles, Eligibility (subscription/consent) management, and Communicate (Direct Send + Transactional messaging) surfaces, plus OAuth 2.0 client-credentials authentication. Harvested by API Evangelist from the per-operation OpenAPI definitions published at developers.bluecore.com.
   contact:
@@ -218,22 +218,11 @@ paths:
         - customers.write
 components:
   schemas:
-    google.rpc.Status:
+    customers.public.GetResponse:
       type: object
       properties:
-        code:
-          type: integer
-          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
-          format: int32
-        message:
-          type: string
-          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/google.protobuf.Any'
-          description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
-      description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+        data:
+          $ref: '#/components/schemas/customers.public.Customer'
     Profile_CreateOrUpdate_customers.public.CreateOrUpdateRequest:
       required:
       - id
@@ -252,11 +241,22 @@ components:
         attributes:
           type: object
           description: Key/value pairs to associate with the Customer Profile. Each attribute name must be in `snake_case`.
-    customers.public.GetResponse:
+    google.rpc.Status:
       type: object
       properties:
-        data:
-          $ref: '#/components/schemas/customers.public.Customer'
+        code:
+          type: integer
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+          format: int32
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/google.protobuf.Any'
+          description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
+      description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
     customers.public.Customer:
       type: object
       properties:
@@ -276,6 +276,19 @@ components:
           description: Timestamp the customer was last updated
           format: date-time
       description: A shopper's unified profile is a collection of identifiers and attributes currently associated together.
+    customers.public.CreateOrUpdateResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/customers.public.Customer'
+    google.protobuf.Any:
+      type: object
+      properties:
+        '@type':
+          type: string
+          description: The type of the serialized message.
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
     customers.public.Identifier:
       type: object
       allOf:
@@ -298,19 +311,6 @@ components:
               type: string
               description: The secondary identifier that represents the customer’s phone number. E.164 format.
               format: e.164
-    google.protobuf.Any:
-      type: object
-      properties:
-        '@type':
-          type: string
-          description: The type of the serialized message.
-      additionalProperties: true
-      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
-    customers.public.CreateOrUpdateResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/customers.public.Customer'
   securitySchemes:
     GlooAuth:
       type: apiKey

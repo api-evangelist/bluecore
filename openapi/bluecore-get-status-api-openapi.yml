@@ -9,7 +9,10 @@ paths:
   /status/v1/{namespace}/{conversation_id}:
     get:
       summary: Get the Status of an Email Delivery Attempt
-      description: " This section details how to get the status of an email delivery attempt. \n\n**Returns**: Object containing the status and details of the message. (See <span id='response-code-text'>**Responses > 202**</span> below). "
+      description: 'This section details how to get the status of an email delivery attempt.
+
+
+        **Returns**: Object containing the status and details of the message. (See **Responses > 202** below).'
       parameters:
       - in: path
         name: namespace
@@ -38,6 +41,8 @@ paths:
                 $ref: '#/components/schemas/ConversationResponse'
       tags:
       - GET STATUS
+      operationId: getStatusV1ByNamespaceByConversationId
+      x-operation-id-source: derived
 components:
   schemas:
     ConversationResponse:

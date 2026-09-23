@@ -9,7 +9,10 @@ paths:
   /send/v1/{namespace}:
     post:
       summary: Send a Transactional or Real-Time Welcome Email
-      description: " This section details how to send a transactional or real-time welcome email through Bluecore. \n\n**Returns**: Object containing the conversation ID used to track the message. (See <span id='response-code-text'>**Responses > 202**</span> below). "
+      description: 'This section details how to send a transactional or real-time welcome email through Bluecore.
+
+
+        **Returns**: Object containing the conversation ID used to track the message. (See **Responses > 202** below).'
       parameters:
       - in: path
         name: namespace
@@ -42,6 +45,8 @@ paths:
           description: Successful receipt of the request.
       tags:
       - SEND EMAIL
+      operationId: postSendV1ByNamespace
+      x-operation-id-source: derived
 components:
   schemas:
     body:

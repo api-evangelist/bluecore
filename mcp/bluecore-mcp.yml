@@ -37,19 +37,7 @@ tools:
   source_operation: openapi/bluecore-openapi.yml#DirectSend_Send
 deployment:
   mode: none
-  endpoint: null
-  install: null
-  package: null
-  auth: unknown
   verified: derived
   tools: 9
-  checked: '2026-08-13'
-  source: catalog MCP census; re-searched 2026-08-13
-  detail: >-
-    Bluecore ships no MCP server of any kind — neither a remote endpoint an agent can POST to nor a
-    local stdio package a human can install. Re-checked 2026-08-13: no @bluecore / bluecore-mcp
-    package on npm or PyPI, no MCP repo in Bluecore's GitHub org (TriggerMail), no mention of MCP,
-    Model Context Protocol or agent tooling in the developer portal or help centre, and
-    /.well-known/mcp.json 404s on every Bluecore host. (Searches for "Bluecore MCP" surface
-    BlueConic's MCP server, which is a different company.) The tools[] list below remains a
-    CANDIDATE derived one-per-operation from the harvested OpenAPI; no endpoint URL was invented.
+  checked: '2026-08-12'
+  source: catalog MCP census

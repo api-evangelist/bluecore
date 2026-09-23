@@ -1,12 +1,8 @@
 {
   "provider": "bluecore",
   "sources": [
-    "bluecore-authn-api-openapi.yml",
-    "bluecore-campaignsapipublic-api-openapi.yml",
-    "bluecore-direct-send-api-openapi.yml",
-    "bluecore-eligibility-api-openapi.yml",
-    "bluecore-profile-api-openapi.yml",
-    "bluecore-transactional-api-openapi.yml"
+    "_original/bluecore-openapi.yml",
+    "_original/bluecore-transactional-legacy-api-openapi.yml"
   ],
   "outputs": [
     "bluecore-authn-api-openapi.yml",
@@ -14,11 +10,34 @@
     "bluecore-direct-send-api-openapi.yml",
     "bluecore-eligibility-api-openapi.yml",
     "bluecore-profile-api-openapi.yml",
-    "bluecore-transactional-api-openapi.yml"
+    "bluecore-transactional-api-openapi.yml",
+    "bluecore-get-status-api-openapi.yml",
+    "bluecore-send-email-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
-  "warnings": [],
-  "notes": [],
-  "skipped": []
+  "warnings": [
+    "bluecore-transactional-legacy-api-openapi.yml: info.version missing"
+  ],
+  "notes": [
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "bluecore-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "bluecore-openapi.yml: declared missing tag: Authn",
+    "bluecore-transactional-legacy-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "bluecore-transactional-legacy-api-openapi.yml: declared missing tag: GET STATUS",
+    "bluecore-transactional-legacy-api-openapi.yml: declared missing tag: SEND EMAIL",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "_original/bluecore-transactional-legacy-openapi.yml: archived document superseded by a larger archived document",
+    "bluecore-authn-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bluecore-campaignsapipublic-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bluecore-direct-send-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bluecore-eligibility-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bluecore-get-status-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bluecore-profile-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bluecore-send-email-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bluecore-transactional-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
