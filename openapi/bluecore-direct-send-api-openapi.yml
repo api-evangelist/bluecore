@@ -85,49 +85,14 @@ paths:
         - direct_send.api
 components:
   schemas:
-    DirectSend_Send_emailflow.public.SendRequest:
-      required:
-      - messages
+    google.protobuf.Any:
       type: object
       properties:
-        namespace:
+        '@type':
           type: string
-          description: The namespace for this request. Must match the `{namespace}` path segment.
-        messages:
-          minItems: 1
-          type: array
-          description: One or more direct messages to send.
-          items:
-            $ref: '#/components/schemas/emailflow.public.DirectMessage'
-    emailflow.public.Identifier:
-      type: object
-      allOf:
-      - oneOf:
-        - title: email
-          type: object
-          properties:
-            email:
-              example: alice@gmail.com
-              maxLength: 254
-              type: string
-              description: The primary identifier that represents the customer’s email address. See [Email address](https://developers.bluecore.com/docs/email-address#/) for information on how they are normalized and validated.
-              format: email
-    google.rpc.Status:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
-          format: int32
-        message:
-          type: string
-          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/google.protobuf.Any'
-          description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
-      description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+          description: The type of the serialized message.
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
     emailflow.public.Address:
       type: object
       properties:
@@ -138,14 +103,6 @@ components:
         name:
           type: string
           description: Optional display name shown to recipients alongside the email address (for example, in the From or Reply-To header).
-    google.protobuf.Any:
-      type: object
-      properties:
-        '@type':
-          type: string
-          description: The type of the serialized message.
-      additionalProperties: true
-      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
     emailflow.public.DirectMessage:
       required:
       - body
@@ -184,6 +141,49 @@ components:
         unsubscribe_replacement:
           type: string
           description: Optional override for the unsubscribe link tag to use for unsubscribe link placement in the email body.
+    google.rpc.Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+          format: int32
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/google.protobuf.Any'
+          description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
+      description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+    DirectSend_Send_emailflow.public.SendRequest:
+      required:
+      - messages
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The namespace for this request. Must match the `{namespace}` path segment.
+        messages:
+          minItems: 1
+          type: array
+          description: One or more direct messages to send.
+          items:
+            $ref: '#/components/schemas/emailflow.public.DirectMessage'
+    emailflow.public.Identifier:
+      type: object
+      allOf:
+      - oneOf:
+        - title: email
+          type: object
+          properties:
+            email:
+              example: alice@gmail.com
+              maxLength: 254
+              type: string
+              description: The primary identifier that represents the customer’s email address. See [Email address](https://developers.bluecore.com/docs/email-address#/) for information on how they are normalized and validated.
+              format: email
   securitySchemes:
     GlooAuth:
       type: apiKey

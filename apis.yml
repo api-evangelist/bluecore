@@ -10,17 +10,20 @@ description: >-
   Lenovo, CVS, and Fender. Backed by Norwest Venture Partners and Techstars.
 url: https://raw.githubusercontent.com/api-evangelist/bluecore/refs/heads/main/apis.yml
 deliveryModel:
-  model: unknown
+  model: saas
+  license_evidence:
+    not_product:
+    - triggermail/bluecore-openapi-docs
   open_source: unknown
   commercial: true
   callable_host: true
-  label: Delivery model not determined — needs a product licence on record
+  label: Hosted service · you call their endpoint
   confidence: low
   source:
   - openapi
   - pricing
-  - repository-unlicensed
-  generated: '2026-08-28'
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: quote

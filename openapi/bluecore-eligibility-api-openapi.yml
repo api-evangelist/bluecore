@@ -250,6 +250,62 @@ paths:
         - eligibility.write
 components:
   schemas:
+    google.protobuf.Any:
+      type: object
+      properties:
+        '@type':
+          type: string
+          description: The type of the serialized message.
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+    eligibility.public.GetResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/eligibility.public.Subscriptions'
+    customers.Identifier:
+      type: object
+      allOf:
+      - oneOf:
+        - title: email
+          type: object
+          properties:
+            email:
+              type: string
+              description: 'The email address for the customer. It must be "valid" according to Bluecore''s current policy (Python: bluecore.email.validate_email), and lower-cased (Python: bluecore.email.clean_email).'
+        - title: phone_number
+          type: object
+          properties:
+            phone_number:
+              type: string
+              description: An phone number
+      description: A customer identifier used for lookups
+    eligibility.public.Subscriptions:
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The Bluecore environment, which is a unique identifier that contains integrations, data feeds, and campaigns.
+        subscription:
+          allOf:
+          - $ref: '#/components/schemas/eligibility.public.Subscription'
+          description: Each entry reflects the channel's current subscription state for a message type
+    google.rpc.Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+          format: int32
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/google.protobuf.Any'
+          description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
+      description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
     eligibility.public.Subscription:
       type: object
       properties:
@@ -262,6 +318,29 @@ components:
           items:
             $ref: '#/components/schemas/eligibility.public.SubscriptionDetails'
           description: Subscription details for marketing type
+    eligibility.public.UpdateResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/eligibility.public.Subscriptions'
+    eligibility.public.SubscriptionEvent:
+      type: object
+      allOf:
+      - type: object
+        properties:
+          event:
+            type: string
+            description: "The eligibility update. The available options are: \n\n - `OPTIN` opts the customer in to receive email campaigns if the `email` parameter was sent or SMS/MMS campaigns if the `phone_number` was sent. This can only be used for single opt-in SMS/MMS workflows.\n - `UNSUBSCRIBE` unsubscribes the customer from email campaigns if the `email` parameter` was sent or SMS/MMS campaigns if the `phone_number` was sent.\n - `SIGNUP` is used in the double opt-in flow for SMS/MMS campaigns. This sets the status to `pending_confirmation` and sends the customer the double opt-in message."
+          consented_at:
+            type: string
+            description: The timestamp that this update was known to be accurate. The semantic time the update took place. For example, if the data is from last week's activity, set the value to that time. When unset, it defaults to when the backend receives the request.
+            format: date-time
+          message_type:
+            type: string
+            description: The campaign type for which eligibility is updated.
+          channel_identifier:
+            type: string
+            description: The send code used to deliver a double opt-in message to the customer. If left blank, the system selects the first short code in the Namespace. If no short code is available, the first toll free number is used. For more information, see [Understand SMS short codes.](https://help.bluecore.com/en/articles/5624524-understanding-sms-sending-codes)
     eligibility.public.Identifier:
       type: object
       allOf:
@@ -284,98 +363,6 @@ components:
               type: string
               description: The secondary identifier that represents the customer’s phone number. E.164 format.
               format: e.164
-    Eligibility_Update_eligibility.public.UpdateRequest:
-      required:
-      - id
-      type: object
-      properties:
-        id:
-          allOf:
-          - $ref: '#/components/schemas/eligibility.public.Identifier'
-          description: Identifier the subscription statuses are for
-        state:
-          allOf:
-          - $ref: '#/components/schemas/eligibility.public.SubscriptionEvent'
-          description: List of eligibility update actions
-    eligibility.public.Subscriptions:
-      type: object
-      properties:
-        namespace:
-          type: string
-          description: The Bluecore environment, which is a unique identifier that contains integrations, data feeds, and campaigns.
-        subscription:
-          allOf:
-          - $ref: '#/components/schemas/eligibility.public.Subscription'
-          description: Each entry reflects the channel's current subscription state for a message type
-    eligibility.public.UpdateResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/eligibility.public.Subscriptions'
-    eligibility.public.GetResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/eligibility.public.Subscriptions'
-    google.rpc.Status:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
-          format: int32
-        message:
-          type: string
-          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/google.protobuf.Any'
-          description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
-      description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
-    eligibility.public.SubscriptionEvent:
-      type: object
-      allOf:
-      - type: object
-        properties:
-          event:
-            type: string
-            description: "The eligibility update. The available options are: \n\n - `OPTIN` opts the customer in to receive email campaigns if the `email` parameter was sent or SMS/MMS campaigns if the `phone_number` was sent. This can only be used for single opt-in SMS/MMS workflows.\n - `UNSUBSCRIBE` unsubscribes the customer from email campaigns if the `email` parameter` was sent or SMS/MMS campaigns if the `phone_number` was sent.\n - `SIGNUP` is used in the double opt-in flow for SMS/MMS campaigns. This sets the status to `pending_confirmation` and sends the customer the double opt-in message."
-          consented_at:
-            type: string
-            description: The timestamp that this update was known to be accurate. The semantic time the update took place. For example, if the data is from last week's activity, set the value to that time. When unset, it defaults to when the backend receives the request.
-            format: date-time
-          message_type:
-            type: string
-            description: The campaign type for which eligibility is updated.
-          channel_identifier:
-            type: string
-            description: The send code used to deliver a double opt-in message to the customer. If left blank, the system selects the first short code in the Namespace. If no short code is available, the first toll free number is used. For more information, see [Understand SMS short codes.](https://help.bluecore.com/en/articles/5624524-understanding-sms-sending-codes)
-    google.protobuf.Any:
-      type: object
-      properties:
-        '@type':
-          type: string
-          description: The type of the serialized message.
-      additionalProperties: true
-      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
-    customers.Identifier:
-      type: object
-      allOf:
-      - oneOf:
-        - title: email
-          type: object
-          properties:
-            email:
-              type: string
-              description: 'The email address for the customer. It must be "valid" according to Bluecore''s current policy (Python: bluecore.email.validate_email), and lower-cased (Python: bluecore.email.clean_email).'
-        - title: phone_number
-          type: object
-          properties:
-            phone_number:
-              type: string
-              description: An phone number
-      description: A customer identifier used for lookups
     eligibility.public.SubscriptionDetails:
       type: object
       allOf:
@@ -406,6 +393,19 @@ components:
             type: string
             description: "The customer's eligibility subscription status \n\n - `SUBSCRIBED` means the customer has opted in to receive marketing communication.\n - `UNSUBSCRIBED` means the customer has unsubscribed from receiving marketing communication.\n - `NOT_KNOWN` means that the customer has neither subscribed to nor unsubscribed from receiving marketing communication.\n\n\n\n\nFor more information on eligibility statuses, see [Understand email eligibility](https://help.bluecore.com/help/understand-email-eligibility) and [Understand SMS/MMS eligibility](http://help.bluecore.com/en/articles/6252691-understand-sms-mms-eligibility)."
             format: enum
+    Eligibility_Update_eligibility.public.UpdateRequest:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          allOf:
+          - $ref: '#/components/schemas/eligibility.public.Identifier'
+          description: Identifier the subscription statuses are for
+        state:
+          allOf:
+          - $ref: '#/components/schemas/eligibility.public.SubscriptionEvent'
+          description: List of eligibility update actions
   securitySchemes:
     GlooAuth:
       type: apiKey
