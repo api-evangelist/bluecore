@@ -90,6 +90,22 @@ paths:
       - url: https://auth.bluecore.com
 components:
   schemas:
+    bluecore.api.GetAccessTokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: The access token you can use to authenticate against Bluecore’s API.
+        token_type:
+          type: string
+          description: The type of access_token generated.
+        expires_in:
+          type: integer
+          description: The number of seconds until the access_token expires. New tokens are active for 86,400 seconds (24 hours). When your access token expires, you can request a new access token.
+          format: uint32
+        scope:
+          description: Space-delimited string of permissions that the access token has. The format is `resource:verb`. For example, `customers:write` grants write access to the Customers API.
+          type: string
     bluecore.api.GetAccessTokenRequest:
       required:
       - client_id
@@ -140,22 +156,6 @@ components:
             $ref: '#/components/schemas/google.protobuf.Any'
           description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
       description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
-    bluecore.api.GetAccessTokenResponse:
-      type: object
-      properties:
-        access_token:
-          type: string
-          description: The access token you can use to authenticate against Bluecore’s API.
-        token_type:
-          type: string
-          description: The type of access_token generated.
-        expires_in:
-          type: integer
-          description: The number of seconds until the access_token expires. New tokens are active for 86,400 seconds (24 hours). When your access token expires, you can request a new access token.
-          format: uint32
-        scope:
-          description: Space-delimited string of permissions that the access token has. The format is `resource:verb`. For example, `customers:write` grants write access to the Customers API.
-          type: string
   securitySchemes:
     GlooAuth:
       type: apiKey

@@ -218,14 +218,6 @@ paths:
         - customers.write
 components:
   schemas:
-    google.protobuf.Any:
-      type: object
-      properties:
-        '@type':
-          type: string
-          description: The type of the serialized message.
-      additionalProperties: true
-      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
     Profile_CreateOrUpdate_customers.public.CreateOrUpdateRequest:
       required:
       - id
@@ -244,11 +236,46 @@ components:
         attributes:
           type: object
           description: Key/value pairs to associate with the Customer Profile. Each attribute name must be in `snake_case`.
+    customers.public.Identifier:
+      type: object
+      allOf:
+      - oneOf:
+        - title: email
+          type: object
+          properties:
+            email:
+              example: alice@gmail.com
+              maxLength: 254
+              type: string
+              description: Email addresses are lightly sanitized and validated. They're automatically converted to lower case with leading and trailing whitespace removed.
+              format: email
+        - title: phone_number
+          type: object
+          properties:
+            phone_number:
+              example: '+15556667777'
+              pattern: ^\+?[1-9]\d{0,14}$
+              type: string
+              description: The secondary identifier that represents the customer’s phone number. E.164 format.
+              format: e.164
+    customers.public.CreateOrUpdateResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/customers.public.Customer'
     customers.public.GetResponse:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/customers.public.Customer'
+    google.protobuf.Any:
+      type: object
+      properties:
+        '@type':
+          type: string
+          description: The type of the serialized message.
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
     customers.public.Customer:
       type: object
       properties:
@@ -284,33 +311,6 @@ components:
             $ref: '#/components/schemas/google.protobuf.Any'
           description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
       description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
-    customers.public.CreateOrUpdateResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/customers.public.Customer'
-    customers.public.Identifier:
-      type: object
-      allOf:
-      - oneOf:
-        - title: email
-          type: object
-          properties:
-            email:
-              example: alice@gmail.com
-              maxLength: 254
-              type: string
-              description: Email addresses are lightly sanitized and validated. They're automatically converted to lower case with leading and trailing whitespace removed.
-              format: email
-        - title: phone_number
-          type: object
-          properties:
-            phone_number:
-              example: '+15556667777'
-              pattern: ^\+?[1-9]\d{0,14}$
-              type: string
-              description: The secondary identifier that represents the customer’s phone number. E.164 format.
-              format: e.164
   securitySchemes:
     GlooAuth:
       type: apiKey
