@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/bluecore/integrations
+- https://n8n.io/integrations/bluecore/
+- https://composio.dev/toolkits/bluecore
+- https://monid.ai/tools/bluecore
+checked:
+- https://composio.dev/toolkits/bluecore
+- https://monid.ai/tools/bluecore
+- https://n8n.io/integrations/bluecore/
+- https://zapier.com/apps/bluecore/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
