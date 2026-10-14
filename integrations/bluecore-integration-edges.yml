@@ -1,5 +1,5 @@
 generated: '2026-10-12'
-method: none
+method: searched
 source:
 - https://zapier.com/apps/bluecore/integrations
 - https://n8n.io/integrations/bluecore/
@@ -7,10 +7,103 @@ source:
 - https://monid.ai/tools/bluecore
 checked:
 - https://composio.dev/toolkits/bluecore
+- https://docs.mparticle.com/integrations/bluecore/event/
+- https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/bluecore
+- https://hightouch.com/docs/destinations/bluecore
 - https://monid.ai/tools/bluecore
 - https://n8n.io/integrations/bluecore/
+- https://storage.googleapis.com/tcfac/additional-consent-providers.csv
 - https://zapier.com/apps/bluecore/integrations
 summary: null
 marketplace_apps: []
-edges: []
+edges:
+- partner_name: Google Ad Tech Providers
+  partner: null
+  partner_match: domain
+  type: contract
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://storage.googleapis.com/tcfac/additional-consent-providers.csv
+  contract_reference:
+    register: Google Ad Tech Providers (Additional Consent)
+    spec_file: null
+    role: google-atp
+    registered_name: Bluecore, Inc.
+    register_id: '2064'
+    products:
+    - Bluecore, Inc.
+    matched_domain: bluecore.com
+    api_families: null
+    api_families_basis: null
+    detected_by: sweep-adtech.py
+    detected: '2026-10-14'
+  detected_by: sweep-adtech.py
+  detected: '2026-10-14'
+- partner_name: RudderStack
+  partner: rudderstack
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/bluecore
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - bluecore
+      connection_modes:
+      - cloud
+      cloud_event_types:
+      - identify
+      - track
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: mParticle
+  partner: mparticle
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://docs.mparticle.com/integrations/bluecore/event/
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - bluecore
+      integration_types:
+      - event
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Hightouch
+  partner: hightouch
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://hightouch.com/docs/destinations/bluecore
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - bluecore
+      status: released
+      sync_types:
+      - Batch File Delivery
+      sync_modes:
+      - all
+      - diff
+      - insert
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
 templates: []
