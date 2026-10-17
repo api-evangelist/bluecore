@@ -106,6 +106,14 @@ components:
         scope:
           description: Space-delimited string of permissions that the access token has. The format is `resource:verb`. For example, `customers:write` grants write access to the Customers API.
           type: string
+    google.protobuf.Any:
+      type: object
+      properties:
+        '@type':
+          type: string
+          description: The type of the serialized message.
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
     bluecore.api.GetAccessTokenRequest:
       required:
       - client_id
@@ -132,14 +140,6 @@ components:
           type: string
           description: Defines the OAuth 2.0 flow used to request an access token. Only the [client_credentials grant type](https://oauth.net/2/grant-types/client-credentials/) is accepted.
           format: enum
-    google.protobuf.Any:
-      type: object
-      properties:
-        '@type':
-          type: string
-          description: The type of the serialized message.
-      additionalProperties: true
-      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
     google.rpc.Status:
       type: object
       properties:
