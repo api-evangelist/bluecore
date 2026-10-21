@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bluecore/main/json-schema/bluecore-bluecore-api-get-access-token-request-schema.json",
+  "title": "bluecore.api.GetAccessTokenRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/bluecore-authn-api-openapi.yml#/components/schemas/bluecore.api.GetAccessTokenRequest",
+  "required": [
+    "client_id",
+    "client_secret",
+    "audience",
+    "grant_type"
+  ],
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string",
+      "description": "A unique public identifier assigned to your brand. It is used, together with the client_secret, for identification during API authentication and authorization. [Learn how to obtain a client ID.](https://help.bluecore.com/help/create-an-api-key)"
+    },
+    "client_secret": {
+      "type": "string",
+      "description": "A confidential string assigned to your brand. It is used, together with the client_id, for identification during API authentication and authorization. [Learn how to obtain a client secret.](https://help.bluecore.com/help/create-an-api-key)"
+    },
+    "audience": {
+      "enum": [
+        "https://a.bluecore.com"
+      ],
+      "type": "string",
+      "description": "The target API server for the access token.",
+      "format": "enum"
+    },
+    "grant_type": {
+      "enum": [
+        "client_credentials"
+      ],
+      "type": "string",
+      "description": "Defines the OAuth 2.0 flow used to request an access token. Only the [client_credentials grant type](https://oauth.net/2/grant-types/client-credentials/) is accepted.",
+      "format": "enum"
+    }
+  }
+}

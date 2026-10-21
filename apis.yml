@@ -1,14 +1,15 @@
 aid: bluecore
+
 name: Bluecore
-description: >-
-  Bluecore is a retail marketing technology platform that unifies shopper identity, behavior,
-  and product data into a customer data platform with 20+ predictive AI models, cross-channel
-  experience orchestration (email, SMS, site, paid media), and AI shopping and marketing agents.
-  Its public developer API (developers.bluecore.com) exposes OAuth 2.0 client-credentials
-  authentication, Customer Profile management, eligibility (consent) management, and Communicate
-  surfaces for transactional and direct-send messaging. Customers include Wayfair, Gap, J.Crew,
-  Lenovo, CVS, and Fender. Backed by Norwest Venture Partners and Techstars.
+
+description: Bluecore is a retail marketing technology platform that unifies shopper identity, behavior, and product data into a customer data
+  platform with 20+ predictive AI models, cross-channel experience orchestration (email, SMS, site, paid media), and AI shopping and marketing
+  agents. Its public developer API (developers.bluecore.com) exposes OAuth 2.0 client-credentials authentication, Customer Profile management,
+  eligibility (consent) management, and Communicate surfaces for transactional and direct-send messaging. Customers include Wayfair, Gap, J.Crew,
+  Lenovo, CVS, and Fender. Backed by Norwest Venture Partners and Techstars. Bluecore's site announces it has been acquired by Insider One (https://www.bluecore.com/press/insider-one-acquires-bluecore/).
+
 url: https://raw.githubusercontent.com/api-evangelist/bluecore/refs/heads/main/apis.yml
+
 deliveryModel:
   model: saas
   license_evidence:
@@ -25,6 +26,7 @@ deliveryModel:
   - repository-not-product
   generated: '2026-09-25'
   method: derived
+
 accessModel:
   pricing: quote
   onboarding: sales-gated
@@ -38,26 +40,36 @@ accessModel:
   - plans/bluecore-plans-pricing.yml
   generated: '2026-08-13'
   method: searched
-  note: >-
-    Corrected 2026-08-13. The prior derived value said "self-serve signup", which the evidence does
-    not support: www.bluecore.com/pricing/ returns 404, there is no free tier or trial, and API
-    credentials are issued by Bluecore to existing customers (the legacy transactional contract
-    tells developers to email support@bluecore.com for a key). The only commercial entry point is
-    a demo request.
+  note: 'Corrected 2026-08-13. The prior derived value said "self-serve signup", which the evidence does not support: www.bluecore.com/pricing/
+    returns 404, there is no free tier or trial, and API credentials are issued by Bluecore to existing customers (the legacy transactional contract
+    tells developers to email support@bluecore.com for a key). The only commercial entry point is a demo request.'
+
 image: https://www.bluecore.com/wp-content/themes/bluecore/assets/img/favicon.png
+
 x-type: company
+
 x-source: vc-portfolio
+
 x-backed-by:
 - norwest-venture-partners
 - techstars
+
 x-tier: profiled
+
 x-tier-reason: enriched-from-developer-portal
+
 specificationVersion: '0.23'
+
 created: '2026-07-17'
+
 modified: '2026-08-13'
+
 x-docs-platform: readme
+
 x-docs-platform-confidence: high
+
 x-docs-platform-checked: 2026-09-20
+
 tags:
 - Company
 - Retail
@@ -69,6 +81,7 @@ tags:
 - Messaging
 - E-Commerce
 - Consent
+
 tags_raw:
 - Company
 - Retail
@@ -80,201 +93,30 @@ tags_raw:
 - Messaging
 - eCommerce
 - Consent
+
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
-apis:
-- aid: bluecore:bluecore-authn-api
-  name: Bluecore Authn API
-  description: The Authn API from Bluecore — 1 operation(s) for authn.
-  humanURL: https://developers.bluecore.com/
-  baseURL: https://a.bluecore.com/api
-  tags:
-  - Authn
-  properties:
-  - type: OpenAPI
-    url: openapi/bluecore-authn-api-openapi.yml
-  - type: Documentation
-    url: https://developers.bluecore.com/docs
-  - type: APIReference
-    url: https://developers.bluecore.com/reference
-  - type: GettingStarted
-    url: https://developers.bluecore.com/
-  - type: Authentication
-    url: authentication/bluecore-authentication.yml
-  - type: OAuthScopes
-    url: scopes/bluecore-scopes.yml
-- aid: bluecore:bluecore-campaignsapipublic-api
-  name: Bluecore CampaignsAPIPublic API
-  description: The CampaignsAPIPublic API from Bluecore — 1 operation(s) for campaignsapipublic.
-  humanURL: https://developers.bluecore.com/
-  baseURL: https://a.bluecore.com/api
-  tags:
-  - CampaignsAPIPublic
-  properties:
-  - type: OpenAPI
-    url: openapi/bluecore-campaignsapipublic-api-openapi.yml
-  - type: Documentation
-    url: https://developers.bluecore.com/docs
-  - type: APIReference
-    url: https://developers.bluecore.com/reference
-  - type: GettingStarted
-    url: https://developers.bluecore.com/
-  - type: Authentication
-    url: authentication/bluecore-authentication.yml
-  - type: OAuthScopes
-    url: scopes/bluecore-scopes.yml
-- aid: bluecore:bluecore-direct-send-api
-  name: Bluecore Direct send API
-  description: The Direct send API from Bluecore — 1 operation(s) for direct send.
-  humanURL: https://developers.bluecore.com/
-  baseURL: https://a.bluecore.com/api
-  tags:
-  - Direct send
-  properties:
-  - type: OpenAPI
-    url: openapi/bluecore-direct-send-api-openapi.yml
-  - type: Documentation
-    url: https://developers.bluecore.com/docs
-  - type: APIReference
-    url: https://developers.bluecore.com/reference
-  - type: GettingStarted
-    url: https://developers.bluecore.com/
-  - type: Authentication
-    url: authentication/bluecore-authentication.yml
-  - type: OAuthScopes
-    url: scopes/bluecore-scopes.yml
-- aid: bluecore:bluecore-eligibility-api
-  name: Bluecore Eligibility API
-  description: The Eligibility API from Bluecore — 2 operation(s) for eligibility.
-  humanURL: https://developers.bluecore.com/
-  baseURL: https://a.bluecore.com/api
-  tags:
-  - Eligibility
-  properties:
-  - type: OpenAPI
-    url: openapi/bluecore-eligibility-api-openapi.yml
-  - type: Documentation
-    url: https://developers.bluecore.com/docs
-  - type: APIReference
-    url: https://developers.bluecore.com/reference
-  - type: GettingStarted
-    url: https://developers.bluecore.com/
-  - type: Authentication
-    url: authentication/bluecore-authentication.yml
-  - type: OAuthScopes
-    url: scopes/bluecore-scopes.yml
-- aid: bluecore:bluecore-profile-api
-  name: Bluecore Profile API
-  description: The Profile API from Bluecore — 1 operation(s) for profile.
-  humanURL: https://developers.bluecore.com/
-  baseURL: https://a.bluecore.com/api
-  tags:
-  - Profiles
-  tags_raw:
-  - Profile
-  properties:
-  - type: OpenAPI
-    url: openapi/bluecore-profile-api-openapi.yml
-  - type: Documentation
-    url: https://developers.bluecore.com/docs
-  - type: APIReference
-    url: https://developers.bluecore.com/reference
-  - type: GettingStarted
-    url: https://developers.bluecore.com/
-  - type: Authentication
-    url: authentication/bluecore-authentication.yml
-  - type: OAuthScopes
-    url: scopes/bluecore-scopes.yml
-- aid: bluecore:bluecore-transactional-api
-  name: Bluecore Transactional API
-  description: The Transactional API from Bluecore — 1 operation(s) for transactional.
-  humanURL: https://developers.bluecore.com/
-  baseURL: https://a.bluecore.com/api
-  tags:
-  - Transactional
-  properties:
-  - type: OpenAPI
-    url: openapi/bluecore-transactional-api-openapi.yml
-  - type: Documentation
-    url: https://developers.bluecore.com/docs
-  - type: APIReference
-    url: https://developers.bluecore.com/reference
-  - type: GettingStarted
-    url: https://developers.bluecore.com/
-  - type: Authentication
-    url: authentication/bluecore-authentication.yml
-  - type: OAuthScopes
-    url: scopes/bluecore-scopes.yml
-- aid: bluecore:bluecore-events-api
-  name: Bluecore Events API
-  description: >-
-    Bluecore's event-ingestion API - POST shopper behaviour and identity events (viewed_product, search,
-    add_to_cart, remove_from_cart, wishlist, purchase, customer_patch, identify, optin, unsubscribe, plus
-    per-tenant custom events) from a mobile app or any server-side source, doing the same job the Bluecore
-    website JavaScript tag does for a storefront. Authenticated by the tenant token carried inside the
-    JSON request body. Documented in prose only - Bluecore publishes no OpenAPI and no AsyncAPI for this
-    surface.
-  humanURL: https://help.bluecore.com/help/events-api
-  baseURL: https://api.bluecore.app/api/track/mobile/v1
-  tags:
-  - Event
-  - Ingestion
-  - Behavioral Data
-  tags_raw:
-  - Events
-  - Ingestion
-  - Behavioral Data
-  properties:
-  - type: Documentation
-    url: https://help.bluecore.com/help/events-api
-  - type: EventCatalog
-    url: asyncapi/bluecore-events.yml
-  - type: Authentication
-    url: authentication/bluecore-authentication.yml
-- aid: bluecore:bluecore-get-status-api
-  name: Bluecore GET STATUS API
-  description: The GET STATUS API from Bluecore — 1 operation(s) for get status.
-  humanURL: https://developers.bluecore.com/
-  baseURL: https://a.bluecore.com/api
-  tags:
-  - GET STATUS
-  properties:
-  - type: OpenAPI
-    url: openapi/bluecore-get-status-api-openapi.yml
-  - type: Documentation
-    url: https://www.bluecore.com/transactional-api-docs/
-  - type: SourceCode
-    url: https://github.com/TriggerMail/bluecore-openapi-docs
-  - type: Authentication
-    url: authentication/bluecore-authentication.yml
-  - type: ErrorCatalog
-    url: errors/bluecore-problem-types.yml
-  - type: Lifecycle
-    url: lifecycle/bluecore-lifecycle.yml
-- aid: bluecore:bluecore-send-email-api
-  name: Bluecore SEND EMAIL API
-  description: The SEND EMAIL API from Bluecore — 1 operation(s) for send email.
-  humanURL: https://developers.bluecore.com/
-  baseURL: https://a.bluecore.com/api
-  tags:
-  - SEND EMAIL
-  properties:
-  - type: OpenAPI
-    url: openapi/bluecore-send-email-api-openapi.yml
-  - type: Documentation
-    url: https://www.bluecore.com/transactional-api-docs/
-  - type: SourceCode
-    url: https://github.com/TriggerMail/bluecore-openapi-docs
-  - type: Authentication
-    url: authentication/bluecore-authentication.yml
-  - type: ErrorCatalog
-    url: errors/bluecore-problem-types.yml
-  - type: Lifecycle
-    url: lifecycle/bluecore-lifecycle.yml
+
 common:
+- type: Spectral
+  url: rules/bluecore-rules.yml
+- type: JSONLD
+  url: json-ld/bluecore-context.jsonld
+- type: Vocabulary
+  url: vocabulary/bluecore-vocabulary.yml
+- type: Deprecation
+  url: lifecycle/bluecore-lifecycle.yml
+- type: Hosts
+  url: hosts/bluecore-hosts.yml
+- type: IntegrationEdges
+  url: integrations/bluecore-integration-edges.yml
+- type: Vendors
+  url: vendors/bluecore-vendors.yml
+- type: Newsroom
+  url: https://www.bluecore.com/press/insider-one-acquires-bluecore/?utm_source=medium&utm_medium=website&utm_campaign=bluecore-acquisition&utm_content=bluecore-sharing&utm_term=website-announcement
 - type: CapabilityMap
   url: capabilities/bluecore-capability-edges.yml
   name: Bluecore Business Capability Map
@@ -284,8 +126,6 @@ common:
   url: well-known/bluecore-well-known.yml
 - type: OpenIDConnect
   url: well-known/bluecore-openid-configuration.json
-- type: Packages
-  url: packages/bluecore-packages.yml
 - type: Plans
   url: plans/bluecore-plans-pricing.yml
 - type: Components
@@ -332,7 +172,9 @@ common:
   url: changelog/bluecore-changelog.yml
 - type: X-MCPServerCandidate
   url: mcp/bluecore-mcp.yml
-  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published
+    API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting
+    the artifact-type surfaces with a server that does not exist.'
 - type: AgentSkill
   url: skills/_index.yml
 - type: Arazzo
@@ -364,8 +206,228 @@ common:
   url: https://www.bluecore.com/privacy-policy/
 - type: Website
   url: https://bluecore.com
+
+apis:
+- aid: bluecore:bluecore-authn-api
+  name: Bluecore Authn API
+  description: The Authn API from Bluecore — 1 operation(s) for authn.
+  humanURL: https://developers.bluecore.com/
+  baseURL: https://a.bluecore.com/api
+  tags:
+  - Authn
+  properties:
+  - type: OpenAPI
+    url: openapi/bluecore-authn-api-openapi.yml
+  - type: Documentation
+    url: https://developers.bluecore.com/docs
+  - type: APIReference
+    url: https://developers.bluecore.com/reference
+  - type: GettingStarted
+    url: https://developers.bluecore.com/
+  - type: Authentication
+    url: authentication/bluecore-authentication.yml
+  - type: OAuthScopes
+    url: scopes/bluecore-scopes.yml
+  - type: JSONSchema
+    url: json-schema/bluecore-bluecore-api-get-access-token-request-schema.json
+  - type: JSONSchema
+    url: json-schema/bluecore-bluecore-api-get-access-token-response-schema.json
+- aid: bluecore:bluecore-campaignsapipublic-api
+  name: Bluecore CampaignsAPIPublic API
+  description: The CampaignsAPIPublic API from Bluecore — 1 operation(s) for campaignsapipublic.
+  humanURL: https://developers.bluecore.com/
+  baseURL: https://a.bluecore.com/api
+  tags:
+  - CampaignsAPIPublic
+  properties:
+  - type: OpenAPI
+    url: openapi/bluecore-campaignsapipublic-api-openapi.yml
+  - type: Documentation
+    url: https://developers.bluecore.com/docs
+  - type: APIReference
+    url: https://developers.bluecore.com/reference
+  - type: GettingStarted
+    url: https://developers.bluecore.com/
+  - type: Authentication
+    url: authentication/bluecore-authentication.yml
+  - type: OAuthScopes
+    url: scopes/bluecore-scopes.yml
+  - type: JSONSchema
+    url: json-schema/bluecore-campaigns-apipublic-create-direct-send-campaign-campaigns-public-create-direct-send-campaign-request-schema.json
+  - type: JSONSchema
+    url: json-schema/bluecore-campaigns-public-direct-send-campaign-response-schema.json
+- aid: bluecore:bluecore-direct-send-api
+  name: Bluecore Direct send API
+  description: The Direct send API from Bluecore — 1 operation(s) for direct send.
+  humanURL: https://developers.bluecore.com/
+  baseURL: https://a.bluecore.com/api
+  tags:
+  - Direct send
+  properties:
+  - type: OpenAPI
+    url: openapi/bluecore-direct-send-api-openapi.yml
+  - type: Documentation
+    url: https://developers.bluecore.com/docs
+  - type: APIReference
+    url: https://developers.bluecore.com/reference
+  - type: GettingStarted
+    url: https://developers.bluecore.com/
+  - type: Authentication
+    url: authentication/bluecore-authentication.yml
+  - type: OAuthScopes
+    url: scopes/bluecore-scopes.yml
+  - type: JSONSchema
+    url: json-schema/bluecore-direct-send-send-emailflow-public-send-request-schema.json
+- aid: bluecore:bluecore-eligibility-api
+  name: Bluecore Eligibility API
+  description: The Eligibility API from Bluecore — 2 operation(s) for eligibility.
+  humanURL: https://developers.bluecore.com/
+  baseURL: https://a.bluecore.com/api
+  tags:
+  - Eligibility
+  properties:
+  - type: OpenAPI
+    url: openapi/bluecore-eligibility-api-openapi.yml
+  - type: Documentation
+    url: https://developers.bluecore.com/docs
+  - type: APIReference
+    url: https://developers.bluecore.com/reference
+  - type: GettingStarted
+    url: https://developers.bluecore.com/
+  - type: Authentication
+    url: authentication/bluecore-authentication.yml
+  - type: OAuthScopes
+    url: scopes/bluecore-scopes.yml
+  - type: JSONSchema
+    url: json-schema/bluecore-eligibility-update-eligibility-public-update-request-schema.json
+  - type: JSONSchema
+    url: json-schema/bluecore-eligibility-public-get-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bluecore-eligibility-public-update-response-schema.json
+- aid: bluecore:bluecore-profile-api
+  name: Bluecore Profile API
+  description: The Profile API from Bluecore — 1 operation(s) for profile.
+  humanURL: https://developers.bluecore.com/
+  baseURL: https://a.bluecore.com/api
+  tags:
+  - Profiles
+  tags_raw:
+  - Profile
+  properties:
+  - type: OpenAPI
+    url: openapi/bluecore-profile-api-openapi.yml
+  - type: Documentation
+    url: https://developers.bluecore.com/docs
+  - type: APIReference
+    url: https://developers.bluecore.com/reference
+  - type: GettingStarted
+    url: https://developers.bluecore.com/
+  - type: Authentication
+    url: authentication/bluecore-authentication.yml
+  - type: OAuthScopes
+    url: scopes/bluecore-scopes.yml
+  - type: JSONSchema
+    url: json-schema/bluecore-profile-create-or-update-customers-public-create-or-update-request-schema.json
+  - type: JSONSchema
+    url: json-schema/bluecore-customers-public-create-or-update-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bluecore-customers-public-get-response-schema.json
+- aid: bluecore:bluecore-transactional-api
+  name: Bluecore Transactional API
+  description: The Transactional API from Bluecore — 1 operation(s) for transactional.
+  humanURL: https://developers.bluecore.com/
+  baseURL: https://a.bluecore.com/api
+  tags:
+  - Transactional
+  properties:
+  - type: OpenAPI
+    url: openapi/bluecore-transactional-api-openapi.yml
+  - type: Documentation
+    url: https://developers.bluecore.com/docs
+  - type: APIReference
+    url: https://developers.bluecore.com/reference
+  - type: GettingStarted
+    url: https://developers.bluecore.com/
+  - type: Authentication
+    url: authentication/bluecore-authentication.yml
+  - type: OAuthScopes
+    url: scopes/bluecore-scopes.yml
+  - type: JSONSchema
+    url: json-schema/bluecore-transactional-send-transactional-api-public-send-request-schema.json
+  - type: JSONSchema
+    url: json-schema/bluecore-transactional-api-public-get-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bluecore-transactional-api-public-send-response-schema.json
+- aid: bluecore:bluecore-events-api
+  name: Bluecore Events API
+  description: Bluecore's event-ingestion API - POST shopper behaviour and identity events (viewed_product, search, add_to_cart, remove_from_cart,
+    wishlist, purchase, customer_patch, identify, optin, unsubscribe, plus per-tenant custom events) from a mobile app or any server-side source,
+    doing the same job the Bluecore website JavaScript tag does for a storefront. Authenticated by the tenant token carried inside the JSON request
+    body. Documented in prose only - Bluecore publishes no OpenAPI and no AsyncAPI for this surface.
+  humanURL: https://help.bluecore.com/help/events-api
+  baseURL: https://api.bluecore.app/api/track/mobile/v1
+  tags:
+  - Event
+  - Ingestion
+  - Behavioral Data
+  tags_raw:
+  - Events
+  - Ingestion
+  - Behavioral Data
+  properties:
+  - type: Documentation
+    url: https://help.bluecore.com/help/events-api
+  - type: EventCatalog
+    url: asyncapi/bluecore-events.yml
+  - type: Authentication
+    url: authentication/bluecore-authentication.yml
+- aid: bluecore:bluecore-get-status-api
+  name: Bluecore GET STATUS API
+  description: The GET STATUS API from Bluecore — 1 operation(s) for get status.
+  humanURL: https://developers.bluecore.com/
+  baseURL: https://a.bluecore.com/api
+  tags:
+  - GET STATUS
+  properties:
+  - type: OpenAPI
+    url: openapi/bluecore-get-status-api-openapi.yml
+  - type: Documentation
+    url: https://www.bluecore.com/transactional-api-docs/
+  - type: SourceCode
+    url: https://github.com/TriggerMail/bluecore-openapi-docs
+  - type: Authentication
+    url: authentication/bluecore-authentication.yml
+  - type: ErrorCatalog
+    url: errors/bluecore-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/bluecore-lifecycle.yml
+  - type: JSONSchema
+    url: json-schema/bluecore-conversation-response-schema.json
+- aid: bluecore:bluecore-send-email-api
+  name: Bluecore SEND EMAIL API
+  description: The SEND EMAIL API from Bluecore — 1 operation(s) for send email.
+  humanURL: https://developers.bluecore.com/
+  baseURL: https://a.bluecore.com/api
+  tags:
+  - SEND EMAIL
+  properties:
+  - type: OpenAPI
+    url: openapi/bluecore-send-email-api-openapi.yml
+  - type: Documentation
+    url: https://www.bluecore.com/transactional-api-docs/
+  - type: SourceCode
+    url: https://github.com/TriggerMail/bluecore-openapi-docs
+  - type: Authentication
+    url: authentication/bluecore-authentication.yml
+  - type: ErrorCatalog
+    url: errors/bluecore-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/bluecore-lifecycle.yml
+  - type: JSONSchema
+    url: json-schema/bluecore-body-schema.json
+
 x-enrichment:
-  date: '2026-08-13'
+  date: '2026-10-20'
   status: enriched
-  artifacts_added: 10
-  pass: local-v1
+  artifacts_added: 0
+  pass: local-v5

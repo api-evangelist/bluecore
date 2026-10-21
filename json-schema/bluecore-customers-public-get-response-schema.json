@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bluecore/main/json-schema/bluecore-customers-public-get-response-schema.json",
+  "title": "customers.public.GetResponse",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/bluecore-profile-api-openapi.yml#/components/schemas/customers.public.GetResponse",
+  "type": "object",
+  "properties": {
+    "data": {
+      "$ref": "#/$defs/customers.public.Customer"
+    }
+  },
+  "$defs": {
+    "customers.public.Customer": {
+      "type": "object",
+      "properties": {
+        "namespace": {
+          "type": "string",
+          "description": "The Bluecore environment, which is a unique identifier that contains integrations, data feeds, and campaigns."
+        },
+        "ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/customers.public.Identifier"
+          },
+          "description": "Displays all identifiers associated to that Customer Profile."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary key/value pairs associated to the profile"
+        },
+        "updated": {
+          "type": "string",
+          "description": "Timestamp the customer was last updated",
+          "format": "date-time"
+        }
+      },
+      "description": "A shopper's unified profile is a collection of identifiers and attributes currently associated together."
+    },
+    "customers.public.Identifier": {
+      "type": "object",
+      "allOf": [
+        {
+          "oneOf": [
+            {
+              "title": "email",
+              "type": "object",
+              "properties": {
+                "email": {
+                  "maxLength": 254,
+                  "type": "string",
+                  "description": "Email addresses are lightly sanitized and validated. They're automatically converted to lower case with leading and trailing whitespace removed.",
+                  "format": "email"
+                }
+              }
+            },
+            {
+              "title": "phone_number",
+              "type": "object",
+              "properties": {
+                "phone_number": {
+                  "pattern": "^\\+?[1-9]\\d{0,14}$",
+                  "type": "string",
+                  "description": "The secondary identifier that represents the customer’s phone number. E.164 format.",
+                  "format": "e.164"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bluecore/main/json-schema/bluecore-eligibility-public-get-response-schema.json",
+  "title": "eligibility.public.GetResponse",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/bluecore-eligibility-api-openapi.yml#/components/schemas/eligibility.public.GetResponse",
+  "type": "object",
+  "properties": {
+    "data": {
+      "$ref": "#/$defs/eligibility.public.Subscriptions"
+    }
+  },
+  "$defs": {
+    "customers.Identifier": {
+      "type": "object",
+      "allOf": [
+        {
+          "oneOf": [
+            {
+              "title": "email",
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "description": "The email address for the customer. It must be \"valid\" according to Bluecore's current policy (Python: bluecore.email.validate_email), and lower-cased (Python: bluecore.email.clean_email)."
+                }
+              }
+            },
+            {
+              "title": "phone_number",
+              "type": "object",
+              "properties": {
+                "phone_number": {
+                  "type": "string",
+                  "description": "An phone number"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "description": "A customer identifier used for lookups"
+    },
+    "eligibility.public.Subscription": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/customers.Identifier"
+            }
+          ],
+          "description": "Who the subscription statuses are for"
+        },
+        "states": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/eligibility.public.SubscriptionDetails"
+          },
+          "description": "Subscription details for marketing type"
+        }
+      }
+    },
+    "eligibility.public.SubscriptionDetails": {
+      "type": "object",
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "description": "How the eligibility was updated. The available options are: \n\n - `integration` is an update from the Events API or Bluecore Website Integration.\n - `public-api` is an update from the Eligibility API.\n - `upload` is an update from a file import."
+            },
+            "consented_at": {
+              "type": "string",
+              "description": "The timestamp that this update was known to be accurate. The semantic time the update took place. For example, if the data is from last week's activity, set the value to that time. When unset, it defaults to when the backend receives the request.",
+              "format": "date-time"
+            },
+            "message_type": {
+              "enum": [
+                "MARKETING",
+                "TRANSACTIONAL"
+              ],
+              "type": "string",
+              "description": "The campaign type for which eligibility is updated.",
+              "format": "enum"
+            },
+            "channel_identifier": {
+              "type": "string",
+              "description": "The send code used to deliver a double opt-in message to the customer. If left blank, the system selects the first short code in the Namespace. If no short code is available, the first toll free number is used. For more information, see [Understand SMS short codes.](https://help.bluecore.com/en/articles/5624524-understanding-sms-sending-codes)"
+            },
+            "status": {
+              "enum": [
+                "PENDING_CONFIRMATION",
+                "SUBSCRIBED",
+                "UNSUBSCRIBED"
+              ],
+              "type": "string",
+              "description": "The customer's eligibility subscription status \n\n - `SUBSCRIBED` means the customer has opted in to receive marketing communication.\n - `UNSUBSCRIBED` means the customer has unsubscribed from receiving marketing communication.\n - `NOT_KNOWN` means that the customer has neither subscribed to nor unsubscribed from receiving marketing communication.\n\n\n\n\nFor more information on eligibility statuses, see [Understand email eligibility](https://help.bluecore.com/help/understand-email-eligibility) and [Understand SMS/MMS eligibility](http://help.bluecore.com/en/articles/6252691-understand-sms-mms-eligibility).",
+              "format": "enum"
+            }
+          }
+        }
+      ]
+    },
+    "eligibility.public.Subscriptions": {
+      "type": "object",
+      "properties": {
+        "namespace": {
+          "type": "string",
+          "description": "The Bluecore environment, which is a unique identifier that contains integrations, data feeds, and campaigns."
+        },
+        "subscription": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/eligibility.public.Subscription"
+            }
+          ],
+          "description": "Each entry reflects the channel's current subscription state for a message type"
+        }
+      }
+    }
+  }
+}

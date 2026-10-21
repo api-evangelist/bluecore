@@ -1,5 +1,5 @@
 ---
-name: Manage Bluecore customer and consent
+name: bluecore-manage-customer-consent
 description: Authenticate, upsert a Bluecore Customer Profile, then set and read the customer's marketing eligibility (consent) status.
 api: openapi/bluecore-openapi.yml
 operations: [Authn_GetAccessToken, Profile_CreateOrUpdate, Eligibility_Update, Eligibility_Get]

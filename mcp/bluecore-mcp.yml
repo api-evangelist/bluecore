@@ -41,3 +41,9 @@ deployment:
   tools: 9
   checked: '2026-08-12'
   source: catalog MCP census
+observed_gated_endpoint:
+  url: https://developers.bluecore.com/mcp
+  status: 401
+  control_status: 404
+  checked: '2026-10-20'
+  note: The ReadMe-hosted docs portal answers /mcp with 401 (control path 404); Bluecore documents no MCP server and names no tools, so deployment stays none.

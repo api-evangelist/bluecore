@@ -1,6 +1,7 @@
 generated: '2026-07-18'
 method: searched
 source: https://developers.bluecore.com/docs/rate-limiting
+name: Bluecore rate limits
 algorithm: fixed-window
 windows:
 - name: burst
@@ -26,11 +27,10 @@ signaling:
 over_limit:
   status: 429
   message: Too many requests
-notes: >-
-  New API endpoints are rate limited per account using a fixed-window algorithm with two
-  windows: burst (1-second) and steady (1-minute). Documented per-endpoint limits (customer,
-  eligibility) are burst 100/s and steady 1000/m. The exact limit differs per API and is
-  echoed on every response via the RateLimit-* headers.
+notes: 'New API endpoints are rate limited per account using a fixed-window algorithm
+  with two windows: burst (1-second) and steady (1-minute). Documented per-endpoint
+  limits (customer, eligibility) are burst 100/s and steady 1000/m. The exact limit
+  differs per API and is echoed on every response via the RateLimit-* headers.'
 limit_count: 3
 other_surfaces:
 - name: Transactional API (legacy)
@@ -39,14 +39,17 @@ other_surfaces:
   generated: '2026-08-13'
   method: searched
   windows:
-  - {name: recommended-max, window: 1s, limit: 200, unit: requests/second}
+  - name: recommended-max
+    window: 1s
+    limit: 200
+    unit: requests/second
   signaling:
     headers: []
-    detail: >-
-      The legacy transactional API publishes NO RateLimit-* response headers. Its documentation
-      states only that "To promote fair access and optimal performance, Bluecore enforces rate
-      limiting. Bluecore recommends a maximum of 200 calls/second." An agent gets no runtime
-      signal on this surface — the number exists only in prose.
+    detail: "The legacy transactional API publishes NO RateLimit-* response headers.\
+      \ Its documentation states only that \"To promote fair access and optimal performance,\
+      \ Bluecore enforces rate limiting. Bluecore recommends a maximum of 200 calls/second.\"\
+      \ An agent gets no runtime signal on this surface \u2014 the number exists only\
+      \ in prose."
   payload_limits:
     max_request_body: 900 KB
     max_template_attributes: 819200 bytes
@@ -61,7 +64,17 @@ other_surfaces:
   generated: '2026-08-13'
   method: searched
   windows: []
-  detail: >-
-    No rate limit is published for the Events API. The help-centre reference documents the
-    envelope and the event vocabulary but names no limit, no window and no response header.
-    Recorded as an honest undocumented surface, not as an absence of limiting.
+  detail: No rate limit is published for the Events API. The help-centre reference
+    documents the envelope and the event vocabulary but names no limit, no window
+    and no response header. Recorded as an honest undocumented surface, not as an
+    absence of limiting.
+limits:
+- name: burst
+  window: 1 second
+  max: 100
+  scope: per-account
+  kind: burst
+- name: steady
+  window: 1 minute
+  max: 1000
+  scope: per-account

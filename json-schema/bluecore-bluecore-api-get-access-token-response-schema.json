@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bluecore/main/json-schema/bluecore-bluecore-api-get-access-token-response-schema.json",
+  "title": "bluecore.api.GetAccessTokenResponse",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/bluecore-authn-api-openapi.yml#/components/schemas/bluecore.api.GetAccessTokenResponse",
+  "type": "object",
+  "properties": {
+    "access_token": {
+      "type": "string",
+      "description": "The access token you can use to authenticate against Bluecore’s API."
+    },
+    "token_type": {
+      "type": "string",
+      "description": "The type of access_token generated."
+    },
+    "expires_in": {
+      "type": "integer",
+      "description": "The number of seconds until the access_token expires. New tokens are active for 86,400 seconds (24 hours). When your access token expires, you can request a new access token.",
+      "format": "uint32"
+    },
+    "scope": {
+      "description": "Space-delimited string of permissions that the access token has. The format is `resource:verb`. For example, `customers:write` grants write access to the Customers API.",
+      "type": "string"
+    }
+  }
+}

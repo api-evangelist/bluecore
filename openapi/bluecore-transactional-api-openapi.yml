@@ -226,11 +226,49 @@ paths:
         - transactional.api
 components:
   schemas:
-    transactional_api.public.GetResponse:
+    customers.AttributeValue:
       type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/transactional_api.public.TransactionalMessage'
+      allOf:
+      - oneOf:
+        - title: string_value
+          type: object
+          properties:
+            string_value:
+              type: string
+              description: A string value.
+        - title: number_value
+          type: object
+          properties:
+            number_value:
+              type: number
+              description: A floating point number.
+              format: double
+        - title: bool_value
+          type: object
+          properties:
+            bool_value:
+              type: boolean
+              description: A boolean value.
+        - title: time_value
+          type: object
+          properties:
+            time_value:
+              type: string
+              description: 'A timestamp of the recorded activity, using [RFC 3339 format](https://www.ietf.org/rfc/rfc3339.txt).
+
+
+                Example: January 1, 2025 5:00:00 UTC is represented as `2025-01-01T05:00:00.00Z`'
+              format: date-time
+        - title: int_value
+          type: object
+          properties:
+            int_value:
+              type: string
+              description: 'A 64-bit integer.
+
+
+                Sent as a string to preserve accuracy for numbers above 53 bits.'
+      description: Attribute values can be any type supported by JSON, with the addition of timestamps
     transactional_api.public.Identifier:
       type: object
       allOf:
@@ -253,6 +291,33 @@ components:
               type: string
               description: The secondary identifier that represents the customer’s phone number. E.164 format.
               format: e.164
+    transactional_api.public.StatusEvent:
+      type: object
+      properties:
+        status:
+          enum:
+          - INITIATED
+          - HALTED
+          - SENT
+          - DELIVERED
+          - DELIVERY_FAILURE
+          - TEMPLATE_PARAMETERS_UPDATED
+          type: string
+          format: enum
+        timestamp:
+          type: string
+          format: date-time
+        details:
+          type: string
+          description: Only populated for halt or delivery failures
+    google.protobuf.Any:
+      type: object
+      properties:
+        '@type':
+          type: string
+          description: The type of the serialized message.
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
     transactional_api.public.TransactionalMessage:
       required:
       - identifiers
@@ -301,88 +366,11 @@ components:
           items:
             $ref: '#/components/schemas/transactional_api.public.StatusEvent'
           description: The status associated with that send, sorted by ascending timestamp. For more information on status definitions and next steps, see [Transactional message statuses](https://developers.bluecore.com/reference/transactional-message-statuses).
-    customers.AttributeValue:
-      type: object
-      allOf:
-      - oneOf:
-        - title: string_value
-          type: object
-          properties:
-            string_value:
-              type: string
-              description: A string value.
-        - title: number_value
-          type: object
-          properties:
-            number_value:
-              type: number
-              description: A floating point number.
-              format: double
-        - title: bool_value
-          type: object
-          properties:
-            bool_value:
-              type: boolean
-              description: A boolean value.
-        - title: time_value
-          type: object
-          properties:
-            time_value:
-              type: string
-              description: 'A timestamp of the recorded activity, using [RFC 3339 format](https://www.ietf.org/rfc/rfc3339.txt).
-
-
-                Example: January 1, 2025 5:00:00 UTC is represented as `2025-01-01T05:00:00.00Z`'
-              format: date-time
-        - title: int_value
-          type: object
-          properties:
-            int_value:
-              type: string
-              description: 'A 64-bit integer.
-
-
-                Sent as a string to preserve accuracy for numbers above 53 bits.'
-      description: Attribute values can be any type supported by JSON, with the addition of timestamps
-    google.protobuf.Any:
-      type: object
-      properties:
-        '@type':
-          type: string
-          description: The type of the serialized message.
-      additionalProperties: true
-      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
-    transactional_api.public.SendResponse:
+    transactional_api.public.GetResponse:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/transactional_api.public.TransactionalMessage'
-    Transactional_Send_transactional_api.public.SendRequest:
-      required:
-      - message
-      type: object
-      properties:
-        message:
-          $ref: '#/components/schemas/transactional_api.public.TransactionalMessage'
-    transactional_api.public.StatusEvent:
-      type: object
-      properties:
-        status:
-          enum:
-          - INITIATED
-          - HALTED
-          - SENT
-          - DELIVERED
-          - DELIVERY_FAILURE
-          - TEMPLATE_PARAMETERS_UPDATED
-          type: string
-          format: enum
-        timestamp:
-          type: string
-          format: date-time
-        details:
-          type: string
-          description: Only populated for halt or delivery failures
     google.rpc.Status:
       type: object
       properties:
@@ -399,6 +387,18 @@ components:
             $ref: '#/components/schemas/google.protobuf.Any'
           description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
       description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+    Transactional_Send_transactional_api.public.SendRequest:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          $ref: '#/components/schemas/transactional_api.public.TransactionalMessage'
+    transactional_api.public.SendResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/transactional_api.public.TransactionalMessage'
   securitySchemes:
     GlooAuth:
       type: apiKey

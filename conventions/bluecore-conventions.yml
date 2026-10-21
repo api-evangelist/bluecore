@@ -11,6 +11,9 @@ authentication:
   value: Bearer <access_token>
   see: authentication/bluecore-authentication.yml
 idempotency:
+  coverage: partial
+  scope:
+  - Transactional_Send
   supported: true
   mechanism: path-parameter
   parameter: id

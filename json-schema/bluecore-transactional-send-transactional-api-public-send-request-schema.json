@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bluecore/main/json-schema/bluecore-transactional-send-transactional-api-public-send-request-schema.json",
+  "title": "Transactional_Send_transactional_api.public.SendRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/bluecore-transactional-api-openapi.yml#/components/schemas/Transactional_Send_transactional_api.public.SendRequest",
+  "required": [
+    "message"
+  ],
+  "type": "object",
+  "properties": {
+    "message": {
+      "$ref": "#/$defs/transactional_api.public.TransactionalMessage"
+    }
+  },
+  "$defs": {
+    "customers.AttributeValue": {
+      "type": "object",
+      "allOf": [
+        {
+          "oneOf": [
+            {
+              "title": "string_value",
+              "type": "object",
+              "properties": {
+                "string_value": {
+                  "type": "string",
+                  "description": "A string value."
+                }
+              }
+            },
+            {
+              "title": "number_value",
+              "type": "object",
+              "properties": {
+                "number_value": {
+                  "type": "number",
+                  "description": "A floating point number.",
+                  "format": "double"
+                }
+              }
+            },
+            {
+              "title": "bool_value",
+              "type": "object",
+              "properties": {
+                "bool_value": {
+                  "type": "boolean",
+                  "description": "A boolean value."
+                }
+              }
+            },
+            {
+              "title": "time_value",
+              "type": "object",
+              "properties": {
+                "time_value": {
+                  "type": "string",
+                  "description": "A timestamp of the recorded activity, using [RFC 3339 format](https://www.ietf.org/rfc/rfc3339.txt).\n\nExample: January 1, 2025 5:00:00 UTC is represented as `2025-01-01T05:00:00.00Z`",
+                  "format": "date-time"
+                }
+              }
+            },
+            {
+              "title": "int_value",
+              "type": "object",
+              "properties": {
+                "int_value": {
+                  "type": "string",
+                  "description": "A 64-bit integer.\n\nSent as a string to preserve accuracy for numbers above 53 bits."
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "description": "Attribute values can be any type supported by JSON, with the addition of timestamps"
+    },
+    "transactional_api.public.Identifier": {
+      "type": "object",
+      "allOf": [
+        {
+          "oneOf": [
+            {
+              "title": "email",
+              "type": "object",
+              "properties": {
+                "email": {
+                  "maxLength": 254,
+                  "type": "string",
+                  "description": "The primary identifier that represents the customer’s email address. See [Email address](https://developers.bluecore.com/docs/email-address#/) for information on how they are normalized and validated.",
+                  "format": "email"
+                }
+              }
+            },
+            {
+              "title": "phone_number",
+              "type": "object",
+              "properties": {
+                "phone_number": {
+                  "pattern": "^\\+?[1-9]\\d{0,14}$",
+                  "type": "string",
+                  "description": "The secondary identifier that represents the customer’s phone number. E.164 format.",
+                  "format": "e.164"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "transactional_api.public.StatusEvent": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "INITIATED",
+            "HALTED",
+            "SENT",
+            "DELIVERED",
+            "DELIVERY_FAILURE",
+            "TEMPLATE_PARAMETERS_UPDATED"
+          ],
+          "type": "string",
+          "format": "enum"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "details": {
+          "type": "string",
+          "description": "Only populated for halt or delivery failures"
+        }
+      }
+    },
+    "transactional_api.public.TransactionalMessage": {
+      "required": [
+        "identifiers",
+        "campaign_ids"
+      ],
+      "type": "object",
+      "properties": {
+        "identifiers": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/transactional_api.public.Identifier"
+          }
+        },
+        "campaign_ids": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The unique ID associated with the Bluecore campaign. This ID appears in the URL for the campaign in Bluecore. If multiple `campaign_ids` are sent, the message sends to all campaigns and the response includes a `campaign_id` for each campaign the message sent to."
+        },
+        "product_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of product IDs used as input products if the campaign uses a product-based recipe rule, such as co-recommendations."
+        },
+        "customer_attributes": {
+          "type": "object",
+          "description": "A JSON-formatted object of key/value pairs associated with the customer profile and can be referenced in the email body. Each attribute must be in `snake_case`.",
+          "additionalProperties": {
+            "$ref": "#/$defs/customers.AttributeValue"
+          }
+        },
+        "use_draft": {
+          "type": "boolean",
+          "description": "If `true`, the draft version of the campaign sends, if available. If you send `true` and no draft is available, the live campaign sends. If `false`, the live version of the campaign sends.  Defaults to `false`."
+        },
+        "name": {
+          "readOnly": true,
+          "type": "string",
+          "description": "The resource name."
+        },
+        "body": {
+          "readOnly": true,
+          "type": "string",
+          "description": "The body of the campaign that was sent to the customer. Only populated for SMS/MMS campaigns."
+        },
+        "campaign_id": {
+          "readOnly": true,
+          "type": "string",
+          "description": "The unique ID associated with the transactional campaign used to send."
+        },
+        "statuses": {
+          "readOnly": true,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/transactional_api.public.StatusEvent"
+          },
+          "description": "The status associated with that send, sorted by ascending timestamp. For more information on status definitions and next steps, see [Transactional message statuses](https://developers.bluecore.com/reference/transactional-message-statuses)."
+        }
+      }
+    }
+  }
+}

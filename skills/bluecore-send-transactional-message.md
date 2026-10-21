@@ -1,5 +1,5 @@
 ---
-name: Send a Bluecore transactional message
+name: bluecore-send-transactional-message
 description: Authenticate and send a transactional email/SMS/MMS through a Bluecore campaign using an idempotency key, then poll its delivery status.
 api: openapi/bluecore-openapi.yml
 operations: [Authn_GetAccessToken, Transactional_Send, Transactional_Get]

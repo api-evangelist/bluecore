@@ -1,0 +1,202 @@
+{
+  "@context": {
+    "@vocab": "https://bluecore.com/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "bluecore": "https://bluecore.com/schema#",
+    "bluecore.api.GetAccessTokenResponse": "bluecore:bluecore.api.GetAccessTokenResponse",
+    "access_token": {
+      "@id": "bluecore:access_token",
+      "@type": "xsd:string"
+    },
+    "token_type": {
+      "@id": "bluecore:token_type",
+      "@type": "xsd:string"
+    },
+    "expires_in": {
+      "@id": "bluecore:expires_in",
+      "@type": "xsd:integer"
+    },
+    "scope": {
+      "@id": "bluecore:scope",
+      "@type": "xsd:string"
+    },
+    "google.protobuf.Any": "bluecore:google.protobuf.Any",
+    "bluecore.api.GetAccessTokenRequest": "bluecore:bluecore.api.GetAccessTokenRequest",
+    "client_id": {
+      "@id": "bluecore:client_id",
+      "@type": "xsd:string"
+    },
+    "client_secret": {
+      "@id": "bluecore:client_secret",
+      "@type": "xsd:string"
+    },
+    "audience": {
+      "@id": "bluecore:audience",
+      "@type": "xsd:string"
+    },
+    "grant_type": {
+      "@id": "bluecore:grant_type",
+      "@type": "xsd:string"
+    },
+    "google.rpc.Status": "bluecore:google.rpc.Status",
+    "code": {
+      "@id": "bluecore:code",
+      "@type": "xsd:integer"
+    },
+    "message": {
+      "@id": "bluecore:message",
+      "@type": "xsd:string"
+    },
+    "details": {
+      "@id": "bluecore:details",
+      "@container": "@list"
+    },
+    "campaigns.public.DirectSendCampaignResponse": "bluecore:campaigns.public.DirectSendCampaignResponse",
+    "data": {
+      "@id": "bluecore:data",
+      "@type": "@id"
+    },
+    "campaigns.public.DirectSendCampaignData": "bluecore:campaigns.public.DirectSendCampaignData",
+    "namespace": {
+      "@id": "bluecore:namespace",
+      "@type": "xsd:string"
+    },
+    "campaign_id": {
+      "@id": "bluecore:campaign_id",
+      "@type": "xsd:string"
+    },
+    "name": {
+      "@id": "bluecore:name",
+      "@type": "xsd:string"
+    },
+    "emailflow.public.DirectMessage": "bluecore:emailflow.public.DirectMessage",
+    "body": {
+      "@id": "bluecore:body",
+      "@type": "xsd:string"
+    },
+    "from": {
+      "@id": "bluecore:from",
+      "@type": "@id"
+    },
+    "identifier": {
+      "@id": "bluecore:identifier",
+      "@type": "@id"
+    },
+    "metadata": {
+      "@id": "bluecore:metadata"
+    },
+    "reply_to": {
+      "@id": "bluecore:reply_to",
+      "@type": "@id"
+    },
+    "subject": {
+      "@id": "bluecore:subject",
+      "@type": "xsd:string"
+    },
+    "test": {
+      "@id": "bluecore:test",
+      "@type": "xsd:boolean"
+    },
+    "unsubscribe_replacement": {
+      "@id": "bluecore:unsubscribe_replacement",
+      "@type": "xsd:string"
+    },
+    "DirectSend_Send_emailflow.public.SendRequest": "bluecore:DirectSend_Send_emailflow.public.SendRequest",
+    "messages": {
+      "@id": "bluecore:messages",
+      "@container": "@list"
+    },
+    "emailflow.public.Address": "bluecore:emailflow.public.Address",
+    "email": {
+      "@id": "bluecore:email",
+      "@type": "xsd:string"
+    },
+    "Eligibility_Update_eligibility.public.UpdateRequest": "bluecore:Eligibility_Update_eligibility.public.UpdateRequest",
+    "id": {
+      "@id": "bluecore:id"
+    },
+    "state": {
+      "@id": "bluecore:state"
+    },
+    "eligibility.public.Subscription": "bluecore:eligibility.public.Subscription",
+    "states": {
+      "@id": "bluecore:states",
+      "@container": "@list"
+    },
+    "eligibility.public.UpdateResponse": "bluecore:eligibility.public.UpdateResponse",
+    "eligibility.public.GetResponse": "bluecore:eligibility.public.GetResponse",
+    "eligibility.public.Subscriptions": "bluecore:eligibility.public.Subscriptions",
+    "subscription": {
+      "@id": "bluecore:subscription"
+    },
+    "ConversationResponse": "bluecore:ConversationResponse",
+    "status": {
+      "@id": "bluecore:status",
+      "@type": "xsd:string"
+    },
+    "customers.public.GetResponse": "bluecore:customers.public.GetResponse",
+    "customers.public.Customer": "bluecore:customers.public.Customer",
+    "ids": {
+      "@id": "bluecore:ids",
+      "@container": "@list"
+    },
+    "attributes": {
+      "@id": "bluecore:attributes"
+    },
+    "updated": {
+      "@id": "bluecore:updated",
+      "@type": "xsd:dateTime"
+    },
+    "customers.public.CreateOrUpdateResponse": "bluecore:customers.public.CreateOrUpdateResponse",
+    "Profile_CreateOrUpdate_customers.public.CreateOrUpdateRequest": "bluecore:Profile_CreateOrUpdate_customers.public.CreateOrUpdateRequest",
+    "link_ids": {
+      "@id": "bluecore:link_ids",
+      "@container": "@list"
+    },
+    "transactional_api.public.GetResponse": "bluecore:transactional_api.public.GetResponse",
+    "transactional_api.public.TransactionalMessage": "bluecore:transactional_api.public.TransactionalMessage",
+    "identifiers": {
+      "@id": "bluecore:identifiers",
+      "@container": "@list"
+    },
+    "campaign_ids": {
+      "@id": "bluecore:campaign_ids",
+      "@container": "@list"
+    },
+    "product_ids": {
+      "@id": "bluecore:product_ids",
+      "@container": "@list"
+    },
+    "customer_attributes": {
+      "@id": "bluecore:customer_attributes"
+    },
+    "use_draft": {
+      "@id": "bluecore:use_draft",
+      "@type": "xsd:boolean"
+    },
+    "statuses": {
+      "@id": "bluecore:statuses",
+      "@container": "@list"
+    },
+    "transactional_api.public.SendResponse": "bluecore:transactional_api.public.SendResponse",
+    "Transactional_Send_transactional_api.public.SendRequest": "bluecore:Transactional_Send_transactional_api.public.SendRequest",
+    "transactional_api.public.StatusEvent": "bluecore:transactional_api.public.StatusEvent",
+    "timestamp": {
+      "@id": "bluecore:timestamp",
+      "@type": "xsd:dateTime"
+    }
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Bluecore API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Bluecore's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-20) from openapi/bluecore-authn-api-openapi.yml, openapi/bluecore-campaignsapipublic-api-openapi.yml, openapi/bluecore-direct-send-api-openapi.yml.",
+  "dcterms:created": "2026-10-20",
+  "dcterms:source": [
+    "openapi/bluecore-authn-api-openapi.yml",
+    "openapi/bluecore-campaignsapipublic-api-openapi.yml",
+    "openapi/bluecore-direct-send-api-openapi.yml",
+    "openapi/bluecore-eligibility-api-openapi.yml",
+    "openapi/bluecore-get-status-api-openapi.yml"
+  ]
+}

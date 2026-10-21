@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bluecore/main/json-schema/bluecore-eligibility-update-eligibility-public-update-request-schema.json",
+  "title": "Eligibility_Update_eligibility.public.UpdateRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/bluecore-eligibility-api-openapi.yml#/components/schemas/Eligibility_Update_eligibility.public.UpdateRequest",
+  "required": [
+    "id"
+  ],
+  "type": "object",
+  "properties": {
+    "id": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/eligibility.public.Identifier"
+        }
+      ],
+      "description": "Identifier the subscription statuses are for"
+    },
+    "state": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/eligibility.public.SubscriptionEvent"
+        }
+      ],
+      "description": "List of eligibility update actions"
+    }
+  },
+  "$defs": {
+    "eligibility.public.Identifier": {
+      "type": "object",
+      "allOf": [
+        {
+          "oneOf": [
+            {
+              "title": "email",
+              "type": "object",
+              "properties": {
+                "email": {
+                  "maxLength": 254,
+                  "type": "string",
+                  "description": "The primary identifier that represents the customer’s email address. See [Email address](https://developers.bluecore.com/docs/email-address#/) for information on how they are normalized and validated.",
+                  "format": "email"
+                }
+              }
+            },
+            {
+              "title": "phone_number",
+              "type": "object",
+              "properties": {
+                "phone_number": {
+                  "pattern": "^\\+?[1-9]\\d{0,14}$",
+                  "type": "string",
+                  "description": "The secondary identifier that represents the customer’s phone number. E.164 format.",
+                  "format": "e.164"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "eligibility.public.SubscriptionEvent": {
+      "type": "object",
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "event": {
+              "type": "string",
+              "description": "The eligibility update. The available options are: \n\n - `OPTIN` opts the customer in to receive email campaigns if the `email` parameter was sent or SMS/MMS campaigns if the `phone_number` was sent. This can only be used for single opt-in SMS/MMS workflows.\n - `UNSUBSCRIBE` unsubscribes the customer from email campaigns if the `email` parameter` was sent or SMS/MMS campaigns if the `phone_number` was sent.\n - `SIGNUP` is used in the double opt-in flow for SMS/MMS campaigns. This sets the status to `pending_confirmation` and sends the customer the double opt-in message."
+            },
+            "consented_at": {
+              "type": "string",
+              "description": "The timestamp that this update was known to be accurate. The semantic time the update took place. For example, if the data is from last week's activity, set the value to that time. When unset, it defaults to when the backend receives the request.",
+              "format": "date-time"
+            },
+            "message_type": {
+              "type": "string",
+              "description": "The campaign type for which eligibility is updated."
+            },
+            "channel_identifier": {
+              "type": "string",
+              "description": "The send code used to deliver a double opt-in message to the customer. If left blank, the system selects the first short code in the Namespace. If no short code is available, the first toll free number is used. For more information, see [Understand SMS short codes.](https://help.bluecore.com/en/articles/5624524-understanding-sms-sending-codes)"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -85,6 +85,37 @@ paths:
         - direct_send.api
 components:
   schemas:
+    google.protobuf.Any:
+      type: object
+      properties:
+        '@type':
+          type: string
+          description: The type of the serialized message.
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+    emailflow.public.Address:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Email address used as the mailbox for this sender or reply target.
+          format: email
+        name:
+          type: string
+          description: Optional display name shown to recipients alongside the email address (for example, in the From or Reply-To header).
+    emailflow.public.Identifier:
+      type: object
+      allOf:
+      - oneOf:
+        - title: email
+          type: object
+          properties:
+            email:
+              example: alice@gmail.com
+              maxLength: 254
+              type: string
+              description: The primary identifier that represents the customer’s email address. See [Email address](https://developers.bluecore.com/docs/email-address#/) for information on how they are normalized and validated.
+              format: email
     emailflow.public.DirectMessage:
       required:
       - body
@@ -137,37 +168,6 @@ components:
           description: One or more direct messages to send.
           items:
             $ref: '#/components/schemas/emailflow.public.DirectMessage'
-    google.protobuf.Any:
-      type: object
-      properties:
-        '@type':
-          type: string
-          description: The type of the serialized message.
-      additionalProperties: true
-      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
-    emailflow.public.Address:
-      type: object
-      properties:
-        email:
-          type: string
-          description: Email address used as the mailbox for this sender or reply target.
-          format: email
-        name:
-          type: string
-          description: Optional display name shown to recipients alongside the email address (for example, in the From or Reply-To header).
-    emailflow.public.Identifier:
-      type: object
-      allOf:
-      - oneOf:
-        - title: email
-          type: object
-          properties:
-            email:
-              example: alice@gmail.com
-              maxLength: 254
-              type: string
-              description: The primary identifier that represents the customer’s email address. See [Email address](https://developers.bluecore.com/docs/email-address#/) for information on how they are normalized and validated.
-              format: email
     google.rpc.Status:
       type: object
       properties:

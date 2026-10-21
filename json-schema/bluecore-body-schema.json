@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bluecore/main/json-schema/bluecore-body-schema.json",
+  "title": "body",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/bluecore-send-email-api-openapi.yml#/components/schemas/body",
+  "type": "object",
+  "properties": {
+    "campaign_id": {
+      "type": "string",
+      "description": "The Bluecore campaign identifier. This identifier can be obtained from the Bluecore UI campaigns page."
+    },
+    "email": {
+      "type": "string",
+      "description": "The recipient's email address."
+    },
+    "template_attributes": {
+      "type": "object",
+      "description": "A JSON formatted object containing data to be used in the Email template. ",
+      "properties": {
+        "template_variable_1": {
+          "type": "string",
+          "description": "Example string value"
+        },
+        "template_variable_2": {
+          "type": "number",
+          "description": "Example number value"
+        },
+        "html_variable": {
+          "type": "string",
+          "description": "Example HTML content"
+        }
+      }
+    },
+    "customer_attributes": {
+      "type": "object",
+      "description": "A JSON formatted object containing data to add to or update for the customer record.",
+      "properties": {
+        "customer_attribute_1": {
+          "type": "string",
+          "description": "Example string value"
+        },
+        "customer_attribute_2": {
+          "type": "number",
+          "description": "Example number value"
+        }
+      }
+    },
+    "use_draft": {
+      "type": "boolean",
+      "description": "A flag indicating if the draft version of a campaign should be used.\nDefault: False."
+    },
+    "product_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "This parameter is currently in development and is not available for general use at this time. This will be available in a future release.\n\nList of product ids to be used as input products only if the campaign uses the co-recommendations product block.\n"
+    }
+  },
+  "required": [
+    "campaign_id",
+    "email",
+    "template_attributes"
+  ]
+}

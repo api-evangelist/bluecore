@@ -2,7 +2,7 @@ overlay: 1.0.0
 info:
   title: API Evangelist enhancements for the Bluecore Transactional API (legacy)
   version: 1.0.0
-extends: openapi/bluecore-transactional-legacy-api-openapi.yml
+extends: ../openapi/_original/bluecore-transactional-legacy-api-openapi.yml
 x-generated: '2026-08-13'
 x-method: generated
 x-source: >-

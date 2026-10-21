@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bluecore/main/json-schema/bluecore-direct-send-send-emailflow-public-send-request-schema.json",
+  "title": "DirectSend_Send_emailflow.public.SendRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/bluecore-direct-send-api-openapi.yml#/components/schemas/DirectSend_Send_emailflow.public.SendRequest",
+  "required": [
+    "messages"
+  ],
+  "type": "object",
+  "properties": {
+    "namespace": {
+      "type": "string",
+      "description": "The namespace for this request. Must match the `{namespace}` path segment."
+    },
+    "messages": {
+      "minItems": 1,
+      "type": "array",
+      "description": "One or more direct messages to send.",
+      "items": {
+        "$ref": "#/$defs/emailflow.public.DirectMessage"
+      }
+    }
+  },
+  "$defs": {
+    "emailflow.public.Address": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "Email address used as the mailbox for this sender or reply target.",
+          "format": "email"
+        },
+        "name": {
+          "type": "string",
+          "description": "Optional display name shown to recipients alongside the email address (for example, in the From or Reply-To header)."
+        }
+      }
+    },
+    "emailflow.public.DirectMessage": {
+      "required": [
+        "body",
+        "campaign_id",
+        "from",
+        "identifier",
+        "subject"
+      ],
+      "type": "object",
+      "properties": {
+        "body": {
+          "minLength": 1,
+          "type": "string",
+          "description": "HTML body of the message."
+        },
+        "campaign_id": {
+          "minLength": 1,
+          "type": "string",
+          "description": "Bluecore campaign identifier for the third-party direct send campaign you created. Must match an existing direct send campaign in this namespace and be \"live\" (not a draft)."
+        },
+        "from": {
+          "$ref": "#/$defs/emailflow.public.Address"
+        },
+        "identifier": {
+          "$ref": "#/$defs/emailflow.public.Identifier"
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Arbitrary string key/value pairs stored with the send for analytics, routing, or internal tracking."
+        },
+        "reply_to": {
+          "$ref": "#/$defs/emailflow.public.Address"
+        },
+        "subject": {
+          "minLength": 1,
+          "type": "string",
+          "description": "Email subject line shown to the recipient."
+        },
+        "test": {
+          "type": "boolean",
+          "description": "When true, runs as a test send, bypassing eligibility checks."
+        },
+        "unsubscribe_replacement": {
+          "type": "string",
+          "description": "Optional override for the unsubscribe link tag to use for unsubscribe link placement in the email body."
+        }
+      }
+    },
+    "emailflow.public.Identifier": {
+      "type": "object",
+      "allOf": [
+        {
+          "oneOf": [
+            {
+              "title": "email",
+              "type": "object",
+              "properties": {
+                "email": {
+                  "maxLength": 254,
+                  "type": "string",
+                  "description": "The primary identifier that represents the customer’s email address. See [Email address](https://developers.bluecore.com/docs/email-address#/) for information on how they are normalized and validated.",
+                  "format": "email"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

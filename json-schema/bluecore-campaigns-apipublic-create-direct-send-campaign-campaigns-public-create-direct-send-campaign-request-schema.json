@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bluecore/main/json-schema/bluecore-campaigns-apipublic-create-direct-send-campaign-campaigns-public-create-direct-send-campaign-request-schema.json",
+  "title": "CampaignsAPIPublic_CreateDirectSendCampaign_campaigns.public.CreateDirectSendCampaignRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/bluecore-campaignsapipublic-api-openapi.yml#/components/schemas/CampaignsAPIPublic_CreateDirectSendCampaign_campaigns.public.CreateDirectSendCampaignRequest",
+  "required": [
+    "name"
+  ],
+  "type": "object",
+  "allOf": [
+    {
+      "type": "object",
+      "properties": {
+        "name": {
+          "minLength": 1,
+          "type": "string",
+          "description": "The name of the campaign."
+        }
+      }
+    },
+    {
+      "oneOf": [
+        {
+          "title": "folder_id",
+          "type": "object",
+          "properties": {
+            "folder_id": {
+              "type": "string",
+              "description": "The unique ID of the folder where the campaign will be created. The folder must already exist within Bluecore. example: \"4635869850591232\""
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,22 +1,22 @@
-generated: '2026-08-13'
+generated: '2026-10-20'
 method: probed
 source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
 hosts:
 - host: bluecore.com
   https: true
   tls_version: TLSv1.3
-  cert_expires: Sep 28 02:55:48 2026 GMT
+  cert_expires: Jan 15 13:28:17 2027 GMT
   hsts: false
 - host: developers.bluecore.com
   https: true
   tls_version: TLSv1.3
-  cert_expires: Oct 26 21:03:16 2026 GMT
+  cert_expires: Dec 25 01:30:24 2026 GMT
   hsts: true
   hsts_max_age: 31536000
 - host: a.bluecore.com
   https: true
   tls_version: TLSv1.3
-  cert_expires: Oct 31 17:38:17 2026 GMT
+  cert_expires: Dec 30 16:43:21 2026 GMT
   hsts: null
 domains:
 - domain: bluecore.com

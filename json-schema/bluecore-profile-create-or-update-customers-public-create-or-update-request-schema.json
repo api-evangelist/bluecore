@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bluecore/main/json-schema/bluecore-profile-create-or-update-customers-public-create-or-update-request-schema.json",
+  "title": "Profile_CreateOrUpdate_customers.public.CreateOrUpdateRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/bluecore-profile-api-openapi.yml#/components/schemas/Profile_CreateOrUpdate_customers.public.CreateOrUpdateRequest",
+  "required": [
+    "id"
+  ],
+  "type": "object",
+  "properties": {
+    "id": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/customers.public.Identifier"
+        }
+      ],
+      "description": "Identifier to initially associate the attributes to."
+    },
+    "link_ids": {
+      "maxItems": 4,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/customers.public.Identifier"
+      },
+      "description": "Extra identifiers to link together on the shopper."
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Key/value pairs to associate with the Customer Profile. Each attribute name must be in `snake_case`."
+    }
+  },
+  "$defs": {
+    "customers.public.Identifier": {
+      "type": "object",
+      "allOf": [
+        {
+          "oneOf": [
+            {
+              "title": "email",
+              "type": "object",
+              "properties": {
+                "email": {
+                  "maxLength": 254,
+                  "type": "string",
+                  "description": "Email addresses are lightly sanitized and validated. They're automatically converted to lower case with leading and trailing whitespace removed.",
+                  "format": "email"
+                }
+              }
+            },
+            {
+              "title": "phone_number",
+              "type": "object",
+              "properties": {
+                "phone_number": {
+                  "pattern": "^\\+?[1-9]\\d{0,14}$",
+                  "type": "string",
+                  "description": "The secondary identifier that represents the customer’s phone number. E.164 format.",
+                  "format": "e.164"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

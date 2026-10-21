@@ -1,5 +1,5 @@
 generated: '2026-08-13'
-method: searched
+method: none
 source: >-
   registry.npmjs.org, pypi.org, rubygems.org, packagist.org, crates.io, api.github.com/orgs/TriggerMail,
   developers.bluecore.com, help.bluecore.com/help/integrations-and-technical-resources
